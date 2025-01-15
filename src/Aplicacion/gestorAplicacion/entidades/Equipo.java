@@ -19,7 +19,35 @@ public class Equipo {
         this.puntaje += puntos;
     }
 
-    public static void ordenarEquiposPorPuntaje(List<Equipo> equipos) {
-        // Lógica para ordenar los equipos según puntaje
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public List<String> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<String> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public int getIdEquipo() {
+        return idEquipo;
+    }
+
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
     }
 }
