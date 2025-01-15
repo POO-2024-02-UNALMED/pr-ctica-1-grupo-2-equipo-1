@@ -1,12 +1,24 @@
 package gestorAplicacion.entidades;
 
-public class Instalación {
+import gestorAplicacion.entidades.Toldo;
+
+public class Instalacion {
     public int idInstalacion;
     public String deporte;
     public int precioHora;
     public int profundidad;
     public Toldo toldo;
 
+    //Constructor con todos los atributos
+    public Instalacion(int idInstalacion, String deporte, int precioHora, int profundidad, Toldo toldo) {
+        this.idInstalacion = idInstalacion;
+        this.deporte = deporte;
+        this.precioHora = precioHora;
+        this.profundidad = profundidad;
+        this.toldo = toldo;
+    }
+
+    // Métodos setters y getters
     public void setIdInstalacion(int idInstalacion) {
         this.idInstalacion = idInstalacion;
     }
