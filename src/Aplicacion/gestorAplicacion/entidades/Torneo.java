@@ -3,6 +3,7 @@ package gestorAplicacion.entidades;
 import gestorAplicacion.servicios.Formato;
 import gestorAplicacion.entidades.Equipo;
 import gestorAplicacion.servicios.seguroMedico;
+import java.util.Scanner;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class Torneo {
     private List<Equipo> equiposParticipantes;
     private seguroMedico seguroMedico;
     private double precioTotal;
+
+    Scanner scanner = new Scanner(System.in);
 
     public void asignarEquipos(List<Equipo> equipos) {
         this.equiposParticipantes = equipos;
@@ -50,15 +53,8 @@ public class Torneo {
     }
 
     public void setDeporte(String deporte) {
-        this.deporte = deporte;
-    }
-
-    public Formato getFormato() {
-        return formato;
-    }
-
-    public void setFormato(Formato formato) {
-        this.formato = formato;
+        System.out.println("Ingrese el deporte para el torneo".);
+        this.deporte = scanner.nextLine();
     }
 
     public List<Equipo> getEquiposParticipantes() {
