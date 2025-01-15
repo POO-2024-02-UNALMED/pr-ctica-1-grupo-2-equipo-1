@@ -6,16 +6,18 @@ public class Factura {
     public boolean estadoFactura;
     public String descripcionFactura;
 
-    public Factura(int idFactura, int valorFactura, String descripcionFactura){
-        this.idFactura = idFactura;
-        this.valorFactura = valorFactura;
-        this.descripcionFactura = descripcionFactura;
-    }
-
+    //Constructor con estado de factura
     public Factura(int idFactura, int valorFactura, boolean estadoFactura, String descripcionFactura) {
         this.idFactura = idFactura;
         this.valorFactura = valorFactura;
         this.estadoFactura = estadoFactura;
+        this.descripcionFactura = descripcionFactura;
+    }
+
+    //Constructor sin estado de factura
+    public Factura(int idFactura, int valorFactura, String descripcionFactura){
+        this.idFactura = idFactura;
+        this.valorFactura = valorFactura;
         this.descripcionFactura = descripcionFactura;
     }
 
