@@ -62,9 +62,9 @@ public class GestorReservas {
                 horario.getHorasDisponibles().add(hora);// Se añade la hora nuevamente
             }
             reservas.remove(reserva);// Se elimina la reserva 
-            return true;// La reserva no existe
+            return true;
         }
-        return false;
+        return false;// La reserva no existe
     }
 
 }
