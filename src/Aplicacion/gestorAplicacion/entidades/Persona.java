@@ -4,6 +4,7 @@ package gestorAplicacion.entidades;
 public abstract class Persona{
     public String nombre;
     public String apellido;
+    public int id;
     public int edad;
 
     public Persona(String nombre, String apellido, int edad) {
@@ -25,6 +26,13 @@ public abstract class Persona{
     }
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
     }
 
     public int getEdad() {
