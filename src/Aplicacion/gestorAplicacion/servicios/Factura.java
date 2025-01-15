@@ -6,6 +6,19 @@ public class Factura {
     public boolean estadoFactura;
     public String descripcionFactura;
 
+    public Factura(int idFactura, int valorFactura, String descripcionFactura){
+        this.idFactura = idFactura;
+        this.valorFactura = valorFactura;
+        this.descripcionFactura = descripcionFactura;
+    }
+
+    public Factura(int idFactura, int valorFactura, boolean estadoFactura, String descripcionFactura) {
+        this.idFactura = idFactura;
+        this.valorFactura = valorFactura;
+        this.estadoFactura = estadoFactura;
+        this.descripcionFactura = descripcionFactura;
+    }
+
     public void setIdFactura(int idFactura) {
         this.idFactura = idFactura;
     }

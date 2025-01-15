@@ -1,11 +1,17 @@
 package gestorAplicacion.entidades;
 
-public class Instalación {
+import gestorAplicacion.entidades.Toldo;
+
+public class Instalacion {
     public int idInstalacion;
     public String deporte;
     public int precioHora;
     public int profundidad;
     public Toldo toldo;
+
+    public Instalacion(){
+
+    }
 
     public void setIdInstalacion(int idInstalacion) {
         this.idInstalacion = idInstalacion;
