@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Formato {
     private String nombreFormato;
     private String detallesFormato;
+    private Reglas reglas;
 
     Scanner scanner = new Scanner(System.in);
 
@@ -93,7 +94,7 @@ public class Formato {
                 return "Selecciona uno de los deportes disponibles";
         }
 
-    };
+    }
 
     public String getNombreFormato() {
         return nombreFormato;

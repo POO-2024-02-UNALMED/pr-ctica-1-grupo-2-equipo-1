@@ -14,12 +14,6 @@ public class Torneo {
     private seguroMedico seguroMedico;
     private double precioTotal;
 
-    public Torneo(int idTorneo, String deporte, Formato formato) {
-        this.idTorneo = idTorneo;
-        this.deporte = deporte;
-        this.formato = formato;
-    }
-
     public void asignarEquipos(List<Equipo> equipos) {
         this.equiposParticipantes = equipos;
     }
