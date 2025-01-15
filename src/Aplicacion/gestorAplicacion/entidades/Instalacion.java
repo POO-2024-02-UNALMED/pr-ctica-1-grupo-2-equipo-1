@@ -9,10 +9,16 @@ public class Instalacion {
     public int profundidad;
     public Toldo toldo;
 
-    public Instalacion(){
-
+    //Constructor con todos los atributos
+    public Instalacion(int idInstalacion, String deporte, int precioHora, int profundidad, Toldo toldo) {
+        this.idInstalacion = idInstalacion;
+        this.deporte = deporte;
+        this.precioHora = precioHora;
+        this.profundidad = profundidad;
+        this.toldo = toldo;
     }
 
+    // Métodos setters y getters
     public void setIdInstalacion(int idInstalacion) {
         this.idInstalacion = idInstalacion;
     }
