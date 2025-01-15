@@ -1,6 +1,6 @@
 package gestorAplicacion.servicios;
 
-public class factura {
+public class Factura {
     public int idFactura;
     public int valorFactura;
     public boolean estadoFactura;
