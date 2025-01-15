@@ -2,16 +2,16 @@ package gestorAplicacion.entidades;
 
 import gestorAplicacion.servicios.Formato;
 import gestorAplicacion.entidades.Equipo;
-import gestorAplicacion.servicios.SeguroMedico;
+import gestorAplicacion.servicios.seguroMedico;
 
 import java.util.List;
 
 public class Torneo {
     private int idTorneo;
-    private String deporte;
+    public String deporte;
     private Formato formato;
     private List<Equipo> equiposParticipantes;
-    private SeguroMedico seguroMedico;
+    private seguroMedico seguroMedico;
     private double precioTotal;
 
     public Torneo(int idTorneo, String deporte, Formato formato) {
@@ -35,7 +35,7 @@ public class Torneo {
         }
     }
 
-    public void agregarSeguro(SeguroMedico seguro) {
+    public void agregarSeguro(seguroMedico seguro) {
         this.seguroMedico = seguro;
     }
 
@@ -75,11 +75,11 @@ public class Torneo {
         this.equiposParticipantes = equiposParticipantes;
     }
 
-    public SeguroMedico getSeguroMedico() {
+    public seguroMedico getSeguroMedico() {
         return seguroMedico;
     }
 
-    public void setSeguroMedico(SeguroMedico seguroMedico) {
+    public void setSeguroMedico(seguroMedico seguroMedico) {
         this.seguroMedico = seguroMedico;
     }
 }

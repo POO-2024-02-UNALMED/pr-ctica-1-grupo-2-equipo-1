@@ -3,7 +3,7 @@ package gestorAplicacion.servicios;
 public class seguroMedico {
     private double costo;
 
-    public SeguroMedico(int numeroParticipantes, int duracionTorneo) {
+    public seguroMedico(int numeroParticipantes, int duracionTorneo) {
         this.costo = calcularCosto(numeroParticipantes, duracionTorneo);
     }
 
