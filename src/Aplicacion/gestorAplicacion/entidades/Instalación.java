@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.entidades;
 
 public class Instalación {
     public int idInstalacion;
