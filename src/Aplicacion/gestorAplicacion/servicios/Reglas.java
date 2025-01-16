@@ -39,11 +39,11 @@ public class Reglas {
                 }
 
                 System.out.println("Ingrese la duración del partido.");
-                int Duracion = scanner.nextInt();
-                if ((Duracion < 30) || (Duracion > 90)){
+                int duracionFutbol = scanner.nextInt();
+                if ((duracionFutbol < 30) || (duracionFutbol > 90)){
                     break;
                 } else {
-                    reglas.add(Integer.toString(Duracion));
+                    reglas.add(Integer.toString(duracionFutbol));
                 }
 
                 ArrayList<String> Criterios = new ArrayList<>();
@@ -59,6 +59,25 @@ public class Reglas {
                 System.out.println("Criterios de desempate:" + Criterios.get(2));
                 return "";
             case "Baloncesto":
+                System.out.println("Duración del partido: 4 períodos de 10 minutos (FIBA) o 12 minutos (NBA).\n" +
+                        "Tiempos fuera por periodo: máximo 3");
+
+                System.out.println("Ingrese la duración del partido.");
+                int duracionBaloncesto = scanner.nextInt();
+                if ((duracionBaloncesto < 10) || (duracionBaloncesto > 12)){
+                    break;
+                } else {
+                    reglas.add(Integer.toString(duracionBaloncesto));
+                }
+
+                System.out.println("Ingrese la cantidad de cambios permitidos por periodo");
+                int cambios = scanner.nextInt();
+                if ((cambios < 0) || (cambios > 3)){
+                    break;
+                } else {
+                    reglas.add(Integer.toString(cambios));
+                }
+
                 return "";
             case "Natación":
                 return "";
