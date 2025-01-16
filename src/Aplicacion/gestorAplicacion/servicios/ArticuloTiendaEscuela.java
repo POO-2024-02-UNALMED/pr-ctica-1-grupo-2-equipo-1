@@ -3,8 +3,8 @@ package gestorAplicacion.servicios;
 import gestorAplicacion.entidades.Objeto;
 
 public class ArticuloTiendaEscuela extends Objeto {
-    private double precioUnitarioArticuloTiendaEscuela;
-    private String tipoArticulo;
+    public double precioUnitarioArticuloTiendaEscuela;
+    public String tipoArticulo;
 
     // Constructor
     public ArticuloTiendaEscuela(int idObjeto, String nombreObjeto, int stockObjeto, double precioUnitario, String tipoArticulo) {

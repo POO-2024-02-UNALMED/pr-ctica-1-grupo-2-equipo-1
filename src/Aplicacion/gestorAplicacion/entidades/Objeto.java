@@ -1,9 +1,9 @@
 package gestorAplicacion.entidades;
 
 public class Objeto {
-    private int idObjeto;
-    private String nombreObjeto;
-    private int stockObjeto;
+    public int idObjeto;
+    public String nombreObjeto;
+    public int stockObjeto;
 
     // Constructor
     public Objeto(int idObjeto, String nombreObjeto, int stockObjeto) {

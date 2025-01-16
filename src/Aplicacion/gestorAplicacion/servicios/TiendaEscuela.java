@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TiendaEscuela {
-    private List<ArticuloTiendaEscuela> articulos;
+    public List<ArticuloTiendaEscuela> articulos;
 
     // Constructor
     public TiendaEscuela() {
