@@ -9,11 +9,16 @@ import java.util.Scanner;
 public class Reglas {
     private ArrayList<String> reglas;
     private String deporte;
+    private Torneo torneo;
 
     Scanner scanner = new Scanner(System.in);
 
     public void setDeporte(){
-        this.deporte = Torneo.deporte; //Errror
+        this.deporte = this.torneo.deporte; //Errror
+    }
+
+    public void setTorneo(Torneo torneo){
+        this.torneo = torneo;
     }
 
     public String setReglas(){
@@ -52,9 +57,6 @@ public class Reglas {
                 System.out.println("Sustituciones máximas:" + Criterios.getFirst());
                 System.out.println("Duración del partido:" + Criterios.get(1));
                 System.out.println("Criterios de desempate:" + Criterios.get(2));
-
-
-
                 return "";
             case "Baloncesto":
                 return "";
@@ -62,7 +64,9 @@ public class Reglas {
                 return "";
             case "Voleibol":
                 return "";
+            
         }
+        return "";
     }
 
 }

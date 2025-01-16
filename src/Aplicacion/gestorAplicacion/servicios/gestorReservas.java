@@ -1,3 +1,4 @@
+/* 
 package gestorAplicacion.servicios;
 
 import gestorAplicacion.entidades.Cliente;
@@ -68,3 +69,4 @@ public class GestorReservas {
     }
 
 }
+*/

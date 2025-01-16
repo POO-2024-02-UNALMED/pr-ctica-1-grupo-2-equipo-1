@@ -1,9 +1,9 @@
 package gestorAplicacion.servicios;
 
-public class seguroMedico {
+public class SeguroMedico {
     private double costo;
 
-    public seguroMedico(int numeroParticipantes, int duracionTorneo) {
+    public SeguroMedico(int numeroParticipantes, int duracionTorneo) {
         this.costo = calcularCosto(numeroParticipantes, duracionTorneo);
     }
 

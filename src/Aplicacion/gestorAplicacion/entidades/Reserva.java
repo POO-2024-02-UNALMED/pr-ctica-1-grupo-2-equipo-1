@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Reserva implements Serializable {
-    private Cliente nombreUsuario;
+    private Cliente usuario;
     private String cancha;
     private LocalDateTime fechaHora;
 
-    public Reserva(Cliente nombreUsuario, String cancha, LocalDateTime fechaHora) {
-        this.nombreUsuario = nombreUsuario;
+    public Reserva(Cliente usuario,String cancha, LocalDateTime fechaHora) {
+        this.usuario = usuario;
         this.cancha = cancha;
         this.fechaHora = fechaHora;
     }
 
-    public Cliente getNombreUsuario() {
-        return nombreUsuario;
+    public Cliente getUsuario() {
+        return this.usuario;
     }
 
-    public void setNombreUsuario(Cliente nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombreUsuario(Cliente usuario) {
+        this.usuario = usuario;
     }
 
     public String getCancha() {
@@ -41,9 +41,9 @@ public class Reserva implements Serializable {
     @Override
     public String toString() {
         return "Reserva{" +
-                "Cliente='" + nombreUsuario + '\'' +
-                ", cancha='" + cancha + '\'' +
-                ", fechaHora=" + fechaHora +
+                "Cliente='" + this.usuario.nombre + '\'' +
+                ", cancha='" + this.cancha + '\'' +
+                ", fechaHora=" + this.fechaHora +
                 '}';
     }
 }

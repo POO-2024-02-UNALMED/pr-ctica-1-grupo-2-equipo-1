@@ -9,7 +9,7 @@ public class Joven extends Persona {
     public int experienciaJoven;
     public Acudiente acudiente;
     public String eps;
-    public List<gestorAplicacion.servicios.RegistrosEntrenamiento> registrosEntrenamientos;
+    public List<RegistrosEntrenamiento> registrosEntrenamientos;
 
     // Constructor de la clase Joven
     public Joven(String nombre, String apellido, int edad, int experiencia, String eps, Acudiente acudiente) {
@@ -29,16 +29,16 @@ public class Joven extends Persona {
         this.eps = eps;
     }
 
-    public List<Registro> getRegistros() {
-        return registrosEntrenamientos;
+    public List<RegistrosEntrenamiento> getRegistros() {
+        return this.registrosEntrenamientos;
     }
 
-    public void setRegistros(List<Registro> registrosEntrenamientos) {
+    public void setRegistros(List<RegistrosEntrenamiento> registrosEntrenamientos) {
         this.registrosEntrenamientos = registrosEntrenamientos;
     }
 
-    public void agregarRegistro(Registro registrosEntrenamiento) {
-        registrosEntrenamientos.add(registrosEntrenamiento);
+    public void agregarRegistro(RegistrosEntrenamiento registrosEntrenamiento) {
+        this.registrosEntrenamientos.add(registrosEntrenamiento);
     }
 
     public String getRol() {

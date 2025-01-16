@@ -2,7 +2,7 @@ package gestorAplicacion.entidades;
 
 import gestorAplicacion.servicios.Formato;
 import gestorAplicacion.entidades.Equipo;
-import gestorAplicacion.servicios.seguroMedico;
+import gestorAplicacion.servicios.SeguroMedico;
 import java.util.Scanner;
 
 import java.util.List;
@@ -12,10 +12,18 @@ public class Torneo {
     public String deporte;
     private Formato formato;
     private List<Equipo> equiposParticipantes;
-    private seguroMedico seguroMedico;
+    private SeguroMedico seguroMedico;
     private double precioTotal;
 
     Scanner scanner = new Scanner(System.in);
+
+    public Torneo(String deporte,Formato formato,List<Equipo> equiposParticipantes, SeguroMedico seguroMedico, double precioTotal){
+        this.deporte = deporte;
+        this.formato = formato;
+        this.equiposParticipantes = equiposParticipantes;
+        this.seguroMedico = seguroMedico;
+        this.precioTotal = precioTotal;
+    }
 
     public void asignarEquipos(List<Equipo> equipos) {
         this.equiposParticipantes = equipos;
@@ -32,7 +40,7 @@ public class Torneo {
         }
     }
 
-    public void agregarSeguro(seguroMedico seguro) {
+    public void agregarSeguro(SeguroMedico seguro) {
         this.seguroMedico = seguro;
     }
 
@@ -53,7 +61,7 @@ public class Torneo {
     }
 
     public void setDeporte(String deporte) {
-        System.out.println("Ingrese el deporte para el torneo".);
+        System.out.println("Ingrese el deporte para el torneo");
         this.deporte = scanner.nextLine();
     }
 
@@ -65,11 +73,11 @@ public class Torneo {
         this.equiposParticipantes = equiposParticipantes;
     }
 
-    public seguroMedico getSeguroMedico() {
+    public SeguroMedico getSeguroMedico() {
         return seguroMedico;
     }
 
-    public void setSeguroMedico(seguroMedico seguroMedico) {
+    public void setSeguroMedico(SeguroMedico seguroMedico) {
         this.seguroMedico = seguroMedico;
     }
 }

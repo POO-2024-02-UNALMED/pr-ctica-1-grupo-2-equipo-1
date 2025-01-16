@@ -12,12 +12,14 @@ public class Formato {
     private String nombreFormato;
     private String detallesFormato;
     private Reglas reglas;
+    private Torneo torneo;
 
     Scanner scanner = new Scanner(System.in);
 
     public Formato(String nombreFormato, String detallesFormato) {
         this.nombreFormato = nombreFormato;
         this.detallesFormato = detallesFormato;
+        this.torneo = null;
     }
 
     public void generarPartidos(List<Equipo> equipos) {
@@ -28,8 +30,8 @@ public class Formato {
         }
     }
 
-    public String setFormtato(){
-        switch(Torneo.deporte){ //Error - Arreglar - Agregar default case, agregar logica para que si no se selecciona una opcion valida, se vuelva al switch
+    public String setFormato(){
+        switch(this.torneo.deporte){ //Error - Arreglar - Agregar default case, agregar logica para que si no se selecciona una opcion valida, se vuelva al switch
             case "Futbol":
                 System.out.println("Para el deporte selccionado están disponibles los siguientes formatos de competencia. Seleccione uno:\n" +
                         "1. Todos contra todos:\n" +
@@ -110,5 +112,9 @@ public class Formato {
 
     public void setDetallesFormato(String detallesFormato) {
         this.detallesFormato = detallesFormato;
+    }
+
+    public void setTorneo(Torneo torneo){
+        this.torneo = torneo;
     }
 }
