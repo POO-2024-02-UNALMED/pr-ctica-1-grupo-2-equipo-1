@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Torneo {
-    private int idTorneo;
+    private int idTorneo = 0;
     public String deporte;
     private Formato formato;
     private List<Equipo> equiposParticipantes;

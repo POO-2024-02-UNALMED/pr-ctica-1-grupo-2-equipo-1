@@ -83,7 +83,34 @@ public class Main {
 
                 case 3:
                     System.out.println("\n--- Configurar Torneo ---");
-                    // Lógica para crear torneos
+                    System.out.println("Ingrese el deporte en el cual desea realizar el torneo");
+                    System.out.println("1. Futbol");
+                    System.out.println("2. Baloncesto");
+                    System.out.println("3. Natación");
+                    System.out.print("4. Voleibol");
+                    System.out.print("5. Salir");
+                    boolean salirTorneo = false;
+
+                    while (!salirTorneo)
+                        switch (scanner.nextInt()) {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                System.out.println("Saliendo de la funcionalidad");
+                                salirTorneo = true;
+                                break;
+                            default:
+                                System.out.println("Ingrese una opicón válida");
+                            
+                    }
+
+
                     break;
 
                 case 4:
