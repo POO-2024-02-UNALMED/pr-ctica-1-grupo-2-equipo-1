@@ -12,6 +12,8 @@ NO CAMBIAR SIN PREGUNTAR PRECAUCION
 
 // Se crean instalaciones basicas
 
+//Agregar descripciones de las instalaciones
+
 import gestorAplicacion.entidades.Instalacion;
 
 import java.util.Scanner;
@@ -20,31 +22,31 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Instalacion canchaGrandeF11 = new Instalacion("Cancha F11 Grande","Futbol", 120, 0);
+        Instalacion canchaGrandeF11 = new Instalacion("Cancha F11 Grande","Futbol", 120, 0, "");
 
-        Instalacion canchaF11 = new Instalacion("Cancha F11","Futbol", 100, 0);
+        Instalacion canchaF11 = new Instalacion("Cancha F11","Futbol", 100, 0, "");
 
-        Instalacion canchaF9 = new Instalacion("Cancha F9","Futbol", 80, 0);
+        Instalacion canchaF9 = new Instalacion("Cancha F9","Futbol", 80, 0, "");
 
-        Instalacion canchaF7 = new Instalacion("Cancha F7","Futbol", 60, 0);
+        Instalacion canchaF7 = new Instalacion("Cancha F7","Futbol", 60, 0, "");
 
-        Instalacion coliseoBasket = new Instalacion("Coliseo Basket","Baloncesto", 120, 0);
+        Instalacion coliseoBasket = new Instalacion("Coliseo Basket","Baloncesto", 120, 0, "");
 
-        Instalacion canchaBasket1 = new Instalacion("Cancha Basket 1","Baloncesto", 80, 0);
+        Instalacion canchaBasket1 = new Instalacion("Cancha Basket 1","Baloncesto", 80, 0, "");
 
-        Instalacion canchaBasket2 = new Instalacion("Cancha Basket 2","Baloncesto", 80, 0);
+        Instalacion canchaBasket2 = new Instalacion("Cancha Basket 2","Baloncesto", 80, 0, "");
 
-        Instalacion piscinaOlimpica = new Instalacion("Piscina Olimpica","Natacion", 120, 3);
+        Instalacion piscinaOlimpica = new Instalacion("Piscina Olimpica","Natacion", 120, 3, "");
 
-        Instalacion piscinaSemiOlimpica = new Instalacion("Piscina Semi Olimpica","Natacion", 10, 2);
+        Instalacion piscinaSemiOlimpica = new Instalacion("Piscina Semi Olimpica","Natacion", 10, 2, "");
 
-        Instalacion piscinaInfantil = new Instalacion("Piscina Infantil","Natacion", 80, 1);
+        Instalacion piscinaInfantil = new Instalacion("Piscina Infantil","Natacion", 80, 1, "");
 
-        Instalacion canchaVoleibolArena = new Instalacion("Cancha Voleibol Arena","Voleibol", 100, 0);
+        Instalacion canchaVoleibolArena = new Instalacion("Cancha Voleibol Arena","Voleibol", 100, 0, "");
 
-        Instalacion canchaVoleibolCemento1 = new Instalacion ("Cancha Voleibol Cemento 1","Voleibol", 80, 0);
+        Instalacion canchaVoleibolCemento1 = new Instalacion ("Cancha Voleibol Cemento 1","Voleibol", 80, 0, "");
 
-        Instalacion canchaVoleibolcemento2 = new Instalacion("Cancha Voleibol Cemento 2","Voleibol", 80, 0);
+        Instalacion canchaVoleibolcemento2 = new Instalacion("Cancha Voleibol Cemento 2","Voleibol", 80, 0, "");
 
         boolean salir = false;
 
@@ -128,6 +130,26 @@ public class Main {
                             case 1://futbol
                                 System.out.println("Seleccione la cancha en la cual desea realizar el torneo");
                                 System.out.println("Existe la opción de que al escoger una cancha de Futbol 11, se puedan seleccionar ambas");
+                                System.out.println("Instalaciones deisponibles");
+                                System.out.println(canchaGrandeF11.toString());
+                                System.out.println(canchaF11.toString());
+                                System.out.println(canchaF9.toString());
+                                System.out.println(canchaF7.toString());
+
+                                String seleccionCanchaFutbol = scanner.nextLine();
+
+                                switch (seleccionCanchaFutbol) {
+                                    case 1:
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                    case 4:
+                                        break;
+                                    default:
+                                        System.out.println("Ingrese");
+                                }
 
                                 break;
                             case 2://baloncesto

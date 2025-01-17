@@ -11,13 +11,14 @@ public class Instalacion {
     public int profundidad;
     public Toldo toldo;
     public String nombre;
-
+    public String descripcion;
 
     //Constructor con todos los atributos
-    public Instalacion(String nombre, String deporte, int precioHora, int profundidad) { //Hacer otro constructor con toldo, además, la clase toldo se podria eliminar
+    public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion) { //Hacer otro constructor con toldo, además, la clase toldo se podria eliminar
         this.idInstalacion++;
         this.nombre = nombre;
         this.deporte = deporte;
+        this.descripcion = descripcion;
         this.precioHora = precioHora;
         this.profundidad = profundidad;
     }
@@ -53,4 +54,11 @@ public class Instalacion {
     public Toldo getToldo() {
         return toldo;
     }
+
+    @Override
+    public String toString() {
+        return "Instalación: " + nombre + "\nDescripción: " + descripcion;
+    }
+
 }
+
