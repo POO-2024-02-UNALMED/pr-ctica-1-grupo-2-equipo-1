@@ -1,9 +1,8 @@
 package gestorAplicacion.entidades;
 
 import gestorAplicacion.servicios.Formato;
-import gestorAplicacion.entidades.Equipo;
-import gestorAplicacion.servicios.SeguroMedico;
-import java.util.Scanner;
+
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -12,12 +11,13 @@ public class Torneo {
     public String deporte;
     private Formato formato;
     private List<Equipo> equiposParticipantes;
-    private SeguroMedico seguroMedico;
+    private String seguroMedico;
+    public float costoSeguroMedico;
     private double precioTotal;
+    public boolean ventaBoletasTorneo = false;
+    public ArrayList<String> partidos;
 
-    Scanner scanner = new Scanner(System.in);
-
-    public Torneo(String deporte,Formato formato,List<Equipo> equiposParticipantes, SeguroMedico seguroMedico, double precioTotal){
+    public Torneo(String deporte,Formato formato,List<Equipo> equiposParticipantes, String seguroMedico, double precioTotal){
         this.deporte = deporte;
         this.formato = formato;
         this.equiposParticipantes = equiposParticipantes;
@@ -36,11 +36,11 @@ public class Torneo {
     public void calcularPrecio() {
         this.precioTotal = equiposParticipantes.size() * 100;  // Ejemplo básico
         if (seguroMedico != null) {
-            this.precioTotal += seguroMedico.getCosto();
+            this.precioTotal += costoSeguroMedico;
         }
     }
 
-    public void agregarSeguro(SeguroMedico seguro) {
+    public void agregarSeguro(String seguro) {
         this.seguroMedico = seguro;
     }
 
@@ -61,8 +61,7 @@ public class Torneo {
     }
 
     public void setDeporte(String deporte) {
-        System.out.println("Ingrese el deporte para el torneo");
-        this.deporte = scanner.nextLine();
+        this.deporte = deporte;
     }
 
     public List<Equipo> getEquiposParticipantes() {
@@ -73,11 +72,11 @@ public class Torneo {
         this.equiposParticipantes = equiposParticipantes;
     }
 
-    public SeguroMedico getSeguroMedico() {
+    public String getSeguroMedico() {
         return seguroMedico;
     }
 
-    public void setSeguroMedico(SeguroMedico seguroMedico) {
+    public void setSeguroMedico(String seguroMedico) {
         this.seguroMedico = seguroMedico;
     }
 }

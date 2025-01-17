@@ -4,21 +4,42 @@ import gestorAplicacion.entidades.Equipo;
 
 import gestorAplicacion.entidades.Torneo;
 
+import java.util.ArrayList;
+
 import java.util.List;
 
-import java.util.Scanner;
+import java.util.Scanner; //Quitar, pasar el switch al Main
 
 public class Formato {
     private String nombreFormato;
     private String detallesFormato;
-    private Reglas reglas;
     private Torneo torneo;
 
-    Scanner scanner = new Scanner(System.in);
+    public ArrayList<String> reglasFutbol;
+    public String[] formatosFutbol = {"Todos contra todos","Eliminación directa"};
+    public int[] duracionFutbol = {30, 90};
+    public  int[] sustitucionesFutbol = {2,3,4,5,6,7};
+    public String[] criteriosDesempateFutbol = {"Goles a favor", "Goles en contra", "Sorteo"};
 
-    public Formato(String nombreFormato, String detallesFormato) {
+    public ArrayList<String> reglasBaloncesto;
+    public String[] formatosBaloncesto = {"Todos contra todos","Eliminación directa"};
+    public int[] duracionBaloncesto = {10,12};
+    public int[] tiemposFueraBaloncesto = {0,1,2,3};
+
+    public ArrayList<String> reglasNatacion;
+    public String[] formatosNatacion = {"Carreras clasificatorias y finales","Competencias por relevos"};
+    public int[] intentosNatacion = {1,2,3,4,5};
+
+    public ArrayList<String> reglasVoleibol;
+    public String[] formatosVoleibol = {"Fase de grupos y finales", "Eliminación directa"};
+    public int[] setsVoleibol = {3,4,5};
+    public int[] tiemposFueraVoleibol = {0,1,2};
+    public int[] alturaMallaVoleybol = {224,243};
+
+    Scanner scanner = new Scanner(System.in); // Quitar
+
+    public Formato(String nombreFormato) {
         this.nombreFormato = nombreFormato;
-        this.detallesFormato = detallesFormato;
         this.torneo = null;
     }
 
