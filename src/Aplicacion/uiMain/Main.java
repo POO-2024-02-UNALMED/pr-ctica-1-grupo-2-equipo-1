@@ -134,12 +134,13 @@ public class Main {
                                 System.out.println(canchaGrandeF11.toString());
                                 System.out.println(canchaF11.toString());
                                 System.out.println(canchaF9.toString());
-                                System.out.println(canchaF7.toString());
+                                System.out.println(canchaF7.toString()); //Concatenar con los numeros para la seleccion
 
                                 String seleccionCanchaFutbol = scanner.nextLine();
 
                                 switch (seleccionCanchaFutbol) {
                                     case 1:
+                                        System.out.println("Se puede seleccionar la otra cancha de Futbol 11");
                                         break;
                                     case 2:
                                         break;
