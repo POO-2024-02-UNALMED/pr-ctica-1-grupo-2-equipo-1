@@ -2,20 +2,24 @@ package gestorAplicacion.entidades;
 
 import gestorAplicacion.entidades.Toldo;
 
+//Agregar capacidad de la instalacion (cantidad de tribunas)
+
 public class Instalacion {
-    public int idInstalacion;
+    public int idInstalacion = 0;
     public String deporte;
     public int precioHora;
     public int profundidad;
     public Toldo toldo;
+    public String nombre;
+
 
     //Constructor con todos los atributos
-    public Instalacion(int idInstalacion, String deporte, int precioHora, int profundidad, Toldo toldo) {
-        this.idInstalacion = idInstalacion;
+    public Instalacion(String nombre, String deporte, int precioHora, int profundidad) { //Hacer otro constructor con toldo, además, la clase toldo se podria eliminar
+        this.idInstalacion++;
+        this.nombre = nombre;
         this.deporte = deporte;
         this.precioHora = precioHora;
         this.profundidad = profundidad;
-        this.toldo = toldo;
     }
 
     // Métodos setters y getters

@@ -9,11 +9,43 @@ NO CAMBIAR SIN PREGUNTAR PRECAUCION
 
 //Falta logica para cada opcion. Simplemente es una idea de lo que puede ser la base. Hay "errores" en el switch
 
+
+// Se crean instalaciones basicas
+
+import gestorAplicacion.entidades.Instalacion;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        Instalacion canchaGrandeF11 = new Instalacion("Cancha F11 Grande","Futbol", 120, 0);
+
+        Instalacion canchaF11 = new Instalacion("Cancha F11","Futbol", 100, 0);
+
+        Instalacion canchaF9 = new Instalacion("Cancha F9","Futbol", 80, 0);
+
+        Instalacion canchaF7 = new Instalacion("Cancha F7","Futbol", 60, 0);
+
+        Instalacion coliseoBasket = new Instalacion("Coliseo Basket","Baloncesto", 120, 0);
+
+        Instalacion canchaBasket1 = new Instalacion("Cancha Basket 1","Baloncesto", 80, 0);
+
+        Instalacion canchaBasket2 = new Instalacion("Cancha Basket 2","Baloncesto", 80, 0);
+
+        Instalacion piscinaOlimpica = new Instalacion("Piscina Olimpica","Natacion", 120, 3);
+
+        Instalacion piscinaSemiOlimpica = new Instalacion("Piscina Semi Olimpica","Natacion", 10, 2);
+
+        Instalacion piscinaInfantil = new Instalacion("Piscina Infantil","Natacion", 80, 1);
+
+        Instalacion canchaVoleibolArena = new Instalacion("Cancha Voleibol Arena","Voleibol", 100, 0);
+
+        Instalacion canchaVoleibolCemento1 = new Instalacion ("Cancha Voleibol Cemento 1","Voleibol", 80, 0);
+
+        Instalacion canchaVoleibolcemento2 = new Instalacion("Cancha Voleibol Cemento 2","Voleibol", 80, 0);
+
         boolean salir = false;
 
         while (!salir) {
@@ -93,13 +125,16 @@ public class Main {
 
                     while (!salirTorneo)
                         switch (scanner.nextInt()) {
-                            case 1:
+                            case 1://futbol
+                                System.out.println("Seleccione la cancha en la cual desea realizar el torneo");
+                                System.out.println("Existe la opción de que al escoger una cancha de Futbol 11, se puedan seleccionar ambas");
+
                                 break;
-                            case 2:
+                            case 2://baloncesto
                                 break;
-                            case 3:
+                            case 3://Natacion
                                 break;
-                            case 4:
+                            case 4://Voleibol
                                 break;
                             case 5:
                                 System.out.println("Saliendo de la funcionalidad");
@@ -107,9 +142,7 @@ public class Main {
                                 break;
                             default:
                                 System.out.println("Ingrese una opicón válida");
-                            
                     }
-
 
                     break;
 
