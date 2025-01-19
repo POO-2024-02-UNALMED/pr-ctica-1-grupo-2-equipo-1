@@ -13,8 +13,11 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
 public class GestorReservas {
-    private List<Reserva> reservas; // Lista que almacena todas las reservas realizadas
+    public List<Reserva> reservas; // Lista que almacena todas las reservas realizadas
+    private static int idReservaCounter = 0;
+    public static ArrayList<Factura> listaFacturas = new ArrayList<>();
 
     public GestorReservas() {
         this.reservas = new ArrayList<>();
@@ -206,21 +209,21 @@ public class GestorReservas {
 
     public static void mostrarYReservarHorario(Scanner scanner, Instalacion instalacionSeleccionada, Cliente cliente) {
         System.out.println("\nHorarios disponibles para la instalación: " + instalacionSeleccionada.getNombre());
-
+    
         ArrayList<Horario> horariosDisponibles = instalacionSeleccionada.getHorariosDisponibles();
-
+    
         // Mostrar los horarios disponibles
         for (int i = 0; i < horariosDisponibles.size(); i++) {
             Horario horario = horariosDisponibles.get(i);
             System.out.println((i + 1) + ". " + horario.getDia() + ":");
-            // Mostrar la hora y los cupos disponibles
             for (int j = 0; j < horario.getHorasDisponibles().size(); j++) {
                 String hora = horario.getHorasDisponibles().get(j);
                 int cupos = horario.getCuposDisponibles().get(j);
                 System.out.println("   - " + hora + " (" + cupos + " cupos disponibles)");
             }
         }
-
+    
+        // Seleccionar día
         int seleccionDia;
         do {
             System.out.print("Seleccione un día por su número: ");
@@ -230,49 +233,42 @@ public class GestorReservas {
                 System.out.println("Selección inválida. Intente nuevamente.");
             }
         } while (seleccionDia < 1 || seleccionDia > horariosDisponibles.size());
-
+    
         Horario horarioSeleccionado = horariosDisponibles.get(seleccionDia - 1);
-
-        // Mostrar las horas disponibles para el día seleccionado
+    
+        // Mostrar horas ocupadas para información adicional
+        System.out.println("\nHoras ocupadas para el día " + horarioSeleccionado.getDia() + ": " 
+            + horarioSeleccionado.getHorasOcupadas());
+    
+        // Mostrar horas disponibles
         System.out.println("Horas disponibles para el día " + horarioSeleccionado.getDia() + ":");
         for (int i = 0; i < horarioSeleccionado.getHorasDisponibles().size(); i++) {
             String hora = horarioSeleccionado.getHorasDisponibles().get(i);
             int cupos = horarioSeleccionado.getCuposDisponibles().get(i);
-            System.out.println(" - " + hora + " (" + cupos + " cupos disponibles)");
+            System.out.println("   - " + hora + " (" + cupos + " cupos disponibles)");
         }
-
+    
         // Seleccionar la hora para la reserva
-        System.out.print("Seleccione la hora para la reserva: ");
+        System.out.print("\nSeleccione la hora para la reserva: ");
         String horaSeleccionada = scanner.nextLine();
-
-        // Verificar si hay cupo disponible
-        if (!instalacionSeleccionada.hayCupoDisponible(horaSeleccionada)) {
+    
+        // Validar si hay cupo en la hora seleccionada
+        int indiceHora = horarioSeleccionado.getHorasDisponibles().indexOf(horaSeleccionada);
+        if (indiceHora == -1 || horarioSeleccionado.getCuposDisponibles().get(indiceHora) <= 0) {
             System.out.println("La hora ingresada no tiene cupos disponibles. Intente con otra.");
             return;
         }
-
-        // Procedemos a reservar la hora
-        for (Horario horario : instalacionSeleccionada.getHorariosDisponibles()) {
-            for (int i = 0; i < horario.getHorasDisponibles().size(); i++) {
-                String hora = horario.getHorasDisponibles().get(i);
-                if (hora.equals(horaSeleccionada)) {
-                    // Reducir los cupos disponibles
-                    int cupos = horario.getCuposDisponibles().get(i);
-                    if (cupos > 0) {
-                        horario.getCuposDisponibles().set(i, cupos - 1);
-
-                        // Crear la reserva
-                        Reserva reserva = new Reserva(cliente, instalacionSeleccionada, horaSeleccionada, horario);
-                        System.out.println("Reserva realizada exitosamente:");
-                        System.out.println(reserva);
-                        return;
-                    }
-                }
-            }
-        }
-
-        System.out.println("Hubo un error al realizar la reserva.");
+    
+        // Reducir los cupos y crear la reserva
+        int cupos = horarioSeleccionado.getCuposDisponibles().get(indiceHora);
+        horarioSeleccionado.getCuposDisponibles().set(indiceHora, cupos - 1);
+    
+        Reserva reserva = new Reserva(cliente, instalacionSeleccionada, horaSeleccionada, horarioSeleccionado);
+        System.out.println("\nReserva realizada exitosamente:");
+        System.out.println(reserva);
     }
+    
+    
 
     public static ArrayList<Instalacion> filtrarInstalaciones(ArrayList<Instalacion> instalaciones, Cliente cliente) {
         ArrayList<Instalacion> disponibles = new ArrayList<>();
@@ -353,4 +349,56 @@ public class GestorReservas {
         Acompanante acompananteSeleccionado = acompanantes.get(seleccionAcompanante - 1);
         System.out.println("Acompañante seleccionado: " + acompananteSeleccionado.getNombre() + " " + acompananteSeleccionado.getApellido());
     }
+
+    public static Reserva validarYConfirmarReserva(Cliente cliente, Instalacion instalacion, String hora, int duracion, boolean tieneSuscripcion, int cantidadAcompanantes, boolean evaluacionMedicaCompleta) {
+        // Verificar disponibilidad
+        if (!instalacion.hayCupoDisponible(hora)) {
+            System.out.println("Lo sentimos, no hay disponibilidad para la hora seleccionada.");
+            return null;
+        }
+
+        // Verificar requisitos de piscinas
+        if (instalacion.getDeporte().equalsIgnoreCase("Natacion") && !evaluacionMedicaCompleta) {
+            System.out.println("Debe completar la evaluación médica para acceder a la piscina.");
+            return null;
+        }
+
+        // Calcular monto total
+        int montoTotal = calcularMonto(instalacion, duracion, tieneSuscripcion, cantidadAcompanantes);
+
+        // Generar ID de reserva
+        int idReserva = ++idReservaCounter;
+        Reserva reserva = new Reserva(cliente, instalacion, hora, null, "Reservado");
+
+        // Crear factura
+        String descripcion = "Reserva de " + instalacion.getNombre() + " a las " + hora;
+        Factura factura = new Factura(idReserva, montoTotal, false, descripcion);
+        listaFacturas.add(factura);
+
+        // Actualizar estado de instalación
+        instalacion.setDescripcion("Reservado");
+        System.out.println("Reserva confirmada. Su ID es: " + idReserva);
+        System.out.println("Factura generada: " + factura.getDescripcionFactura());
+
+        return reserva;
+    }
+
+    private static int calcularMonto(Instalacion instalacion, int duracion, boolean tieneSuscripcion, int cantidadAcompanantes) {
+        int precioBase = instalacion.getPrecioHora() * duracion;
+        int descuento = tieneSuscripcion ? (int) (precioBase * 0.10) : 0;
+        int cargoAcompanantes = cantidadAcompanantes * 5000;
+        int cargoHorarioNocturno = (esHorarioNocturno(instalacion) ? 10000 : 0);
+
+        return precioBase - descuento + cargoAcompanantes + cargoHorarioNocturno;
+    }
+
+    private static boolean esHorarioNocturno(Instalacion instalacion) {
+        return instalacion.getDescripcion().contains("20:00") || instalacion.getDescripcion().contains("22:00") || instalacion.getDescripcion().contains("23:00");
+    }
+
+    public static ArrayList<Factura> obtenerFacturas() {
+        return listaFacturas;
+    }
+
+ 
 }

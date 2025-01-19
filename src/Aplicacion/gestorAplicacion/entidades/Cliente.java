@@ -3,7 +3,7 @@ package gestorAplicacion.entidades;
 import java.util.Scanner;
 
 public class Cliente {
-    private String id;  
+    private String id;//NUMERO DE IDENTIFICACION DNI T.I C.C  
     private String nombre;
     private String apellido;
     private int edad;
@@ -16,7 +16,7 @@ public class Cliente {
 
   
     public Cliente(String id, String nombre, String apellido, int edad, String instalacionPreferida, String deporte, double precioMinimo, double precioMaximo, boolean suscrito) {
-        this.id = id;  
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -121,7 +121,7 @@ public class Cliente {
     }
 
     public static Cliente solicitarDatosCliente(Scanner scanner) {
-        System.out.print("Ingrese el ID del cliente: ");
+        System.out.print("Ingrese el ID del cliente (Numero de Identificacion): ");
         String idCliente = scanner.nextLine();
         System.out.print("Ingrese el nombre del cliente: ");
         String nombreCliente = scanner.nextLine();
@@ -150,9 +150,9 @@ public class Cliente {
             scanner.nextLine();
         }
 
-        System.out.print("¿El cliente está suscrito? (true/false): ");
-        boolean suscrito = scanner.nextBoolean();
-        scanner.nextLine();
+        System.out.print("¿El cliente está suscrito? (si/no): ");
+        String respuestaSuscripcion = scanner.nextLine().toLowerCase();
+        boolean suscrito = respuestaSuscripcion.equals("si");
 
         return new Cliente(idCliente, nombreCliente, apellidoCliente, edadCliente, instalacionPreferida, deporte, precioMinimo, precioMaximo, suscrito);
     }

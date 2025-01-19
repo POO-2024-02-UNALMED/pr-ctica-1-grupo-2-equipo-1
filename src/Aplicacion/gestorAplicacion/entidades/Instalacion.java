@@ -15,6 +15,7 @@ public class Instalacion {
     private int capacidad; // Capacidad de la instalación (tribunas o usuarios por hora)
     private ArrayList<Horario> horariosDisponibles; // Lista de horarios disponibles (instancias de Horario)
     private ArrayList<String> horasOcupadas; // Lista de horas ocupadas
+    private String estado; // Estado de la instalación (Disponible, Reservado, Ocupado)
 
     // Constructor con todos los atributos
     public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion) {
@@ -26,6 +27,7 @@ public class Instalacion {
         this.profundidad = profundidad;
         this.capacidad = 0; // Inicializado en 0 por defecto
         this.horariosDisponibles = new ArrayList<>(); // Inicializar horarios vacíos
+        this.estado = "Disponible"; // Estado inicial
         this.horasOcupadas = new ArrayList<>(); // Inicializar lista de horas ocupadas
     }
 
@@ -204,6 +206,15 @@ public class Instalacion {
             (instalacion.getNombre().toLowerCase().contains("olimpica") ||
                 instalacion.getNombre().toLowerCase().contains("semi olimpica"));
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }
 
 
