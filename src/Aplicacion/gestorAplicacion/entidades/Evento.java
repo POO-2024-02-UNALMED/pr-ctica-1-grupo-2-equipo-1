@@ -139,7 +139,7 @@ public class Evento {
                 "idEvento='" + idEvento + '\'' +
                 ", genero='" + genero + '\'' +
                 ", nombreConcierto='" + nombreConcierto + '\'' +
-                ", organizadorConcierto=" + Persona.getNombreCompleto() + //Arreglar
+                ", organizadorConcierto=" + //Persona.getNombreCompleto() + //Arreglar
                 ", nombreArtista='" + nombreArtista + '\'' +
                 ", horaInicio=" + horaInicio +
                 ", horaFin=" + horaFin +

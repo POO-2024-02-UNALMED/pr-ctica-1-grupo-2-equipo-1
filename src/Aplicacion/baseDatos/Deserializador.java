@@ -20,7 +20,7 @@ public class Deserializador {
                 String nombreUsuario = partes[0].split("=")[1];
                 String cancha = partes[1].split("=")[1];
                 LocalDateTime fechaHora = LocalDateTime.parse(partes[2].split("=")[1]);
-                reservas.add(new Reserva(new Cliente(nombreUsuario, "", 0, "cancha", false),cancha, fechaHora));
+                //reservas.add(new Reserva(new Cliente(nombreUsuario, "", 0, "cancha", false),cancha, fechaHora));
             }
             System.out.println("Reservas deserializadas correctamente");
         } catch (IOException e) {

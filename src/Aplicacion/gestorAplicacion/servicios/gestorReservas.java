@@ -2,7 +2,6 @@ package gestorAplicacion.servicios;
 
 import gestorAplicacion.entidades.Cliente;
 import gestorAplicacion.entidades.Horario;
-import gestorAplicacion.entidades.Instalacion;
 import gestorAplicacion.entidades.Reserva;
 
 import java.util.ArrayList;
