@@ -115,6 +115,65 @@ public class GestorReservas {
         }
     }
 
+    //Mostrar Horarios Disponibles
+    public static void mostrarHorariosDisponibles(ArrayList<Instalacion> instalaciones) {
+        System.out.println("\n--- Horarios Disponibles ---");
+
+        if (instalaciones.isEmpty()) {
+            System.out.println("No hay instalaciones disponibles.");
+            return;
+        }
+
+        for (Instalacion instalacion : instalaciones) {
+            System.out.println("\nInstalación: " + instalacion.getNombre());
+            for (Horario horario : instalacion.getHorariosDisponibles()) {
+                System.out.println("\n  Día: " + horario.getDia());
+                System.out.println("  ---------------------------------");
+                // Mostrar las horas y los cupos
+                for (int i = 0; i < horario.getHorasDisponibles().size(); i++) {
+                    String hora = horario.getHorasDisponibles().get(i);
+                    int cupos = horario.getCuposDisponibles().get(i);
+                    System.out.println("    " + hora + " (" + cupos + " cupos disponibles)");
+                }
+                System.out.println("  ---------------------------------");
+            }
+        }
+    }
+
+    public static void asignarHorarios(ArrayList<Instalacion> instalaciones) {
+        // Días y horarios configurables
+        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+        String[] horas = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00"};
+        
+        // Iterar sobre cada instalación
+        for (Instalacion instalacion : instalaciones) {
+            ArrayList<Horario> horarios = new ArrayList<>();
+            
+            // Iterar sobre los días
+            for (String dia : dias) {
+                // Crear listas de horas y cupos disponibles
+                ArrayList<String> horasDisponibles = new ArrayList<>();
+                ArrayList<Integer> cuposDisponibles = new ArrayList<>();
+                
+                // Añadir las horas y los cupos correspondientes
+                for (String hora : horas) {
+                    horasDisponibles.add(hora);
+                    cuposDisponibles.add(instalacion.getCapacidad()); // Usamos la capacidad de la instalación como el cupo
+                }
+                
+                // Añadir el horario para el día correspondiente
+                Horario horario = new Horario(dia, horasDisponibles, cuposDisponibles);
+                horarios.add(horario);
+            }
+            
+            // Asignar los horarios a la instalación
+            instalacion.setHorariosDisponibles(horarios);
+        }
+    }
+
+
+
+
     public static void mostrarMenuReservas() {
         System.out.println("\n--- Realizar Reservas ---");
         System.out.println("1. Crear Reserva");

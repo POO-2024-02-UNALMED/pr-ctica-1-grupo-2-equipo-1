@@ -39,7 +39,7 @@ public class Main {
         ArrayList<Instalacion> instalaciones = crearInstalaciones();
 
         // Llamar a asignarHorarios para asignar horarios a las instalaciones
-        asignarHorarios(instalaciones);
+        GestorReservas.asignarHorarios(instalaciones);
 
         // Crear enfermeros y acompañantes por defecto
         ArrayList<Enfermero> enfermeros = crearEnfermeros();
@@ -118,36 +118,7 @@ public class Main {
         return instalaciones;
     }
 
-    private static void asignarHorarios(ArrayList<Instalacion> instalaciones) {
-        // Días y horarios configurables
-        String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
-        String[] horas = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00"};
-        
-        // Iterar sobre cada instalación
-        for (Instalacion instalacion : instalaciones) {
-            ArrayList<Horario> horarios = new ArrayList<>();
-            
-            // Iterar sobre los días
-            for (String dia : dias) {
-                // Crear listas de horas y cupos disponibles
-                ArrayList<String> horasDisponibles = new ArrayList<>();
-                ArrayList<Integer> cuposDisponibles = new ArrayList<>();
-                
-                // Añadir las horas y los cupos correspondientes
-                for (String hora : horas) {
-                    horasDisponibles.add(hora);
-                    cuposDisponibles.add(instalacion.getCapacidad()); // Usamos la capacidad de la instalación como el cupo
-                }
-                
-                // Añadir el horario para el día correspondiente
-                Horario horario = new Horario(dia, horasDisponibles, cuposDisponibles);
-                horarios.add(horario);
-            }
-            
-            // Asignar los horarios a la instalación
-            instalacion.setHorariosDisponibles(horarios);
-        }
-    }
+    
     private static ArrayList<Enfermero> crearEnfermeros() {
             ArrayList<Enfermero> enfermeros = new ArrayList<>();
             enfermeros.add(new Enfermero("Carlos", "Gomez", 35, "Emergencias"));
@@ -163,30 +134,7 @@ public class Main {
             acompanantes.add(new Acompanante("Luis", "Martinez", 32, true));
             return acompanantes;
         }
-    //Mostrar Horarios Disponibles
-    private static void mostrarHorariosDisponibles(ArrayList<Instalacion> instalaciones) {
-        System.out.println("\n--- Horarios Disponibles ---");
-
-        if (instalaciones.isEmpty()) {
-            System.out.println("No hay instalaciones disponibles.");
-            return;
-        }
-
-        for (Instalacion instalacion : instalaciones) {
-            System.out.println("\nInstalación: " + instalacion.getNombre());
-            for (Horario horario : instalacion.getHorariosDisponibles()) {
-                System.out.println("\n  Día: " + horario.getDia());
-                System.out.println("  ---------------------------------");
-                // Mostrar las horas y los cupos
-                for (int i = 0; i < horario.getHorasDisponibles().size(); i++) {
-                    String hora = horario.getHorasDisponibles().get(i);
-                    int cupos = horario.getCuposDisponibles().get(i);
-                    System.out.println("    " + hora + " (" + cupos + " cupos disponibles)");
-                }
-                System.out.println("  ---------------------------------");
-            }
-        }
-    }
+    
 //Logica Realizar Reservas-------------
     private static void realizarReservas(Scanner scanner, ArrayList<Instalacion> instalaciones, ArrayList<Enfermero> enfermeros, ArrayList<Acompanante> acompanantes) {
         boolean salirReserva = false;
@@ -202,7 +150,7 @@ public class Main {
                     break;
 
                 case 2:
-                    mostrarHorariosDisponibles(instalaciones);
+                    GestorReservas.mostrarHorariosDisponibles(instalaciones);
                     break;
 
                 case 3:
