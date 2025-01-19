@@ -22,11 +22,14 @@ import gestorAplicacion.entidades.Acompanante;
 import gestorAplicacion.entidades.Cliente;
 import gestorAplicacion.entidades.Enfermero;
 import gestorAplicacion.entidades.Horario;
+import gestorAplicacion.entidades.Torneo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static gestorAplicacion.entidades.Torneo.crearTorneos;
 
 public class Main {
     public static void main(String[] args) {
@@ -67,7 +70,7 @@ public class Main {
                     break;
 
                 case 3:
-                    crearTorneos(scanner);
+                    crearTorneos();
                     break;
 
                 case 4:
@@ -220,10 +223,6 @@ public class Main {
 //------------------------
     private static void realizarInscripciones(Scanner scanner) {
         // Implementación del método para realizar inscripciones a deportes formativos
-    }
-
-    private static void crearTorneos(Scanner scanner) {
-        // Implementación del método para crear torneos
     }
 
     private static void crearEventos(Scanner scanner) {

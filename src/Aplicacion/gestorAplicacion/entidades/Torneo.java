@@ -1,10 +1,10 @@
 package gestorAplicacion.entidades;
 
 import gestorAplicacion.servicios.Formato;
-
 import java.util.ArrayList;
-
 import java.util.List;
+import java.util.Scanner;
+
 
 public class Torneo {
     private int idTorneo = 0;
@@ -78,5 +78,34 @@ public class Torneo {
 
     public void setSeguroMedico(String seguroMedico) {
         this.seguroMedico = seguroMedico;
+    }
+
+    public static void crearTorneos(){
+        boolean salirTorneo = false;
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Seleccione el deporte en el cual desea realizar el torneo");
+        System.out.println("1. Futbol");
+        System.out.println("2. Baloncesto");
+        System.out.println("3. Baloncesto");
+        System.out.println("4. Voleibol");
+        System.out.println("5. Salir");
+
+        int deporteTorneo = scanner.nextInt();
+
+        while (!salirTorneo){
+            switch (deporteTorneo){
+                case 1://futbol
+                    System.out.println("Seleccione la cancha en la que desea realizar el torneo");
+
+                case 2://basket
+                case 3://natacion
+                case 4://voleibol
+                case 5://salir
+                default:
+                    System.out.println("Seleccione una opcion valide. Del 1 al 5");
+            }
+        }
     }
 }
