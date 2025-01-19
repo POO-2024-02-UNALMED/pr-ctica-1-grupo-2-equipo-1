@@ -1,49 +1,51 @@
 package gestorAplicacion.entidades;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class Reserva implements Serializable {
-    private Cliente usuario;
-    private String cancha;
-    private LocalDateTime fechaHora;
+    private Cliente cliente;
+    private Instalacion instalacion;
+    private String horaReservada; // La hora reservada
+    private Horario horario; // El horario asociado a la instalación
+    private String estado; // Estado de la reserva (por defecto "Activa")
 
-    public Reserva(Cliente usuario,String cancha, LocalDateTime fechaHora) {
-        this.usuario = usuario;
-        this.cancha = cancha;
-        this.fechaHora = fechaHora;
+    public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario) {
+        this.cliente = cliente;
+        this.instalacion = instalacion;
+        this.horaReservada = horaReservada;
+        this.horario = horario;
+        this.estado = "Activa"; // Estado por defecto
     }
 
-    public Cliente getUsuario() {
-        return this.usuario;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setNombreUsuario(Cliente usuario) {
-        this.usuario = usuario;
+    public Instalacion getInstalacion() {
+        return instalacion;
     }
 
-    public String getCancha() {
-        return cancha;
+    public String getHoraReservada() {
+        return horaReservada;
     }
 
-    public void setCancha(String cancha) {
-        this.cancha = cancha;
+    public Horario getHorario() {
+        return horario;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @Override
     public String toString() {
-        return "Reserva{" +
-                "Cliente='" + this.usuario.nombre + '\'' +
-                ", cancha='" + this.cancha + '\'' +
-                ", fechaHora=" + this.fechaHora +
-                '}';
+        return "Reserva de " + cliente.getNombreCompleto() +
+               ", Instalación: " + instalacion.getNombre() +
+               ", Hora: " + horaReservada +
+               ", Estado: " + estado;
     }
 }
