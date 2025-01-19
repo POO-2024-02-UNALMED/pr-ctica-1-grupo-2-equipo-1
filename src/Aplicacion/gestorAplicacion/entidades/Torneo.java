@@ -104,11 +104,15 @@ public class Torneo {
                     System.out.println("Existe la opción de que al escoger una cancha de Futbol 11, se puedan seleccionar ambas");
                     System.out.println("Instalaciones deisponibles");
                     System.out.println(inst.getFirst().toString());
-                    System.out.println(inst.get(1).toString()); //Arregalar algun dia
-                    System.out.println(inst.get(2).toString()); //Arregalar algun dia
-                    System.out.println(inst.get(3).toString()); //Arregalar algun dia
+                    System.out.println(inst.get(1).toString()); //Arregalar un dia
+                    System.out.println(inst.get(2).toString()); //Arregalar un dia
+                    System.out.println(inst.get(3).toString()); //Arregalar un dia
 
                     int selccionanchaFutbol = scanner.nextInt();
+
+                    /*switch (selccionanchaFutbol){
+                        //Logica para reservas
+                    }*/
 
                     if (selccionanchaFutbol == 1){
                         System.out.println("Desea usar ambas canchas de Futbol 11? (true/false)");
@@ -122,15 +126,18 @@ public class Torneo {
                     System.out.println("Ahora se personalizaran las relgas del torneo");
                         System.out.println("Sustituciones máximas: mínimo 2, máximo 7.\n" +
                                 "Duración del partido: 30 o 90 minutos (Se agregarán 30 minutos más a la reserva).\n" +
-                                "Criterios de desempate: Diferencia de goles, goles a favor, goles en contra o sorteo.\n" +
+                                "Criterios de desempate: Goles a favor (GF), Goles en contra (GC) o Sorteo.\n" +
                                 "En este caso deberán ser ingresados en orden de prioridad. Además, despúes de sorteo no podrán ir más criterios de desempate.");
 
                         System.out.println("Ingrese la cantidad de susticiones máximas.");
                         int Sustituciones = scanner.nextInt();
+
+                        ArrayList<String> reglasFutbol = new ArrayList<>();
+
                         if ((Sustituciones < 2) || (Sustituciones > 7)){
                             break;
                         } else {
-                            reglas.add(Integer.toString(Sustituciones));
+                            reglasFutbol.add(Integer.toString(Sustituciones));
                         }
 
                         System.out.println("Ingrese la duración del partido.");
@@ -138,7 +145,7 @@ public class Torneo {
                         if ((duracionFutbol < 30) || (duracionFutbol > 90)){
                             break;
                         } else {
-                            reglas.add(Integer.toString(duracionFutbol));
+                            reglasFutbol.add(Integer.toString(duracionFutbol));
                         }
 
                         ArrayList<String> Criterios = new ArrayList<>();
@@ -149,13 +156,37 @@ public class Torneo {
                             Criterios.add(Criterio);
                         }
                         System.out.println("Las siguientes serán las reglas personalizadas para este torneo:"); //ARREGLAR - Puede genrar un error si se pone sorteo como una opcion distinta a la ultima
-                        System.out.println("Sustituciones máximas:" + Criterios.getFirst());
-                        System.out.println("Duración del partido:" + Criterios.get(1));
-                        System.out.println("Criterios de desempate:" + Criterios.get(2));
+                        System.out.println("Sustituciones máximas:" + reglasFutbol.getFirst()); //
+                        System.out.println("Duración del partido:" + reglasFutbol.get(1));
+                        System.out.println("Criterios de desempate:" + Criterios);
+
+                        reglas = reglasFutbol;
+                        //salirTorneo = true;
                         }
 
 
                 case 2://basket
+                    ArrayList<String> reglasBasket = new ArrayList<>();
+
+                    System.out.println("Duración del partido: 4 períodos de 10 minutos (FIBA) o 12 minutos (NBA).\n" +
+                            "Tiempos fuera por periodo: máximo 3");
+
+                    System.out.println("Ingrese la duración del partido.");
+                    int duracionBaloncesto = scanner.nextInt();
+                    if ((duracionBaloncesto < 10) || (duracionBaloncesto > 12)){
+                        break;
+                    } else {
+                        reglasBasket.add(Integer.toString(duracionBaloncesto));
+                    }
+
+                    System.out.println("Ingrese la cantidad de cambios permitidos por periodo");
+                    int cambios = scanner.nextInt();
+                    if ((cambios < 0) || (cambios > 3)){
+                        break;
+                    } else {
+                        reglasBasket.add(Integer.toString(cambios));
+                    }
+                    reglas = reglasBasket;
                 case 3://natacion
                 case 4://voleibol
                 case 5://salir

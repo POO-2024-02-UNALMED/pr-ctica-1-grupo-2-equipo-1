@@ -295,4 +295,3 @@ public class GestorReservas {
         System.out.println("Acompañante seleccionado: " + acompananteSeleccionado.getNombre() + " " + acompananteSeleccionado.getApellido());
     }
 }
-
