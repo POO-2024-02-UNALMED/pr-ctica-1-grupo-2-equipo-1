@@ -57,4 +57,13 @@ public class Horario implements Serializable {
         }
         return sb.toString();
     }
+    public List<String> getHorasOcupadas() {
+        List<String> horasOcupadas = new ArrayList<>();
+        for (int i = 0; i < horasDisponibles.size(); i++) {
+            if (cuposDisponibles.get(i) == 0) {
+                horasOcupadas.add(horasDisponibles.get(i));
+            }
+        }
+        return horasOcupadas;
+    }
 }
