@@ -84,6 +84,16 @@ public class Torneo {
     public static void crearTorneos(){
         boolean salirTorneo = false;
 
+        System.out.println("Antes de empezar con la creacion del torneo, se requieren unos datos del clietne");
+        System.out.println("Ingrese su nombre");
+        String nombreCliente = new Scanner(System.in).nextLine();
+        System.out.println("Ingrese su apellido");
+        String apellidoCliente = new Scanner(System.in).nextLine();
+        System.out.println("Ingrese su edad");
+        String edadCliente = new Scanner(System.in).nextLine();
+        System.out.println("Ingrese su ID");
+        int idCliente = new Scanner(System.in).nextInt();
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Seleccione el deporte en el cual desea realizar el torneo");
@@ -92,6 +102,9 @@ public class Torneo {
         System.out.println("3. Natacion");
         System.out.println("4. Voleibol");
         System.out.println("5. Salir");
+
+
+        //Agregar codigo para detectar si el clietne esta suscrito
 
         int deporteTorneo = scanner.nextInt();
 
@@ -186,8 +199,15 @@ public class Torneo {
                     } else {
                         reglasBasket.add(Integer.toString(cambios));
                     }
+
+                    System.out.println("");//Agregar prints de las reglas, etc
+
                     reglas = reglasBasket;
+
+                    //salirTorneo = true;
+
                 case 3://natacion
+                    ArrayList<String> reglasNatacion = new ArrayList<>();
                 case 4://voleibol
                 case 5://salir
                 default:
