@@ -1,7 +1,7 @@
 //No es una clase, se va a eliminar. Se deja solo para pasar el switch al Main luego
 
 package gestorAplicacion.servicios;
-
+/*
 import java.util.ArrayList;
 import gestorAplicacion.entidades.Torneo;
 import gestorAplicacion.servicios.Formato;
@@ -9,7 +9,7 @@ import gestorAplicacion.servicios.Formato;
 import java.util.Scanner;
 
 public class FuncTorneo {
-    private ArrayList<String> reglas;
+    //private ArrayList<String> reglas;
     private String deporte;
     private Torneo torneo;
 
@@ -91,3 +91,4 @@ public class FuncTorneo {
     }
 
 }
+*/

@@ -95,7 +95,7 @@ public class Main {
     }
 
     // Método para crear todas las instalaciones predeterminadas
-    private static ArrayList<Instalacion> crearInstalaciones() {
+    public static ArrayList<Instalacion> crearInstalaciones() {
         ArrayList<Instalacion> instalaciones = new ArrayList<>();
 
         // Instalaciones que no son Piscinas todas con capacidad 1(1 cupo)
@@ -117,8 +117,6 @@ public class Main {
 
         return instalaciones;
     }
-
-    
 
     private static void asignarHorarios(ArrayList<Instalacion> instalaciones) {
         // Días y horarios configurables
