@@ -1,6 +1,7 @@
 package gestorAplicacion.entidades;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Instalacion {
     private static int idCounter = 0; // Contador estático para los ID
@@ -177,5 +178,32 @@ public class Instalacion {
         }
         return false; // No hay cupos disponibles para esa hora
     }
+
+
+    public static Instalacion seleccionarInstalacion(Scanner scanner, ArrayList<Instalacion> instalacionesDisponibles) {
+        System.out.println("Instalaciones disponibles que cumplen con los criterios:");
+        for (int i = 0; i < instalacionesDisponibles.size(); i++) {
+            System.out.println((i + 1) + ". " + instalacionesDisponibles.get(i).getNombre());
+        }
+
+        int seleccion;
+        do {
+            System.out.print("Seleccione una instalación por su número: ");
+            seleccion = scanner.nextInt();
+            scanner.nextLine();
+            if (seleccion < 1 || seleccion > instalacionesDisponibles.size()) {
+                System.out.println("Selección inválida. Intente nuevamente.");
+            }
+        } while (seleccion < 1 || seleccion > instalacionesDisponibles.size());
+
+        return instalacionesDisponibles.get(seleccion - 1);
+    }
+
+    public static boolean esPiscinaConRestriccion(Instalacion instalacion) {
+        return instalacion.getNombre().toLowerCase().contains("piscina") &&
+            (instalacion.getNombre().toLowerCase().contains("olimpica") ||
+                instalacion.getNombre().toLowerCase().contains("semi olimpica"));
+    }
 }
+
 

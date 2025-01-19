@@ -1,5 +1,7 @@
 package gestorAplicacion.entidades;
 
+import java.util.Scanner;
+
 public class Cliente {
     private String id;  
     private String nombre;
@@ -117,4 +119,42 @@ public class Cliente {
                 ", suscrito=" + suscrito +
                 '}';
     }
+
+    public static Cliente solicitarDatosCliente(Scanner scanner) {
+        System.out.print("Ingrese el ID del cliente: ");
+        String idCliente = scanner.nextLine();
+        System.out.print("Ingrese el nombre del cliente: ");
+        String nombreCliente = scanner.nextLine();
+        System.out.print("Ingrese el apellido del cliente: ");
+        String apellidoCliente = scanner.nextLine();
+        System.out.print("Ingrese la edad del cliente: ");
+        int edadCliente = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("¿Desea ingresar sus preferencias? (si/no): ");
+        String deseaPreferencias = scanner.nextLine().toLowerCase();
+        String instalacionPreferida = "";
+        String deporte = "";
+        double precioMinimo = 0.0;
+        double precioMaximo = 0.0;
+
+        if (deseaPreferencias.equals("si")) {
+            System.out.print("Ingrese la instalación preferida: ");
+            instalacionPreferida = scanner.nextLine();
+            System.out.print("Ingrese el deporte preferido: ");
+            deporte = scanner.nextLine();
+            System.out.print("Ingrese el precio mínimo: ");
+            precioMinimo = scanner.nextDouble();
+            System.out.print("Ingrese el precio máximo: ");
+            precioMaximo = scanner.nextDouble();
+            scanner.nextLine();
+        }
+
+        System.out.print("¿El cliente está suscrito? (true/false): ");
+        boolean suscrito = scanner.nextBoolean();
+        scanner.nextLine();
+
+        return new Cliente(idCliente, nombreCliente, apellidoCliente, edadCliente, instalacionPreferida, deporte, precioMinimo, precioMaximo, suscrito);
+    }
+
 }

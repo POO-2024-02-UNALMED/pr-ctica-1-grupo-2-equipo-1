@@ -16,6 +16,16 @@ public class Reserva implements Serializable {
         this.horario = horario;
         this.estado = "Activa"; // Estado por defecto
     }
+    
+    // Constructor con estado opcional
+    public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario, String estado) {
+        this.cliente = cliente;
+        this.instalacion = instalacion;
+        this.horaReservada = horaReservada;
+        this.horario = horario;
+        this.estado = estado;
+    }
+    
 
     public Cliente getCliente() {
         return cliente;
