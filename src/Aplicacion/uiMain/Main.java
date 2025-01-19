@@ -185,14 +185,14 @@ public class Main {
             }
         }
     }
-//Realizar Reservas------------
+//Logica Realizar Reservas-------------
     private static void realizarReservas(Scanner scanner, ArrayList<Instalacion> instalaciones, ArrayList<Enfermero> enfermeros, ArrayList<Acompanante> acompanantes) {
         boolean salirReserva = false;
 
         while (!salirReserva) {
             mostrarMenuReservas();
             int opcionReserva = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine(); 
 
             switch (opcionReserva) {
                 case 1:
