@@ -1,6 +1,7 @@
 package gestorAplicacion.entidades;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Joven extends Persona {
     public int experienciaJoven;
@@ -68,5 +69,58 @@ public class Joven extends Persona {
 
     public String getRol() {
         return "Joven";
+    }
+    public String toString() {
+        return "Joven{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", edad=" + edad +
+                ", experiencia=" + experienciaJoven +
+                ", eps='" + eps + '\'' +
+                ", nombreAcudiente='" + nombreAcudiente + '\'' +
+                ", telefonoAcudiente='" + telefonoAcudiente + '\'' +
+                ", cedulaAcudiente='" + cedulaAcudiente + '\'' +
+                '}';
+    }
+    public static Joven RegistrarJoven(Scanner scanner) { // Recibimos el objeto Scanner como parámetro
+        System.out.println("Ingrese el nombre del joven:");
+        String nombreJoven = scanner.nextLine();
+
+        System.out.println("Ingrese el apellido del joven:");
+        String apellidoJoven = scanner.nextLine();
+
+        System.out.println("Ingrese la edad del joven:");
+        int edadJoven = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Ingrese la experiencia del joven (en meses):");
+        int experienciaJoven = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Ingrese la EPS del joven:");
+        String eps = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del acudiente:");
+        String nombreAcudiente = scanner.nextLine();
+
+        System.out.println("Ingrese el teléfono del acudiente:");
+        String telefonoAcudiente = scanner.nextLine();
+
+        System.out.println("Ingrese la cédula del acudiente:");
+        String cedulaAcudiente = scanner.nextLine();
+
+        Joven jovenRegistrado = new Joven(
+                nombreJoven,
+                apellidoJoven,
+                edadJoven,
+                experienciaJoven,
+                eps,
+                nombreAcudiente,
+                telefonoAcudiente,
+                cedulaAcudiente
+        );
+
+        System.out.println("Joven registrado con éxito");
+        return jovenRegistrado;
     }
 }
