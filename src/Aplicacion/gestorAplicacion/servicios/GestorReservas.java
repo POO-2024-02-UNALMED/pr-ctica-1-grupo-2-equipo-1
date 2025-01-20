@@ -15,13 +15,9 @@ import java.util.Scanner;
 
 
 public class GestorReservas {
-    public List<Reserva> reservas; // Lista que almacena todas las reservas realizadas
+    public static ArrayList<Reserva> reservas; // Lista que almacena todas las reservas realizadas
     private static int idReservaCounter = 0;
     public static ArrayList<Factura> listaFacturas = new ArrayList<>();
-
-    public GestorReservas() {
-        this.reservas = new ArrayList<>();
-    }
 
     // Método para agregar una nueva reserva
     public boolean agregarReserva(Reserva reserva) {

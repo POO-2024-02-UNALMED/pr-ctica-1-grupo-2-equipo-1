@@ -107,17 +107,15 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "ID='" + id + '\'' +  // Mostrar el ID en el toString
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
-                ", instalacionPreferida='" + instalacionPreferida + '\'' +
-                ", deporte='" + deporte + '\'' +
-                ", precioMinimo=" + precioMinimo +
-                ", precioMaximo=" + precioMaximo +
-                ", suscrito=" + suscrito +
-                '}';
+        return  id +
+                "," + nombre +
+                "," + apellido +
+                "," + edad +
+                "," + instalacionPreferida +
+                "," + deporte +
+                "," + precioMinimo +
+                "," + precioMaximo +
+                "," + suscrito;
     }
 
     public static Cliente solicitarDatosCliente(Scanner scanner) {

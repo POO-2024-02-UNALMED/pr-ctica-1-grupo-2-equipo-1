@@ -7,6 +7,7 @@ import java.util.Scanner;
 import static uiMain.Main.crearInstalaciones;
 
 public class Torneo {
+    public static ArrayList<Torneo> torneos;
     private int idTorneo = 0;
     public String deporte;
     private Formato formato;

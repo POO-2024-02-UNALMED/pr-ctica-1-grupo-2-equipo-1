@@ -25,8 +25,6 @@ public class Reserva implements Serializable {
         this.horario = horario;
         this.estado = estado;
     }
-    
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -53,9 +51,9 @@ public class Reserva implements Serializable {
 
     @Override
     public String toString() {
-        return "Reserva de " + cliente.getNombreCompleto() +
-               ", Instalación: " + instalacion.getNombre() +
-               ", Hora: " + horaReservada +
-               ", Estado: " + estado;
+        return cliente.toString() +
+               "-" + instalacion.getNombre() +
+               "-" + horaReservada +
+               "-" + estado;
     }
 }

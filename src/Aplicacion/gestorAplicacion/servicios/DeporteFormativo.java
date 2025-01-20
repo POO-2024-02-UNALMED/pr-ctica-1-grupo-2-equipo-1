@@ -1,10 +1,12 @@
 package gestorAplicacion.servicios;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DeporteFormativo {
 
     // Atributos
+    public static ArrayList<DeporteFormativo> deportesFormativos;
     private String nombre;
     private int edad;
     private String eps;

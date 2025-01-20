@@ -163,11 +163,11 @@ public class Instalacion {
 
     @Override
     public String toString() {
-        return "Instalación: " + nombre +
-                "\nDescripción: " + descripcion +
-                "\nDeporte: " + deporte +
-                "\nPrecio por hora: $" + precioHora +
-                "\nCapacidad: " + capacidad;
+        return nombre +
+                "-" + descripcion +
+                "-" + deporte +
+                "-" + precioHora +
+                "-" + capacidad;
     }
 
     public boolean hayCupoDisponible(String horaSeleccionada) {

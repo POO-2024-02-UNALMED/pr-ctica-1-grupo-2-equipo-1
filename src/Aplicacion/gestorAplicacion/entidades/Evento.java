@@ -1,11 +1,13 @@
 package gestorAplicacion.entidades;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import gestorAplicacion.entidades.Persona;
 
 public class Evento {
     // Atributos principales
+    public static ArrayList<Evento> eventos;
     private String idEvento;
     private String genero; // Género musical del concierto
     private String nombreConcierto;
