@@ -1,17 +1,17 @@
 package gestorAplicacion.entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Equipo {
-    private int idEquipo;
+    private int idEquipo = 0;
     private String nombreEquipo;
-    private List<String> jugadores;
+    private ArrayList<String> jugadores;
 
 
-    public Equipo(int idEquipo, String nombreEquipo, List<String> jugadores) {
-        this.idEquipo = idEquipo;
+    public Equipo( String nombreEquipo) {
+        this.idEquipo++;
         this.nombreEquipo = nombreEquipo;
-        this.jugadores = jugadores;
     }
 
     public String getNombreEquipo() {
@@ -22,12 +22,14 @@ public class Equipo {
         this.nombreEquipo = nombreEquipo;
     }
 
-    public List<String> getJugadores() {
+
+
+    public ArrayList<String> getJugadores() {
         return jugadores;
     }
 
-    public void setJugadores(List<String> jugadores) {
-        this.jugadores = jugadores;
+    public void setJugadores( String nombreJugador) {
+        jugadores.add(nombreJugador);
     }
 
     public int getIdEquipo() {

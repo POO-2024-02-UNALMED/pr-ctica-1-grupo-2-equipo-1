@@ -28,6 +28,13 @@ public class Cliente {
         this.nombreCompleto = nombre + " " + apellido;
     }
 
+    public Cliente(String nombre, String apellido, int edad, String id) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+    }
+
     // Getters y setters
     public String getId() {
         return id;
@@ -103,6 +110,10 @@ public class Cliente {
 
     public String getNombreCompleto() {
         return nombreCompleto;
+    }
+
+    public boolean getSuscripcion() {
+        return this.suscrito;
     }
 
     @Override

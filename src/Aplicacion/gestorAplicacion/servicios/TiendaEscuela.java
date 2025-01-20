@@ -1,5 +1,5 @@
 package gestorAplicacion.servicios;
-
+/*
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,4 +33,4 @@ public class TiendaEscuela {
         }
         return null; // No encontrado
     }
-}
+}*/

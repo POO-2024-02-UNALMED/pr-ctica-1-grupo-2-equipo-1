@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static gestorAplicacion.entidades.Torneo.crearTorneos;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -44,6 +44,8 @@ public class Main {
         // Crear enfermeros y acompañantes por defecto
         ArrayList<Enfermero> enfermeros = crearEnfermeros();
         ArrayList<Acompanante> acompanantes = crearAcompanantes();
+
+        Torneo torneoBase = new Torneo(9999);
 
         boolean salir = false;
 
@@ -70,7 +72,7 @@ public class Main {
                     break;
 
                 case 3:
-                    crearTorneos();
+                    torneoBase.crearTorneos();
                     break;
 
                 case 4:
