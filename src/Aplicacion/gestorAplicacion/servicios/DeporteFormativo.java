@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class DeporteFormativo {
 
-    // Atributos
     public static ArrayList<DeporteFormativo> deportesFormativos;
     private String nombre;
     private int edad;
@@ -99,54 +98,3 @@ public class DeporteFormativo {
         deporteFormativo.mostrarResultados();
     }
 }
-/*
-### **Explicación del código:**
-1. **Atributos:**
-    - **Datos personales:** `nombre`, `edad`, `eps`, `acudiente`.
-    - **Datos deportivos:** `deporteDeseado`, `experienciaMeses`.
-    - Se agregaron **atributos para asignación**: `categoriaEquipo`, `categoriaEntrenador`, y `horario`.
-
-2. **Métodos:**
-    - **`capturarDatos`**: Captura los datos del joven usando la clase `Scanner`.
-    - **`clasificarYAsignar`**:
-        - Evalúa la experiencia previa y asigna un equipo y entrenador según las reglas indicadas.
-        - Asigna un horario basado en la edad del joven:
-            - Menores de 12: Horario de mañana.
-            - Mayores de 12: Horario de tarde.
-
-    - **`mostrarResultados`**: Presenta los datos personales y las asignaciones efectuadas.
-
-3. **Uso del método `main`:**
-    - Permite ejecutar el flujo completo (`capturarDatos`, `clasificarYAsignar`, `mostrarResultados`) en una prueba.
-
-### **Ejemplo de ejecución del programa:**
-#### Entrada del usuario:
-```
-Nombre: Juan Pérez
-Edad: 14
-EPS: Salud Total
-Nombre del Acudiente: María Pérez
-Deporte deseado: Fútbol
-Experiencia previa en meses: 10
-```
-#### Salida esperada:
-```
---- Resultados de la Evaluación ---
-Nombre: Juan Pérez
-Edad: 14
-EPS: Salud Total
-Acudiente: María Pérez
-Deporte Deseado: Fútbol
-Experiencia Previa: 10 meses
-Equipo Asignado: Categoría 2
-Entrenador Asignado: Entrenador Categoría 2
-Horario Asignado: Tarde: 1 PM - 8 PM
-```
-### **Posibles Mejoras:**
-- Permitir múltiples capturas de datos para varios jóvenes (usando una lista).
-- Agregar validaciones en la entrada (por ejemplo, que la `edad` sea mayor a 0).
-- Opcionalmente manejar horarios personalizados o verificar disponibilidad según día.
-
-Si necesitas agregar cualquiera de estas mejoras, avísame. 😊
-
- */

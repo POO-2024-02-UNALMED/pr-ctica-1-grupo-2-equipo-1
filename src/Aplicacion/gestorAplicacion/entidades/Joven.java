@@ -1,26 +1,27 @@
 package gestorAplicacion.entidades;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import gestorAplicacion.servicios.RegistrosEntrenamiento;
 
 public class Joven extends Persona {
     public int experienciaJoven;
-    public Acudiente acudiente;
     public String eps;
-    public List<RegistrosEntrenamiento> registrosEntrenamientos;
+    public String nombreAcudiente;
+    public String telefonoAcudiente;
+    public String cedulaAcudiente;
+    public ArrayList<Integer> registrosEntrenamiento;
 
     // Constructor de la clase Joven
-    public Joven(String nombre, String apellido, int edad, int experiencia, String eps, Acudiente acudiente) {
+    public Joven(String nombre, String apellido, int edad, int experiencia, String eps, String nombreAcudiente, String telefonoAcudiente, String cedulaAcudiente) {
         super(nombre, apellido, edad);
         this.experienciaJoven = experiencia;
         this.eps = eps;
-        this.acudiente = acudiente;
-        this.registrosEntrenamientos = new ArrayList<>();  // Inicialización de la lista de registros
+        this.nombreAcudiente = nombreAcudiente;
+        this.telefonoAcudiente = telefonoAcudiente;
+        this.cedulaAcudiente = cedulaAcudiente;
+        this.registrosEntrenamiento = new ArrayList<>(); // Inicialización del ArrayList
     }
 
-    // Setters y getters
+    // Getters y Setters
     public String getEps() {
         return eps;
     }
@@ -29,16 +30,40 @@ public class Joven extends Persona {
         this.eps = eps;
     }
 
-    public List<RegistrosEntrenamiento> getRegistros() {
-        return this.registrosEntrenamientos;
+    public String getNombreAcudiente() {
+        return nombreAcudiente;
     }
 
-    public void setRegistros(List<RegistrosEntrenamiento> registrosEntrenamientos) {
-        this.registrosEntrenamientos = registrosEntrenamientos;
+    public void setNombreAcudiente(String nombreAcudiente) {
+        this.nombreAcudiente = nombreAcudiente;
     }
 
-    public void agregarRegistro(RegistrosEntrenamiento registrosEntrenamiento) {
-        this.registrosEntrenamientos.add(registrosEntrenamiento);
+    public String getTelefonoAcudiente() {
+        return telefonoAcudiente;
+    }
+
+    public void setTelefonoAcudiente(String telefonoAcudiente) {
+        this.telefonoAcudiente = telefonoAcudiente;
+    }
+
+    public String getCedulaAcudiente() {
+        return cedulaAcudiente;
+    }
+
+    public void setCedulaAcudiente(String cedulaAcudiente) {
+        this.cedulaAcudiente = cedulaAcudiente;
+    }
+
+    public ArrayList<Integer> getRegistrosEntrenamiento() {
+        return registrosEntrenamiento;
+    }
+
+    public void setRegistrosEntrenamiento(ArrayList<Integer> registrosEntrenamiento) {
+        this.registrosEntrenamiento = registrosEntrenamiento;
+    }
+
+    public void agregarRegistroEntrenamiento(Integer registro) {
+        this.registrosEntrenamiento.add(registro);
     }
 
     public String getRol() {
