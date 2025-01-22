@@ -1,11 +1,11 @@
 /*Archivo principal del programa
+PRUEBA
+PRUEBA
+Donde se programa la UI de consola del programa
 
-        Donde se programa la UI de consola del programa
+NO CAMBIAR SIN PREGUNTAR PRECAUCION
 
-        NO CAMBIAR SIN PREGUNTAR PRECAUCION
-
-        */
-
+*/
 //Falta logica para cada opcion. Simplemente es una idea de lo que puede ser la base. Hay "errores" en el switch
 
 
