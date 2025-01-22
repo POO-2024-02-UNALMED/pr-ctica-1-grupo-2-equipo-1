@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.torneo;
 
 import gestorAplicacion.entidades.Equipo;
 

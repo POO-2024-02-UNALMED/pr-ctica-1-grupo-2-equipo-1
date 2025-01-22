@@ -3,7 +3,7 @@ package gestorAplicacion;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import gestorAplicacion.entidades.Toldo;
+import gestorAplicacion.pagos.Toldo;
 import gestorAplicacion.reservas.Horario;
 
 public class Instalacion {

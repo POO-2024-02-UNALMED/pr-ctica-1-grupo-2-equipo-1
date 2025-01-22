@@ -1,4 +1,4 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.inscripcion;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.pagos;
 
 public class Toldo {
     public int idToldo;
