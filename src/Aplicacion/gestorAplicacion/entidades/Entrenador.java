@@ -1,5 +1,8 @@
 package gestorAplicacion.entidades;
 
+import gestorAplicacion.Instalacion;
+import gestorAplicacion.Trabajador;
+
 public class Entrenador extends Trabajador {
 
     private String deporte;

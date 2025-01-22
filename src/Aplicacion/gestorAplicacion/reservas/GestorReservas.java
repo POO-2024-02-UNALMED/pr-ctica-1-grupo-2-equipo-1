@@ -1,10 +1,9 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.reservas;
 
-import gestorAplicacion.entidades.Cliente;
-import gestorAplicacion.entidades.Horario;
-import gestorAplicacion.entidades.Reserva;
-import gestorAplicacion.entidades.Instalacion;
+import gestorAplicacion.servicios.Factura;
 import gestorAplicacion.entidades.Enfermero;
+import gestorAplicacion.Cliente;
+import gestorAplicacion.Instalacion;
 import gestorAplicacion.entidades.Acompanante;
 
 

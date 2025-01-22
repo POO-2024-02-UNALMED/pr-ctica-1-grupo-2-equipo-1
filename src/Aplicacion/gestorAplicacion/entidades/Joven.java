@@ -3,6 +3,8 @@ package gestorAplicacion.entidades;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import gestorAplicacion.Persona;
+
 public class Joven extends Persona {
     public int experienciaJoven;
     public String eps;

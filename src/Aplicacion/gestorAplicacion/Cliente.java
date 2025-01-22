@@ -1,4 +1,4 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion;
 
 import java.util.Scanner;
 

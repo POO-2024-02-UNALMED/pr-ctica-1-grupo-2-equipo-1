@@ -1,7 +1,10 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import gestorAplicacion.entidades.Toldo;
+import gestorAplicacion.reservas.Horario;
 
 public class Instalacion {
     private static int idCounter = 0; // Contador estático para los ID

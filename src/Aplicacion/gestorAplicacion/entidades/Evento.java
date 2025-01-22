@@ -3,7 +3,9 @@ package gestorAplicacion.entidades;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import gestorAplicacion.entidades.Persona;
+import gestorAplicacion.Cliente;
+import gestorAplicacion.Instalacion;
+import gestorAplicacion.Persona;
 
 public class Evento {
     // Atributos principales

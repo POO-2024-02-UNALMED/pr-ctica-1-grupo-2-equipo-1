@@ -1,5 +1,7 @@
 package gestorAplicacion.entidades;
 
+import gestorAplicacion.Cliente;
+import gestorAplicacion.Instalacion;
 import gestorAplicacion.servicios.Formato;
 import java.util.ArrayList;
 import java.util.List;

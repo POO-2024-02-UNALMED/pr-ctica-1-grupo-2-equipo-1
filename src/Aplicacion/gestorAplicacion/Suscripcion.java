@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion;
 
 public class Suscripcion {
     private String plan;

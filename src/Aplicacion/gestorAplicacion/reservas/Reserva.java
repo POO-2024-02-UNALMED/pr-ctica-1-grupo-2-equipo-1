@@ -1,6 +1,9 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.reservas;
 
 import java.io.Serializable;
+
+import gestorAplicacion.Cliente;
+import gestorAplicacion.Instalacion;
 
 public class Reserva implements Serializable {
     private Cliente cliente;

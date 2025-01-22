@@ -1,4 +1,4 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.reservas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,26 +15,6 @@ public class Horario implements Serializable {
         this.cuposDisponibles = new ArrayList<>(cuposDisponibles); 
     }
 
-    // Método para reservar una hora
-    public boolean reservarHora(String horaReservada) {
-        for (int i = 0; i < horasDisponibles.size(); i++) {
-            if (horasDisponibles.get(i).equals(horaReservada) && cuposDisponibles.get(i) > 0) {
-                cuposDisponibles.set(i, cuposDisponibles.get(i) - 1); // Reducir el cupo si hay disponibilidad
-                return true; // Reserva exitosa
-            }
-        }
-        return false; // Hora no disponible o sin cupos
-    }
-
-    // Verificar si una hora específica tiene cupos disponibles
-    public boolean esHoraDisponible(String hora) {
-        for (int i = 0; i < horasDisponibles.size(); i++) {
-            if (horasDisponibles.get(i).equals(hora) && cuposDisponibles.get(i) > 0) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public String getDia() {
         return dia;
