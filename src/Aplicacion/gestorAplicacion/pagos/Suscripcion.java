@@ -13,4 +13,22 @@ public class Suscripcion {
         this.finSuscripcion = LocalDate.now().plusMonths(1);
     }
 
+    public boolean verificacionVencimiento(){
+        if(this.finSuscripcion.isBefore(LocalDate.now())){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public LocalDate getFinSuscripcion() {
+        return finSuscripcion;
+    }
+    public LocalDate getInicioSuscripcion() {
+        return inicioSuscripcion;
+    }
+    public TipoSuscripcion getTipoSuscripcion() {
+        return tipoSuscripcion;
+    }
 }

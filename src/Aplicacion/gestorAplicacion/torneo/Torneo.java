@@ -106,7 +106,7 @@ public class Torneo {
         String idClienteString = String.valueOf(idCliente);
         System.out.println();
 
-        Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idClienteString);
+        //Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idClienteString);
 
         Scanner scanner = new Scanner(System.in);
 
