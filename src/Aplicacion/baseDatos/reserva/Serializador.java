@@ -1,5 +1,5 @@
 package baseDatos.reserva;
-
+/*
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -16,4 +16,4 @@ public class Serializador {
             System.err.println("Error al serializar las reservas: " + e.getMessage());
         }
     }
-}
+}*/

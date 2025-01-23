@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.inscripcion;
 
 public class ArticuloTiendaEscuela {
     // Atributos

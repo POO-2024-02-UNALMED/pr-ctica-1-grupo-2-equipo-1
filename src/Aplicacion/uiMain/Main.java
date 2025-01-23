@@ -15,18 +15,13 @@ NO CAMBIAR SIN PREGUNTAR PRECAUCION
 
 package uiMain;
 
-import gestorAplicacion.reservas.Reserva;
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Instalacion;
+import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Acompanante;
 import gestorAplicacion.entidades.Enfermero;
-import gestorAplicacion.entidades.Torneo;
+import gestorAplicacion.torneo.Torneo;
 import gestorAplicacion.reservas.GestorReservas;
-import gestorAplicacion.reservas.Horario;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 import java.util.Scanner;
 
 

@@ -1,5 +1,5 @@
 package baseDatos.concierto;
-
+/*
 import gestorAplicacion.entidades.Evento;
 import gestorAplicacion.entidades.Reserva;
 import gestorAplicacion.servicios.GestorReservas;
@@ -20,8 +20,9 @@ public class Deserializador {
             String[] partes = linea.split("-");
             /*
             declaracion de constructores
-             */
+
         }
         return eventos;
     }
 }
+*/

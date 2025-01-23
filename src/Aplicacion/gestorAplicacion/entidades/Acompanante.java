@@ -1,7 +1,5 @@
 package gestorAplicacion.entidades;
 
-import gestorAplicacion.Persona;
-
 public class Acompanante extends Persona{
     
 

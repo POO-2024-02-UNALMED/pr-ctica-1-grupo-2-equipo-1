@@ -1,7 +1,6 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.torneo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Equipo {
     private int idEquipo = 0;

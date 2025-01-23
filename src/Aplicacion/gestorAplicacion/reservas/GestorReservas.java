@@ -1,9 +1,8 @@
 package gestorAplicacion.reservas;
 
-import gestorAplicacion.servicios.Factura;
+import gestorAplicacion.pagos.Factura;
 import gestorAplicacion.entidades.Enfermero;
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Instalacion;
+import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.entidades.Acompanante;
 
 

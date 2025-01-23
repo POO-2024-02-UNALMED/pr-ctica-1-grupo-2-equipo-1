@@ -3,7 +3,7 @@ package gestorAplicacion.inscripcion;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import gestorAplicacion.Persona;
+import gestorAplicacion.entidades.Persona;
 
 public class Joven extends Persona {
     public int experienciaJoven;

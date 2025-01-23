@@ -1,7 +1,7 @@
 package gestorAplicacion.entidades;
 
-import gestorAplicacion.Instalacion;
-import gestorAplicacion.Trabajador;
+import gestorAplicacion.reservas.Instalacion;
+import gestorAplicacion.inscripcion.Trabajador;
 
 public class Entrenador extends Trabajador {
 

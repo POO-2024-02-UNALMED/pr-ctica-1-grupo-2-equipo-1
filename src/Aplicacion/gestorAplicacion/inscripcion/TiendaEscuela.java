@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.inscripcion;
 /*
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package gestorAplicacion;
+package gestorAplicacion.pagos;
 
 import java.util.Scanner;
 

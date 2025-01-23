@@ -1,4 +1,4 @@
-package gestorAplicacion;
+package gestorAplicacion.entidades;
 
 //clase abstracta
 public abstract class Persona{

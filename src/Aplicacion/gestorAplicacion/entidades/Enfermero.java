@@ -1,7 +1,5 @@
 package gestorAplicacion.entidades;
 
-import gestorAplicacion.Persona;
-
 public class Enfermero extends Persona{
     private String areaAsignada;
 

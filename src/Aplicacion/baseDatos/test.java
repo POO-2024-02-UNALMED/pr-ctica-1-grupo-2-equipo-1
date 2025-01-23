@@ -1,5 +1,5 @@
 package baseDatos;
-
+/*
 import baseDatos.reserva.Deserializador;
 import gestorAplicacion.entidades.Reserva;
 
@@ -10,4 +10,4 @@ public class test {
     public static void main(String[] args) throws IOException {
        List<Reserva> reservas = Deserializador.deserializar();
     }
-}
+}*/

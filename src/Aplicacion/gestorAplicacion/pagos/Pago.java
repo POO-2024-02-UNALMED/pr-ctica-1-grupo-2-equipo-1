@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.pagos;
 
 public class Pago {
 

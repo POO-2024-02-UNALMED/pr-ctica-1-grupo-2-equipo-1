@@ -1,6 +1,6 @@
 package baseDatos.formativo;
 
-import gestorAplicacion.servicios.DeporteFormativo;
+import gestorAplicacion.inscripcion.DeporteFormativo;
 
 import java.io.FileWriter;
 import java.io.IOException;

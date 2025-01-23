@@ -1,4 +1,6 @@
-package gestorAplicacion;
+package gestorAplicacion.inscripcion;
+
+import gestorAplicacion.entidades.Persona;
 
 public abstract class Trabajador extends Persona {
 

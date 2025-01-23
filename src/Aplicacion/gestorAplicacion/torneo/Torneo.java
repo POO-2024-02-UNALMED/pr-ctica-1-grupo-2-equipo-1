@@ -1,8 +1,7 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.torneo;
 
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Instalacion;
-import gestorAplicacion.torneo.Formato;
+import gestorAplicacion.pagos.Cliente;
+import gestorAplicacion.reservas.Instalacion;
 
 import java.util.ArrayList;
 import java.util.List;

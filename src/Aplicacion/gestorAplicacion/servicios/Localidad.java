@@ -1,6 +1,6 @@
 package gestorAplicacion.servicios;
 
-import gestorAplicacion.Instalacion;
+import gestorAplicacion.reservas.Instalacion;
 
 public class Localidad {
     public Instalacion instalacionLocalidad;

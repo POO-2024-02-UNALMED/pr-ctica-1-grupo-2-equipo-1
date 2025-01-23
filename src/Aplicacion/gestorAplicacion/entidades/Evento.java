@@ -3,9 +3,8 @@ package gestorAplicacion.entidades;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Instalacion;
-import gestorAplicacion.Persona;
+import gestorAplicacion.pagos.Cliente;
+import gestorAplicacion.reservas.Instalacion;
 
 public class Evento {
     // Atributos principales

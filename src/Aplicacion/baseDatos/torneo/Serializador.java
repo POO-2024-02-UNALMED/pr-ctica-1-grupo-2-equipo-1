@@ -1,6 +1,6 @@
 package baseDatos.torneo;
 
-import gestorAplicacion.entidades.Torneo;
+import gestorAplicacion.torneo.Torneo;
 
 import java.io.FileWriter;
 import java.io.IOException;

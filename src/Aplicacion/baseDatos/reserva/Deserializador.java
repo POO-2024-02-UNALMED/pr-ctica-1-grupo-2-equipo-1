@@ -1,5 +1,5 @@
 package baseDatos.reserva;
-
+/*
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,8 +21,8 @@ public class Deserializador {
             String[] partes = linea.split("-");
             /*
             declaracion de constructores
-             */
-        }
+
         return reservas;
     }
 }
+}*/

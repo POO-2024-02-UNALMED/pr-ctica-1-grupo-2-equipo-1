@@ -1,9 +1,5 @@
 package gestorAplicacion.torneo;
 
-import gestorAplicacion.entidades.Equipo;
-
-import gestorAplicacion.entidades.Torneo;
-
 import java.util.ArrayList;
 
 import java.util.List;

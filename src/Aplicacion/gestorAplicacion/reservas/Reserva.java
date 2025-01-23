@@ -2,8 +2,7 @@ package gestorAplicacion.reservas;
 
 import java.io.Serializable;
 
-import gestorAplicacion.Cliente;
-import gestorAplicacion.Instalacion;
+import gestorAplicacion.pagos.Cliente;
 
 public class Reserva implements Serializable {
     private Cliente cliente;
