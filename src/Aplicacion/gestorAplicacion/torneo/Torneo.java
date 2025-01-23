@@ -4,7 +4,7 @@ import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.reservas.Horario;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
-
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -138,7 +138,7 @@ public class Torneo {
                     System.out.println("4. " + inst.get(3).toString());
                     System.out.println();
                     int seleccionCanchaFutbol = scanner.nextInt(); //Informacion necesaria para la reserva
-
+                    /*
                     System.out.println("Ahora se personalizaran las relgas del torneo");
                     System.out.println();
                     System.out.println("Sustituciones máximas: mínimo 2, máximo 7.\n" +
@@ -201,26 +201,23 @@ public class Torneo {
                     for (Equipo equipo : equiposParticipantesFutbol) {
                         System.out.println(equipo.getNombreEquipo());
                     }
-
+                    */
                     System.out.println();
 
                     System.out.println("Ahora, se ingresanran los arbitros - jueces para este torneo");
 
-                    boolean arbitrosValidos = false;
+                    ArrayList<String >arbitrosFutbol = new ArrayList<>();
 
-                    while(!arbitrosValidos){
-                        for (int i = 0; i < 2; i++) {
-                            System.out.println("Ingrese el nombre del aarbitro No. " + i+1 + ":");
-                            String arbitro = scanner.next();
-                            arbitros.add(arbitro);
-                        }
-                        
+                    for (int i = 0; i < 2; i++) {
+                        System.out.println("Ingrese el nombre del Arbitro - Juez No. " + i + 1 + ":");//Crear validacion en base de datos???
+                        String arbitro = scanner.next();
+                        arbitrosFutbol.add(arbitro);
                     }
 
-
+                     arbitros = arbitrosFutbol;
 
                     /*
-                    ///Logica de reservas
+                    ///Logica de reservas y agregar arbitros
                     List<Instalacion> instalaciones = crearInstalaciones();
                     if (instalaciones.isEmpty()) {
                         System.out.println("No hay instalaciones disponibles para reservas.");
@@ -261,7 +258,7 @@ public class Torneo {
                                     equiposParticipantes.get(i), equiposParticipantes.get(j));
                             System.out.println("Reserva creada: " + reserva);
                         }
-                    }*/
+                    }
 
                     int cantJugadoresFutbol = switch (seleccionCanchaFutbol) {
                         case 1, 2 -> 18;
@@ -291,7 +288,7 @@ public class Torneo {
                             System.out.println("Al jugador: " + jugador + " ;del equipo: " + equipo.getNombreEquipo() + " se le ha asignado una valoracion medica.");
                         }
                         System.out.println();
-                    }
+                    }*/
 
                     System.out.println("Ofrecemos la opción de contratar un seguro médico para todos los equipos participantes del torneo.\n" +
                             "Este seguro cubre posibles lesiones o emergencias médicas que puedan surgir durante el evento.\n" +
@@ -374,6 +371,18 @@ public class Torneo {
 
                     System.out.println();
 
+                    System.out.println("Ahora, se ingresanran los arbitros - jueces para este torneo");
+
+                    ArrayList<String >arbitrosBasket = new ArrayList<>();
+
+                    for (int i = 0; i < 2; i++) {
+                        System.out.println("Ingrese el nombre del Arbitro - Juez No. " + i + 1 + ":");//Crear validacion en base de datos???
+                        String arbitro = scanner.next();
+                        arbitrosBasket.add(arbitro);
+                    }
+
+                    arbitros = arbitrosBasket;
+
                     //Logica para reservas
 
                     int cantJugadoresBasket = 12;
@@ -426,8 +435,38 @@ public class Torneo {
 
                     int seleccionPiscina = scanner.nextInt();
 
-                    //resto de la logica
+                    ArrayList<String> reglasNatacion = new ArrayList<>();
 
+                    System.out.println("Ahora se personalizaran las reglas del torneo");
+                    System.out.println();
+                    System.out.println("Formato de competencia:\n" +
+                            "1. Relevos (2 Participantes por equipo)\n" +
+                            "2. Mejor tiempo\n" +
+                            "Para ambos formatos se realiza una reserva de dos horas, indiferente de la piscina seleccionada");
+
+                    int formatoNatacion = scanner.nextInt();
+
+                    if (formatoNatacion == 2) {
+                        reglasNatacion.add("Mejor tiempo");
+                        System.out.println("Ingrese la cantidad de intentos maximos por participante");
+                        int intentosNatacion = scanner.nextInt();
+                        reglasNatacion.add(String.valueOf(intentosNatacion));
+                        System.out.println();
+                    } else if (formatoNatacion == 1) {
+                        reglasNatacion.add("Relevos");
+                    }
+
+                    System.out.println("Las siguientes serán las reglas personalizadas para este torneo:");
+                    if (formatoNatacion == 1) {
+                        System.out.println("Formato de competencia: " +reglasNatacion.get(0));
+                    }   else if (formatoNatacion == 2) {
+                        System.out.println("Formato de competencia: " +reglasNatacion.get(0));
+                        System.out.println("Intentos maximos por competidor: " +reglasNatacion.get(1));
+                    }
+
+                    reglas = reglasNatacion;
+
+                    
                     salirTorneo = true;
                     break;
                 case 4://voleibol
