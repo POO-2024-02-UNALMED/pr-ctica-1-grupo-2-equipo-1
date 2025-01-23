@@ -18,6 +18,7 @@ public class Instalacion {
     private ArrayList<Horario> horariosDisponibles; // Lista de horarios disponibles (instancias de Horario)
     private ArrayList<String> horasOcupadas; // Lista de horas ocupadas
     private String estado; // Estado de la instalación (Disponible, Reservado, Ocupado)
+    private Horario horario;
 
     // Constructor con todos los atributos
     public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion) {
@@ -217,6 +218,9 @@ public class Instalacion {
         this.estado = estado;
     }
 
+    public Horario getHorario() {
+        return horario;
+    }
 }
 
 

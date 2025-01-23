@@ -3,13 +3,16 @@ package gestorAplicacion.reservas;
 import java.io.Serializable;
 
 import gestorAplicacion.pagos.Cliente;
+import gestorAplicacion.torneo.Equipo;
 
 public class Reserva implements Serializable {
     private Cliente cliente;
     private Instalacion instalacion;
     private String horaReservada; // La hora reservada
     private Horario horario; // El horario asociado a la instalación
-    private String estado; // Estado de la reserva (por defecto "Activa")
+    private String estado;// Estado de la reserva (por defecto "Activa")
+    private Equipo equipo1;
+    private Equipo equipo2;
 
     public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario) {
         this.cliente = cliente;
@@ -27,6 +30,16 @@ public class Reserva implements Serializable {
         this.horario = horario;
         this.estado = estado;
     }
+
+    //Constructor para Torneos
+    public Reserva(Instalacion instalacion, Horario horario, String horaReservada, Equipo equipo1, Equipo equipo2) {
+        this.instalacion = instalacion;
+        this.horario = horario;
+        this.horaReservada = horaReservada;
+        this.equipo1 = equipo1;
+        this.equipo2 = equipo2;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }

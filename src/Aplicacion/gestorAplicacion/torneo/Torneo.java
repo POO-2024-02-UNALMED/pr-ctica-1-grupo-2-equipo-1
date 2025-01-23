@@ -1,7 +1,9 @@
 package gestorAplicacion.torneo;
 
 import gestorAplicacion.pagos.Cliente;
+import gestorAplicacion.reservas.Horario;
 import gestorAplicacion.reservas.Instalacion;
+import gestorAplicacion.reservas.Reserva;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,9 @@ public class Torneo {
     public boolean ventaBoletasTorneo = false;
     public ArrayList<String> partidos;
     public static ArrayList<String> reglas;
+    private List<Reserva> reservas = new ArrayList<>();
 
-    public Torneo(String deporte,List<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
+    public Torneo(String deporte, List<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
         this.deporte = deporte;
         this.equiposParticipantes = equiposParticipantes;
         this.seguroMedico = seguroMedico;
@@ -100,6 +103,7 @@ public class Torneo {
         System.out.println("Ingrese su ID");
         int idCliente = new Scanner(System.in).nextInt();
         String idClienteString = String.valueOf(idCliente);
+        System.out.println();
 
         Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idClienteString);
 
@@ -111,6 +115,7 @@ public class Torneo {
         System.out.println("3. Natacion");
         System.out.println("4. Voleibol");
         System.out.println("5. Salir");
+        System.out.println();
 
 
         //Agregar codigo para detectar si el clietne esta suscrito
@@ -124,33 +129,27 @@ public class Torneo {
                 case 1://futbol
                     System.out.println("Seleccione la cancha en la que desea realizar el torneo");
                     System.out.println("Existe la opción de que al escoger una cancha de Futbol 11, se puedan seleccionar ambas");
+                    System.out.println();
                     System.out.println("Instalaciones deisponibles");
-                    System.out.println(inst.getFirst().toString());
-                    System.out.println(inst.get(1).toString()); //Arregalar un dia
-                    System.out.println(inst.get(2).toString()); //Arregalar un dia
-                    System.out.println(inst.get(3).toString()); //Arregalar un dia
-
-                    int selccionanchaFutbol = scanner.nextInt(); //Informacion necesaria para la reserva
-
-                    if (selccionanchaFutbol == 1) {
-                        System.out.println("Desea usar ambas canchas de Futbol 11? (true/false)");
-                        boolean ambasCanchas = scanner.nextBoolean();
-                        if (ambasCanchas) {
-                            System.out.println("Se han seleccionado ambas canchas de Futbol 11");
-                            //Agregar logica para la doble reserva
-                        }
-                    }
-
+                    System.out.println();
+                    System.out.println("1. " + inst.getFirst().toString());
+                    System.out.println("2. " + inst.get(1).toString());
+                    System.out.println("3. " + inst.get(2).toString());
+                    System.out.println("4. " + inst.get(3).toString());
+                    System.out.println();
+                    int seleccionCanchaFutbol = scanner.nextInt(); //Informacion necesaria para la reserva
 
                     System.out.println("Ahora se personalizaran las relgas del torneo");
+                    System.out.println();
                     System.out.println("Sustituciones máximas: mínimo 2, máximo 7.\n" +
                             "Duración del partido: 30 o 90 minutos (Se agregarán 30 minutos más a la reserva).\n" +
                             "Criterios de desempate: Goles a favor (GF), Goles en contra (GC) o Sorteo.\n" +
                             "En este caso deberán ser ingresados en orden de prioridad. Además, despúes de sorteo no podrán ir más criterios de desempate.");
-
+                    System.out.println();
                     System.out.println("Ingrese la cantidad de susticiones máximas.");
 
                     int Sustituciones = scanner.nextInt();
+                    System.out.println();
 
                     ArrayList<String> reglasFutbol = new ArrayList<>();
 
@@ -162,6 +161,7 @@ public class Torneo {
 
                     System.out.println("Ingrese la duración del partido.");
                     int duracionFutbol = scanner.nextInt();
+                    System.out.println();
                     if ((duracionFutbol < 30) || (duracionFutbol > 90)) {
                         break;
                     } else {
@@ -175,14 +175,19 @@ public class Torneo {
                         String Criterio = scanner.next();
                         Criterios.add(Criterio);
                     }
+                    System.out.println();
+
                     System.out.println("Las siguientes serán las reglas personalizadas para este torneo:"); //ARREGLAR - Puede genrar un error si se pone sorteo como una opcion distinta a la ultima
                     System.out.println("Sustituciones máximas:" + reglasFutbol.getFirst()); //
                     System.out.println("Duración del partido:" + reglasFutbol.get(1));
                     System.out.println("Criterios de desempate:" + Criterios);
+                    System.out.println();
 
                     reglas = reglasFutbol;
 
+
                     System.out.println("Ahora, se ingresaran los nombres de los equipos participantes.");
+                    System.out.println();
 
                     List<Equipo> equiposParticipantes = new ArrayList<>();
 
@@ -190,7 +195,7 @@ public class Torneo {
                         System.out.println("Ingrese el nombre del equipo No. " + i + ":");
                         String nombreEquipo = scanner.next();
                         equiposParticipantes.add(new Equipo(nombreEquipo));
-
+                        System.out.println();
                     }
 
                     System.out.println("Los equipos inscritos en el torneo son:");
@@ -198,7 +203,53 @@ public class Torneo {
                         System.out.println(equipo.getNombreEquipo());
                     }
 
-                    int cantJugadores = switch (selccionanchaFutbol) {
+                    System.out.println();
+
+                    ///Logica de reservas
+                    List<Instalacion> instalaciones = crearInstalaciones();
+                    if (instalaciones.isEmpty()) {
+                        System.out.println("No hay instalaciones disponibles para reservas.");
+                        return;
+                    }
+
+                    System.out.println("Creando reservas para el torneo de Futbol...");
+
+                    for (int i = 0; i < equiposParticipantes.size() - 1; i++) {
+                        for (int j = i + 1; j < equiposParticipantes.size(); j++) {
+                            System.out.println("Seleccione un horario para el partido entre " +
+                                    equiposParticipantes.get(i).getNombreEquipo() + " y " +
+                                    equiposParticipantes.get(j).getNombreEquipo());
+
+                            //int seleccionInstalacion = scanner.nextInt();
+                            Instalacion instalacionSeleccionada = instalaciones.get(seleccionCanchaFutbol - 1);
+
+                            System.out.println("Instalación seleccionada: " + instalacionSeleccionada.getNombre());
+
+                            Horario horario = instalacionSeleccionada.getHorario(); // Obtener el horario de la instalación
+                            System.out.println("Horario disponible: ");
+                            System.out.println(horario);
+
+                            System.out.println("Seleccione una hora de las disponibles:");
+                            for (int k = 0; k < horario.getHorasDisponibles().size(); k++) {
+                                System.out.println((k + 1) + ". " + horario.getHorasDisponibles().get(k) +
+                                        " (" + horario.getCuposDisponibles().get(k) + " cupos disponibles)");
+                            }
+                            int seleccionHora = scanner.nextInt();
+                            String horaReservada = horario.getHorasDisponibles().get(seleccionHora - 1);
+
+                            // Reducir el cupo disponible para la hora seleccionada
+                            List<Integer> cupos = horario.getCuposDisponibles();
+                            cupos.set(seleccionHora - 1, cupos.get(seleccionHora - 1) - 1);
+
+                            // Crear la reserva
+                            Reserva reserva = new Reserva(instalacionSeleccionada, horario, horaReservada,
+                                    equiposParticipantes.get(i), equiposParticipantes.get(j));
+                            System.out.println("Reserva creada: " + reserva);
+                        }
+                    }
+
+
+                    int cantJugadores = switch (seleccionCanchaFutbol) {
                         case 1, 2 -> 18;
                         case 3 -> 16;
                         case 4 -> 14;
@@ -207,58 +258,83 @@ public class Torneo {
 
 
                     System.out.println("Ingrese los nombres de los jugadores por equipo");
+                    System.out.println();
                     for (int i = 0; i < equiposParticipantes.size(); i++) {
                         System.out.println("Los jugadores del equipo " + i + 1 + " son:");
+                        System.out.println();
                         for (int j = 0; j < cantJugadores; j++) {
                             System.out.println("Ingrese el nombre del jugador del equipo " + i + 1 + " No. " + j + 1 + ":");
                             String nombreJugador = scanner.next();
                             equiposParticipantes.get(i).setJugadores(nombreJugador);
                         }
+                        System.out.println();
                     }
 
+                    for (int i = 0; i < equiposParticipantes.size(); i++) {
+                        Equipo equipo = equiposParticipantes.get(i);
+                        for (int j = 0; j < equipo.getJugadores().size(); j++) {
+                            String jugador = equipo.getJugadores().get(j);
+                            System.out.println("Al jugador: " + jugador + " ;del equipo: " + equipo.getNombreEquipo() + " se le ha asignado una valoracion medica.");
+                        }
+                        System.out.println();
+                    }
 
-                    salirTorneo = true;
-                    break;
+                        System.out.println("Ofrecemos la opción de contratar un seguro médico para todos los equipos participantes del torneo.\n" +
+                                "Este seguro cubre posibles lesiones o emergencias médicas que puedan surgir durante el evento.\n" +
+                                "El costo adicional es de [monto del seguro] por equipo.");
+                        System.out.println("El cliente desea adquirir el seguro? (si/no)");
+                        scanner.nextLine();
+                        String seguro = scanner.nextLine();
 
+                        if (seguro.equals("si")) {
+                            System.out.println("El seguro ha sido adquirido y se valor se va a ver reflejado en el costo final");
+                        } else if (seguro.equals("no")) {
+                            System.out.println("Al no optar por el seguro médico ofrecido, los equipos y sus representantes aceptan asumir toda la responsabilidad por posibles lesiones o emergencias médicas que puedan ocurrir durante el torneo.\n" +
+                                    "La organización no será responsable por ningún gasto médico ni relacionado con este tipo de eventualidades.");
+                        }
 
-                case 2://basket
-                    ArrayList<String> reglasBasket = new ArrayList<>();
-
-                    System.out.println("Duración del partido: 4 períodos de 10 minutos (FIBA) o 12 minutos (NBA).\n" +
-                            "Tiempos fuera por periodo: máximo 3");
-
-                    System.out.println("Ingrese la duración del partido.");
-                    int duracionBaloncesto = scanner.nextInt();
-                    if ((duracionBaloncesto < 10) || (duracionBaloncesto > 12)) {
+                        salirTorneo = true;
                         break;
-                    } else {
-                        reglasBasket.add(Integer.toString(duracionBaloncesto));
+
+
+                        case 2://basket
+                            ArrayList<String> reglasBasket = new ArrayList<>();
+
+                            System.out.println("Duración del partido: 4 períodos de 10 minutos (FIBA) o 12 minutos (NBA).\n" +
+                                    "Tiempos fuera por periodo: máximo 3");
+
+                            System.out.println("Ingrese la duración del partido.");
+                            int duracionBaloncesto = scanner.nextInt();
+                            if ((duracionBaloncesto < 10) || (duracionBaloncesto > 12)) {
+                                break;
+                            } else {
+                                reglasBasket.add(Integer.toString(duracionBaloncesto));
+                            }
+
+                            System.out.println("Ingrese la cantidad de cambios permitidos por periodo");
+                            int cambios = scanner.nextInt();
+                            if ((cambios < 0) || (cambios > 3)) {
+                                break;
+                            } else {
+                                reglasBasket.add(Integer.toString(cambios));
+                            }
+
+                            System.out.println("");//Agregar prints de las reglas, etc
+
+                            reglas = reglasBasket;
+
+                            salirTorneo = true;
+                            break;
+                        case 3://natacion
+                            ArrayList<String> reglasNatacion = new ArrayList<>();
+                            break;
+                        case 4://voleibol
+                            break;
+                        case 5://salir
+                            break;
+                        default:
+                            System.out.println("Seleccione una opcion valide. Del 1 al 5");
                     }
-
-                    System.out.println("Ingrese la cantidad de cambios permitidos por periodo");
-                    int cambios = scanner.nextInt();
-                    if ((cambios < 0) || (cambios > 3)) {
-                        break;
-                    } else {
-                        reglasBasket.add(Integer.toString(cambios));
-                    }
-
-                    System.out.println("");//Agregar prints de las reglas, etc
-
-                    reglas = reglasBasket;
-
-                    salirTorneo = true;
-                    break;
-                case 3://natacion
-                    ArrayList<String> reglasNatacion = new ArrayList<>();
-                    break;
-                case 4://voleibol
-                    break;
-                case 5://salir
-                    break;
-                default:
-                    System.out.println("Seleccione una opcion valide. Del 1 al 5");
             }
         }
     }
-}

@@ -11,6 +11,7 @@ public class Equipo {
     public Equipo( String nombreEquipo) {
         this.idEquipo++;
         this.nombreEquipo = nombreEquipo;
+        this.jugadores = new ArrayList<>();
     }
 
     public String getNombreEquipo() {
