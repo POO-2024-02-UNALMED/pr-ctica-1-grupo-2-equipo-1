@@ -12,7 +12,6 @@ public class Torneo {
     public static ArrayList<Torneo> torneos;
     private int idTorneo = 0;
     public String deporte;
-    private Formato formato;
     private List<Equipo> equiposParticipantes;
     private String seguroMedico;
     public float costoSeguroMedico;
@@ -21,9 +20,8 @@ public class Torneo {
     public ArrayList<String> partidos;
     public static ArrayList<String> reglas;
 
-    public Torneo(String deporte, Formato formato, List<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
+    public Torneo(String deporte,List<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
         this.deporte = deporte;
-        this.formato = formato;
         this.equiposParticipantes = equiposParticipantes;
         this.seguroMedico = seguroMedico;
         this.precioTotal = precioTotal;
