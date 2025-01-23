@@ -49,15 +49,6 @@ public class Pago {
         this.estadoPago = estadoPago;
     }
 
-    /**
-     * Valida manualmente si el pago se completó exitosamente.
-     * return true si la validación es exitosa, false de lo contrario.
-     */
-    public boolean validarPago() {
-        System.out.println("Validando el pago...");
-        return true; // Por defecto, se asume exitoso
-    }
-
     @Override
     public String toString() {
         return "Pago{" +

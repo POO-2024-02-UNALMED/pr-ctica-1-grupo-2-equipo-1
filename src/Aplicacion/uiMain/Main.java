@@ -19,7 +19,7 @@ import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Acompanante;
 import gestorAplicacion.entidades.Enfermero;
 import gestorAplicacion.torneo.Torneo;
-import gestorAplicacion.reservas.GestorReservas;
+//import gestorAplicacion.reservas.GestorReservas;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,7 +34,7 @@ public class Main {
         ArrayList<Instalacion> instalaciones = crearInstalaciones();
 
         // Llamar a asignarHorarios para asignar horarios a las instalaciones
-        GestorReservas.asignarHorarios(instalaciones);
+        //GestorReservas.asignarHorarios(instalaciones);
 
         // Crear enfermeros y acompañantes por defecto
         ArrayList<Enfermero> enfermeros = crearEnfermeros();
@@ -59,11 +59,11 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    realizarReservas(scanner, instalaciones, enfermeros, acompanantes);
+                    //realizarReservas(scanner, instalaciones, enfermeros, acompanantes);
                     break;
 
                 case 2:
-                    realizarInscripciones(scanner);
+                    //realizarInscripciones(scanner);
                     break;
 
                 case 3:
@@ -71,11 +71,11 @@ public class Main {
                     break;
 
                 case 4:
-                    crearEventos(scanner);
+                    //crearEventos(scanner);
                     break;
 
                 case 5:
-                    gestionarTaquilla(scanner);
+                    uiPagos.principalPagos();
                     break;
 
                 case 6:
@@ -115,25 +115,26 @@ public class Main {
         return instalaciones;
     }
 
-    
+
     private static ArrayList<Enfermero> crearEnfermeros() {
-            ArrayList<Enfermero> enfermeros = new ArrayList<>();
-            enfermeros.add(new Enfermero("Carlos", "Gomez", 35, "Emergencias"));
-            enfermeros.add(new Enfermero("Ana", "Rodriguez", 40, "Urgencias"));
-            enfermeros.add(new Enfermero("Lucia", "Perez", 28, "Pediatría"));
-            return enfermeros;
-        }
-    
-        private static ArrayList<Acompanante> crearAcompanantes() {
-            ArrayList<Acompanante> acompanantes = new ArrayList<>();
-            acompanantes.add(new Acompanante("Pedro", "Lopez", 30, true));
-            acompanantes.add(new Acompanante("María", "Diaz", 25, true));
-            acompanantes.add(new Acompanante("Luis", "Martinez", 32, true));
-            return acompanantes;
-        }
+        ArrayList<Enfermero> enfermeros = new ArrayList<>();
+        enfermeros.add(new Enfermero("Carlos", "Gomez", 35, "Emergencias"));
+        enfermeros.add(new Enfermero("Ana", "Rodriguez", 40, "Urgencias"));
+        enfermeros.add(new Enfermero("Lucia", "Perez", 28, "Pediatría"));
+        return enfermeros;
+    }
+
+    private static ArrayList<Acompanante> crearAcompanantes() {
+        ArrayList<Acompanante> acompanantes = new ArrayList<>();
+        acompanantes.add(new Acompanante("Pedro", "Lopez", 30, true));
+        acompanantes.add(new Acompanante("María", "Diaz", 25, true));
+        acompanantes.add(new Acompanante("Luis", "Martinez", 32, true));
+        return acompanantes;
+    }
+
     
 //Logica Realizar Reservas-------------
-    private static void realizarReservas(Scanner scanner, ArrayList<Instalacion> instalaciones, ArrayList<Enfermero> enfermeros, ArrayList<Acompanante> acompanantes) {
+    /*private static void realizarReservas(Scanner scanner, ArrayList<Instalacion> instalaciones, ArrayList<Enfermero> enfermeros, ArrayList<Acompanante> acompanantes) {
         boolean salirReserva = false;
 
         while (!salirReserva) {
@@ -170,9 +171,5 @@ public class Main {
 
     private static void crearEventos(Scanner scanner) {
         // Implementación del método para crear eventos (conciertos)
-    }
-
-    private static void gestionarTaquilla(Scanner scanner) {
-        // Implementación del método para gestionar la taquilla
-    }
+    }*/
 }

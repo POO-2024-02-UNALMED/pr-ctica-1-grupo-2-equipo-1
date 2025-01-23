@@ -1,5 +1,6 @@
 package gestorAplicacion.reservas;
 
+/*
 import gestorAplicacion.pagos.Factura;
 import gestorAplicacion.entidades.Enfermero;
 import gestorAplicacion.pagos.Cliente;
@@ -181,7 +182,7 @@ public class GestorReservas {
 
     public static void crearReserva(Scanner scanner, ArrayList<Instalacion> instalaciones, ArrayList<Enfermero> enfermeros, ArrayList<Acompanante> acompanantes) {
         System.out.println("\n--- Crear Reserva ---");
-        Cliente cliente = Cliente.solicitarDatosCliente(scanner);
+        //Cliente cliente = Cliente.solicitarDatosCliente(scanner);
 
         ArrayList<Instalacion> instalacionesDisponibles = filtrarInstalaciones(instalaciones, cliente);
 
@@ -396,3 +397,5 @@ public class GestorReservas {
 
  
 }
+
+ */

@@ -69,46 +69,6 @@ public class Boleta {
         this.estado = estado;
     }
 
-    // Métodos
-
-    /**
-     * Genera una boleta con los detalles del evento y la asocia a un cliente.
-     * tipoEvento Tipo de evento (Concierto, Partido, etc.)
-     * formato Formato de la boleta (Física o Virtual)
-     * precio Precio de la boleta
-     * Una nueva instancia de Boleta
-     */
-    public static Boleta generarBoleta(String tipoEvento, String formato, double precio) {
-        String idBoleta = generarIdUnico(tipoEvento);
-        return new Boleta(idBoleta, tipoEvento, formato, precio);
-    }
-
-    /**
-     * Transfiere la boleta a un nuevo propietario.
-     * nuevoPropietario Nombre del nuevo propietario
-     * return true si la transferencia es exitosa, false en caso contrario
-     */
-    public boolean transferirBoleta(String nuevoPropietario) {
-        if (estado.equals("Pagada")) {
-            transferencias++;
-            System.out.println("La boleta ha sido transferida a: " + nuevoPropietario);
-            return true;
-        } else {
-            System.out.println("La boleta no puede ser transferida. Estado actual: " + estado);
-            return false;
-        }
-    }
-
-    /**
-     * Genera un ID único para la boleta.
-     * tipoEvento Tipo de evento para el cual se genera la boleta
-     * return ID único de la boleta
-     */
-    private static String generarIdUnico(String tipoEvento) {
-        return tipoEvento.substring(0, 3).toUpperCase() + "-" + System.currentTimeMillis();
-    }
-
-    // Método para mostrar los detalles de la boleta
     @Override
     public String toString() {
         return "Boleta{" +
