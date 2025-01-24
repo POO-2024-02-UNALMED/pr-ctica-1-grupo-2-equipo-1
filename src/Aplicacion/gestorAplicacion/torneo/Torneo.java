@@ -1,30 +1,29 @@
 package gestorAplicacion.torneo;
 
-import gestorAplicacion.pagos.Cliente;
-import gestorAplicacion.reservas.Horario;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
-import java.util.Random;
+import uiMain.Main;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 import static uiMain.Main.crearInstalaciones;
 
 public class Torneo {
     public static ArrayList<Torneo> torneos;
     private int idTorneo = 0;
     public String deporte;
-    private List<Equipo> equiposParticipantes;
+    private ArrayList<Equipo> equiposParticipantes;
     private String seguroMedico;
     public float costoSeguroMedico;
     public double precioTotal;
+    public Instalacion instalacion;
     public boolean ventaBoletasTorneo = false;
     public ArrayList<String> partidos;
-    public static ArrayList<String> reglas;
+    public ArrayList<String> reglas;
     private List<Reserva> reservas = new ArrayList<>();
     private ArrayList<String> arbitros = new ArrayList<>();
 
-    public Torneo(String deporte, List<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
+    public Torneo(String deporte, ArrayList<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
         this.deporte = deporte;
         this.equiposParticipantes = equiposParticipantes;
         this.seguroMedico = seguroMedico;
@@ -35,7 +34,117 @@ public class Torneo {
         this.idTorneo = idTorneo;
     }
 
-    public void asignarEquipos(List<Equipo> equipos) {
+    public Torneo() {
+    }
+
+    public void setDeporte(int num) {
+        if (num == 1) {
+            this.deporte = "Futbol";
+        } else if (num == 2) {
+            this.deporte = "Baloncesto";
+        } else if (num == 3) {
+            this.deporte = "Natacion";
+        } else {
+            this.deporte = "Voleibol";
+        }
+    }
+
+    public String getDeporte(){
+        return this.deporte;
+    }
+
+    ArrayList<Instalacion> inst = crearInstalaciones();//Se puede mover de esta calse si es necesario
+
+
+    public ArrayList<Instalacion> getInstalaciones(int num) {
+        ArrayList<Instalacion> instalaciones = new ArrayList<>();//Arreglar???
+
+        if (num == 1) {
+            instalaciones.add(inst.get(0));
+            instalaciones.add(inst.get(1));
+            instalaciones.add(inst.get(2));
+            instalaciones.add(inst.get(3));
+        } else if (num == 2) {
+            instalaciones.add(inst.get(4));
+            instalaciones.add(inst.get(5));
+            instalaciones.add(inst.get(6));
+        } else if (num == 3) {
+            instalaciones.add(inst.get(10));
+            instalaciones.add(inst.get(11));
+        } else if (num == 4) {
+            instalaciones.add(inst.get(7));
+            instalaciones.add(inst.get(8));
+            instalaciones.add(inst.get(9));
+        }
+        return instalaciones;
+    }
+
+    public void setInstalacion(int instalacion) {
+        if (this.deporte.equals("Futbol")){
+            if (instalacion == 1) {
+                this.instalacion = inst.get(0);
+            } else if (instalacion == 2) {
+                this.instalacion = inst.get(1);
+            } else if (instalacion == 3) {
+                this.instalacion = inst.get(2);
+            } else if (instalacion == 4) {
+                this.instalacion = inst.get(3);
+            }
+        } else if (this.deporte.equals("Baloncesto")){
+            if (instalacion == 1) {
+                this.instalacion = inst.get(4);
+            } else if (instalacion == 2) {
+                this.instalacion = inst.get(5);
+            } else if (instalacion == 3) {
+                this.instalacion = inst.get(6);
+            }
+        } else if (this.deporte.equals("Natacion")){
+            if (instalacion == 1) {
+                this.instalacion = inst.get(10);
+            } else if (instalacion == 2) {
+                this.instalacion = inst.get(11);
+            }
+        } else if (this.deporte.equals("Voleibol")){
+            if (instalacion == 1) {
+                this.instalacion = inst.get(7);
+            } else if (instalacion == 2) {
+                this.instalacion = inst.get(8);
+            } else if (instalacion == 3) {
+                this.instalacion = inst.get(9);
+            }
+        }
+    }
+
+    public Instalacion getInstalacion(){
+        return this.instalacion;
+    }
+
+    public void setReglas(ArrayList<String> reglas) {
+        this.reglas = reglas;
+    }
+
+    public ArrayList<String> getReglas() {
+        return this.reglas;
+    }
+
+    public void setEquiposParticipantes(ArrayList<Equipo> equiposParticipantes) {
+        this.equiposParticipantes = equiposParticipantes;
+    }
+
+    public ArrayList<Equipo> getEquiposParticipantes(){
+        return this.equiposParticipantes;
+    }
+
+
+
+
+
+
+    public void setEquiposParticipantes() {
+        this.equiposParticipantes = equiposParticipantes;
+    }
+
+    public void asignarEquipos(ArrayList<Equipo> equipos) {
         this.equiposParticipantes = equipos;
     }
 
@@ -67,30 +176,19 @@ public class Torneo {
         this.idTorneo = idTorneo;
     }
 
-    public String getDeporte() {
-        return deporte;
-    }
 
-    public void setDeporte(String deporte) {
-        this.deporte = deporte;
-    }
 
-    public List<Equipo> getEquiposParticipantes() {
-        return equiposParticipantes;
-    }
 
-    public void setEquiposParticipantes(List<Equipo> equiposParticipantes) {
-        this.equiposParticipantes = equiposParticipantes;
-    }
 
-    public String getSeguroMedico() {
-        return seguroMedico;
-    }
+}
 
-    public void setSeguroMedico(String seguroMedico) {
-        this.seguroMedico = seguroMedico;
-    }
 
+
+    //public void setDeporte(int number){}
+
+
+
+/*
     public void crearTorneos() {
         boolean salirTorneo = false;
 
@@ -102,11 +200,10 @@ public class Torneo {
         System.out.println("Ingrese su edad");
         int edadCliente = new Scanner(System.in).nextInt();
         System.out.println("Ingrese su ID");
-        int idCliente = new Scanner(System.in).nextInt();
-        String idClienteString = String.valueOf(idCliente);
-        System.out.println();
+        int idCliente = new Scanner(System.in).nextInt();;
+        System.out.println();// BOrrar
 
-        //Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idClienteString);
+        Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idCliente);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -121,6 +218,8 @@ public class Torneo {
 
         //Agregar codigo para detectar si el clietne esta suscrito
 
+
+        }
         int deporteTorneo = scanner.nextInt();
 
         ArrayList<Instalacion> inst = crearInstalaciones();
@@ -128,6 +227,7 @@ public class Torneo {
         while (!salirTorneo) {
             switch (deporteTorneo) {
                 case 1://futbol
+
                     System.out.println("Seleccione la cancha en la que desea realizar el torneo");
                     System.out.println();
                     System.out.println("Instalaciones deisponibles");
@@ -201,7 +301,7 @@ public class Torneo {
                     for (Equipo equipo : equiposParticipantesFutbol) {
                         System.out.println(equipo.getNombreEquipo());
                     }
-                    */
+
                     System.out.println();
 
                     System.out.println("Ahora, se ingresanran los arbitros - jueces para este torneo");
@@ -216,7 +316,7 @@ public class Torneo {
 
                      arbitros = arbitrosFutbol;
 
-                    /*
+
                     ///Logica de reservas y agregar arbitros
                     List<Instalacion> instalaciones = crearInstalaciones();
                     if (instalaciones.isEmpty()) {
@@ -288,7 +388,7 @@ public class Torneo {
                             System.out.println("Al jugador: " + jugador + " ;del equipo: " + equipo.getNombreEquipo() + " se le ha asignado una valoracion medica.");
                         }
                         System.out.println();
-                    }*/
+                    }
 
                     System.out.println("Ofrecemos la opción de contratar un seguro médico para todos los equipos participantes del torneo.\n" +
                             "Este seguro cubre posibles lesiones o emergencias médicas que puedan surgir durante el evento.\n" +
@@ -479,4 +579,4 @@ public class Torneo {
 
         }
     }
-}
+}*/

@@ -10,6 +10,11 @@ public class Cliente extends Persona {
     private Suscripcion suscripcion;
     private int ID;
 
+    public Cliente(String nombre, String apellido, int edad, int id){//No borrar, necesario para torneo
+        super(nombre, apellido, edad);
+        this.ID = id;
+    }
+
     public Cliente(String nombre, String apellido, int edad) {
         super(nombre, apellido, edad);
         Random idGen = new Random();
