@@ -8,7 +8,7 @@ import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.torneo.Equipo;
 
 public class Reserva implements Serializable {
-    public static ArrayList<Reserva> listaReservas;
+    private static ArrayList<Reserva> listaReservas;
     private int ID;
     private Cliente cliente;
     private Instalacion instalacion;
@@ -51,9 +51,11 @@ public class Reserva implements Serializable {
     }
 
     public static Reserva buscarReserva(int ID){
-        for (Reserva reserva: Reserva.listaReservas){
-            if(reserva.ID == ID){
-                return reserva;
+        if(listaReservas != null){
+            for (Reserva reserva: listaReservas){
+                if(reserva.ID == ID){
+                    return reserva;
+                }
             }
         }
         return null;

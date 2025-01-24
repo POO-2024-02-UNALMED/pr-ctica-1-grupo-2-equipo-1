@@ -15,14 +15,20 @@ NO CAMBIAR SIN PREGUNTAR PRECAUCION
 
 package uiMain;
 
+import gestorAplicacion.pagos.Boleta;
 import gestorAplicacion.pagos.Cliente;
+import gestorAplicacion.pagos.Suscripcion;
+import gestorAplicacion.pagos.TipoSuscripcion;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Acompanante;
 import gestorAplicacion.entidades.Enfermero;
+import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
 //import gestorAplicacion.reservas.GestorReservas;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,8 +45,6 @@ public class Main {
         //GestorReservas.asignarHorarios(instalaciones);
 
         // Crear enfermeros y acompañantes por defecto
-        ArrayList<Enfermero> enfermeros = crearEnfermeros();
-        ArrayList<Acompanante> acompanantes = crearAcompanantes();
 
         Torneo torneoBase = new Torneo(9999);
 
@@ -78,7 +82,7 @@ public class Main {
                     break;
 
                 case 5:
-                    uiPagos.principalPagos();
+                    pagosUI();
                     break;
 
                 case 6:
@@ -92,6 +96,153 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    //Interfaz via consola de pagos, compra de boletos y renovacion de suscripcion
+    public static void pagosUI(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bienvenido al programa de pagos \nPor favor elegir alguna de estas opciones");
+
+        boolean corriendo = true;
+        do{
+            System.out.println("1: Pago via ID\n2: Pago boleta de evento\n3: Administrar Suscripcion\n4: Salir de pagos");
+            int opcionPagoID = scanner.nextInt();
+            switch (opcionPagoID){
+                ///////////////////////PAGO VIA ID///////////////////////////////
+                case 1:
+                    System.out.println("-----Pago Reserva------");
+                    System.out.println("Ingrese el ID de la reserva: ");
+                    int idIngresado = scanner.nextInt();
+                    Reserva reserva = Reserva.buscarReserva(idIngresado);
+                    int totalPago = 10000;
+                    if(reserva != null){
+                        Cliente cliente = reserva.getCliente();
+                        System.out.println("Reserva encontrada");
+                        System.out.println("En nombre de: " + cliente.getNombre() + " " + cliente.getApellido());
+                        System.out.println("Total a pagar: " + totalPago);
+                        System.out.println("Desea realizar el pago?\n1:Si\n2:No");
+                        int opcion = scanner.nextInt();
+                        if(opcion == 1){
+                            System.out.println("Ingrese el monto a pagar: ");
+                            int montoIngresado = scanner.nextInt();
+                            System.out.println("Felicitaciones por su pago");
+                            System.out.println("ID: "+reserva.getID());
+                            System.out.println("Nombre: " + cliente.getNombre() + " " + cliente.getApellido());
+                            System.out.println("Total: "+ totalPago);
+                            System.out.println("Monto dado: "+ montoIngresado);
+                            System.out.println("Vuelto" + (montoIngresado - totalPago));
+                            System.out.println("Gracias por elegirnos");
+                            corriendo = false;
+                        }else if(opcion == 2){
+                            System.out.println("Gracias vuelva pronto");
+                            corriendo = false;
+                        }else{
+                            System.out.println("Opcion no disponible,eliga otra opcion");
+                        }
+                    }else{
+                        System.out.println("Reserva no encontrada porfavor ingresar un ID correcto");
+                    }
+                    break;
+                    ////////////////PAGO BOLETAS//////////////////////////////
+                case 2:
+                    System.out.println("-----Pago Boleta-----");
+                    System.out.println("Ingrese el ID de la boleta");
+                    int idBoleta = scanner.nextInt();
+                    Boleta boleta = Boleta.buscarBoleta(idBoleta);
+
+                    if(boleta != null){
+                        if(boleta.isPagada()){
+                            System.out.println("Boleta encontrada \n"+boleta);
+                            System.out.println("Desea realizar el pago?\n1: Si\n2: No");
+                            int opcionPago = scanner.nextInt();
+                            if(opcionPago == 1){
+                                System.out.println("Ingrese el monto a pagar:");
+                                int montoIngresado = scanner.nextInt();
+                                System.out.println("Felicidades, boleta pagada \n"+boleta+"Total: "+boleta.getPrecio()+"\nonto ingresado: "+montoIngresado+"\n Vuelto: "+(montoIngresado-boleta.getPrecio()));
+                                boleta.setPagada(true);
+                                corriendo = false;
+                            }else if(opcionPago == 2){
+                                System.out.println("Gracias vuelva pronto");
+                                corriendo = false;
+                            }else{
+                                System.out.println("Opcion no disponible,escoga una opcion valida");
+                            }
+                        }else{
+                            System.out.println("Su boleta ya se encuentra pagada");
+                        }
+                    }else{
+                        System.out.println("Boleta no encontrada");
+                    }
+                    break;
+                    ///////////////////////////SUSCRIPCIONES//////////////////////////////////////7
+                case 3:
+                    System.out.println("-----Administracion Suscripcion-----");
+                    System.out.println("1: Renovar Suscripcion\n2: Suscribirse al programa\n3: Salir");
+                    int opcionSuscripcion = scanner.nextInt();
+                    if(opcionSuscripcion == 1){
+                        System.out.println("--Renovacion Suscripcion--");
+                        System.out.println("Ingrese el ID de su cliente: ");
+                        int idCliente = scanner.nextInt();
+                        Cliente cliente = Cliente.obtenerCliente(idCliente);
+                        if(cliente != null){
+                            Suscripcion suscripcion= cliente.getSuscripcion();
+                            System.out.println(cliente);
+                            if(suscripcion.getTipoSuscripcion() == TipoSuscripcion.NONE){
+                                System.out.println("Usted no posee suscripcion por favor crearla");
+                            }else{
+                                System.out.println("Su suscripcion vence el: " + suscripcion.getFinSuscripcion());
+                                System.out.println("Monto a pagar: " + suscripcion.getTipoSuscripcion().getPrecio());
+                                System.out.println("Proceder con el renovamiento? \n1: Si\n2: No");
+                                int opcionRenovamiento = scanner.nextInt();
+                                if(opcionRenovamiento == 1){
+                                    System.out.println("Felicidades haz renovado tu suscripcion hasta el: "+ LocalDateTime.now().plusMonths(1));
+                                    suscripcion.setFinSuscripcion(LocalDate.now().plusMonths(1));
+                                    corriendo = false;
+                                }else if(opcionRenovamiento == 2){
+                                    System.out.println("Gracias, vuelva pronto");
+                                    corriendo = false;
+                                }else{
+                                    System.out.println("Opcion no disponible,ingrese una opcion correcta");
+                                }
+                            }
+                        }
+                    }else if(opcionSuscripcion == 2){
+                        System.out.println("Ingrese el ID de su cliente: ");
+                        int idCliente = scanner.nextInt();
+                        Cliente cliente = Cliente.obtenerCliente(idCliente);
+                        if(cliente != null){
+                            System.out.println("--Realizar Suscripcion--");
+                            System.out.println("Eliga una entre estas suscripciones: \n1: Rookie\n2: Pro Player\n3: MVP\n4: Salirse");
+                            int opcionTiposSuscripciones = scanner.nextInt();
+                            if(opcionTiposSuscripciones == 1){
+                                cliente.getSuscripcion().setTipoSuscripcion(TipoSuscripcion.ROOKIE);
+                                System.out.println("Usted se a suscrito al plan Rookie, gracias por escogernos");
+                                corriendo = false;
+                            } else if (opcionTiposSuscripciones == 2) {
+                                cliente.getSuscripcion().setTipoSuscripcion(TipoSuscripcion.PROPLAYER);
+                                System.out.println("Usted se a suscrito al plan Pro Player, gracias por escogernos");
+                                corriendo = false;
+                            } else if (opcionTiposSuscripciones == 3) {
+                                cliente.getSuscripcion().setTipoSuscripcion(TipoSuscripcion.MVP);
+                                System.out.println("Usted se a suscrito al plan MVP, gracias por escogernos");
+                                corriendo = false;
+                            } else if (opcionTiposSuscripciones == 4) {
+                                System.out.println("Gracias vuelva pronto");
+                                corriendo = false;
+                            }else{
+                                System.out.println("Eliga una opcion valida");
+                            }
+                        }
+                    }
+                    break;
+                case 4:
+                    System.out.println("Saliendo de pagos");
+                    corriendo = false;
+                    break;
+                default:
+                    System.out.println("Opcion no encontrada, por favor seleccione alguna opcion correcta");
+            }
+        }while(corriendo);
     }
 
     //Metodo para crear Torneos
@@ -391,56 +542,6 @@ public class Main {
 
         return instalaciones;
     }
-
-
-    private static ArrayList<Enfermero> crearEnfermeros() {
-        ArrayList<Enfermero> enfermeros = new ArrayList<>();
-        enfermeros.add(new Enfermero("Carlos", "Gomez", 35, "Emergencias"));
-        enfermeros.add(new Enfermero("Ana", "Rodriguez", 40, "Urgencias"));
-        enfermeros.add(new Enfermero("Lucia", "Perez", 28, "Pediatría"));
-        return enfermeros;
-    }
-
-    private static ArrayList<Acompanante> crearAcompanantes() {
-        ArrayList<Acompanante> acompanantes = new ArrayList<>();
-        acompanantes.add(new Acompanante("Pedro", "Lopez", 30, true));
-        acompanantes.add(new Acompanante("María", "Diaz", 25, true));
-        acompanantes.add(new Acompanante("Luis", "Martinez", 32, true));
-        return acompanantes;
-    }
-
-    
-//Logica Realizar Reservas-------------
-    /*private static void realizarReservas(Scanner scanner, ArrayList<Instalacion> instalaciones, ArrayList<Enfermero> enfermeros, ArrayList<Acompanante> acompanantes) {
-        boolean salirReserva = false;
-
-        while (!salirReserva) {
-            GestorReservas.mostrarMenuReservas();
-            int opcionReserva = scanner.nextInt();
-            scanner.nextLine(); 
-
-            switch (opcionReserva) {
-                case 1:
-                    GestorReservas.crearReserva(scanner, instalaciones, enfermeros, acompanantes);
-                    break;
-
-                case 2:
-                    GestorReservas.mostrarHorariosDisponibles(instalaciones);
-                    break;
-
-                case 3:
-                    System.out.println("Volviendo al menú principal...");
-                    salirReserva = true;
-                    break;
-
-                default:
-                    System.out.println("Opción inválida. Intente nuevamente.");
-            }
-        }
-    }
-
-
-    
 //------------------------
     private static void realizarInscripciones(Scanner scanner) {
         // Implementación del método para realizar inscripciones a deportes formativos
@@ -448,5 +549,5 @@ public class Main {
 
     private static void crearEventos(Scanner scanner) {
         // Implementación del método para crear eventos (conciertos)
-    }*/
+    }
 }

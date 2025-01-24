@@ -14,16 +14,22 @@ public class Suscripcion {
     }
 
     public boolean verificacionVencimiento(){
-        if(this.finSuscripcion.isBefore(LocalDate.now())){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return !this.finSuscripcion.isBefore(LocalDate.now());
+    }
+
+    @Override
+    public String toString() {
+        return this.tipoSuscripcion.toString();
     }
 
     public LocalDate getFinSuscripcion() {
         return finSuscripcion;
+    }
+    public void setFinSuscripcion(LocalDate finSuscripcion){
+        this.finSuscripcion = finSuscripcion;
+    }
+    public void setTipoSuscripcion(TipoSuscripcion tipoSuscripcion){
+        this.tipoSuscripcion = tipoSuscripcion;
     }
     public LocalDate getInicioSuscripcion() {
         return inicioSuscripcion;
