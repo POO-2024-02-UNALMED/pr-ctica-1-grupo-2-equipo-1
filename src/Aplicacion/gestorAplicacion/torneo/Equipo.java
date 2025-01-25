@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Equipo {
     private int idEquipo = 0;
     private String nombreEquipo;
-    private ArrayList<String> jugadores;
+    public ArrayList<String> jugadores = new ArrayList();
 
 
     public Equipo( String nombreEquipo) {

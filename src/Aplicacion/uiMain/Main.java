@@ -21,12 +21,10 @@ import gestorAplicacion.pagos.Suscripcion;
 import gestorAplicacion.pagos.TipoSuscripcion;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Acompanante;
-import gestorAplicacion.entidades.Enfermero;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
 //import gestorAplicacion.reservas.GestorReservas;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -255,7 +253,8 @@ public class Main {
         System.out.println("Ingrese su edad");
         int edadCliente = new Scanner(System.in).nextInt();
         System.out.println("Ingrese su ID");
-        int idCliente = new Scanner(System.in).nextInt();;
+        int idCliente = new Scanner(System.in).nextInt();
+        ;
         System.out.println();
 
         Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idCliente);
@@ -294,7 +293,7 @@ public class Main {
         boolean salir = false;
         switch (deporteTorneo) {
             case 1://Futbol
-                while(!salir) {
+                while (!salir) {
                     System.out.println("Sustituciones máximas: mínimo 2, máximo 7.\n" +
                             "Duración del partido: 30 o 90 minutos (Se realiza una reserva de dos horas indiferente de la duracion del partido).\n" +
                             "Criterios de desempate: Goles a favor (GF), Goles en contra (GC) o Sorteo.\n" +
@@ -343,7 +342,7 @@ public class Main {
                 }
                 break;
             case 2://Basket
-                while(!salir) {
+                while (!salir) {
                     ArrayList<String> reglasBasket = new ArrayList<>();
 
                     System.out.println("Duración del partido: 4 períodos de 10 minutos (FIBA) o 12 minutos (NBA). (Se realiza una reserva de dos horas indiferente de la duracion del partido)\n" +
@@ -378,7 +377,7 @@ public class Main {
                 }
                 break;
             case 3://Natacion
-                while(!salir) {
+                while (!salir) {
                     ArrayList<String> reglasNatacion = new ArrayList<>();
 
                     System.out.println();
@@ -414,11 +413,14 @@ public class Main {
                         System.out.println("Intentos maximos por competidor: " + reglasNatacion.get(1));
                     }
                     torneo.setReglas(reglasNatacion);
+
+                    System.out.println();
+
                     salir = true;
                 }
                 break;
             case 4://Voleibol
-                while(!salir) {
+                while (!salir) {
                     ArrayList<String> reglasVoleibol = new ArrayList<>();
 
                     System.out.println();
@@ -453,7 +455,7 @@ public class Main {
                 break;
         }
 
-        if (deporteTorneo == 1){//Futbol
+        if (deporteTorneo == 1) {//Futbol
             System.out.println("Ahora, se ingresaran los nombres de los equipos participantes.");
             System.out.println();
 
@@ -473,7 +475,7 @@ public class Main {
 
             torneo.setEquiposParticipantes(equiposParticipantesFutbol);
 
-        } else if (deporteTorneo == 2){//Basket
+        } else if (deporteTorneo == 2) {//Basket
             System.out.println("Ahora, se ingresaran los nombres de los equipos participantes.");
             System.out.println();
 
@@ -493,27 +495,76 @@ public class Main {
 
             torneo.setEquiposParticipantes(equiposParticipantesBasket);
 
-        } else if (deporteTorneo == 3){//Natacion, equipos o personas
+        } else if (deporteTorneo == 3) {//Natacion, equipos o personas
+            System.out.println("Ahora, se ingresaran los nombres de los equipos participantes.");
+            System.out.println();
+            ArrayList<Equipo> equiposParticipantesNatacion = new ArrayList<>();
+
             if (torneo.reglas.get(0).equals("Relevos")) {
-                System.out.println("Ahora, se ingresaran los nombres de los equipos participantes.");
-                System.out.println();
-
-                ArrayList<Equipo> equiposParticipantesNatacion = new ArrayList<>();
-
                 for (int i = 0; i < 5; i++) {
-                    System.out.println("Ingrese el nombre del equipo No. " + i + ":");
+                    System.out.println("Ingrese el nombre del equipo No. " + i + 1 + ":");
                     String nombreEquipo = new Scanner(System.in).nextLine();
                     equiposParticipantesNatacion.add(new Equipo(nombreEquipo));
-                    System.out.println();
                 }
+                System.out.println();
+
+                torneo.setEquiposParticipantes(equiposParticipantesNatacion);
 
                 System.out.println("Los equipos inscritos en el torneo son:");
                 for (Equipo equipo : equiposParticipantesNatacion) {
                     System.out.println(equipo.getNombreEquipo());
                 }
+
+                System.out.println();
+
+                System.out.println("Ahora se ingresaran los nombres de los participantes:\n");
+                for (Equipo equipo : equiposParticipantesNatacion) {
+                    for (int i = 0; i < 2; i++) {
+                        System.out.println("Ingrese el nombre del participante No. " + i+1 + "del equipo " + equipo.getNombreEquipo() + ":");
+                        String nombreParticipante = new Scanner(System.in).nextLine();
+                        equipo.jugadores.add(nombreParticipante);
+                    }
+                    System.out.println("Los participantes del equipo " + equipo.getNombreEquipo() + " inscritos en el torneo son:");
+                    for (String jugador : equipo.jugadores) {
+                        System.out.println(jugador);
+                    }
+                    System.out.println();
+
+                }
+
             } else if (torneo.reglas.get(0).equals("Mejor tiempo")) {
-                //Terminar, competencia individual
+                for (int i = 0; i < 5; i++) {
+                    System.out.println("Ingrese el nombre del participante No. " + i + 1 + ":");
+                    String nombreParticipante = new Scanner(System.in).nextLine();
+                    equiposParticipantesNatacion.add(new Equipo(nombreParticipante));
+                }
+                torneo.setEquiposParticipantes(equiposParticipantesNatacion);
+
+                System.out.println("Los participantes inscritos en el torneo son:");
+                for (Equipo equipo : equiposParticipantesNatacion) {
+                    System.out.println(equipo.getNombreEquipo());
+
+                }
             }
+
+        } else if (deporteTorneo == 4) {//Voleibol
+            System.out.println("Ahora, se ingresaran los nombres de los equipos participantes.");
+            System.out.println();
+
+            ArrayList<Equipo> equiposParticipantesVoleibol = new ArrayList<>();
+
+            for (int i = 0; i < 5; i++) {
+                System.out.println("Ingrese el nombre del equipo No. " + i + ":");
+                String nombreEquipo = new Scanner(System.in).nextLine();
+                equiposParticipantesVoleibol.add(new Equipo(nombreEquipo));
+                System.out.println();
+            }
+
+            System.out.println("Los equipos inscritos en el torneo son:");
+            for (Equipo equipo : equiposParticipantesVoleibol) {
+                System.out.println(equipo.getNombreEquipo());
+            }
+            torneo.setEquiposParticipantes(equiposParticipantesVoleibol);
         }
 
     }
