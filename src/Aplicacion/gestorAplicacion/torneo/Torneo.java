@@ -53,7 +53,7 @@ public class Torneo {
         return this.deporte;
     }
 
-    ArrayList<Instalacion> inst = crearInstalaciones();//Se puede mover de esta calse si es necesario
+    ArrayList<Instalacion> inst = crearInstalaciones();//Se puede mover de esta clase si es necesario
 
 
     public ArrayList<Instalacion> getInstalaciones(int num) {

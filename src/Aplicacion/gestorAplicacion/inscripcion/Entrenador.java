@@ -1,4 +1,4 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.inscripcion.Trabajador;

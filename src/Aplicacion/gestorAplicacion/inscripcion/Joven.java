@@ -2,7 +2,6 @@ package gestorAplicacion.inscripcion;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import gestorAplicacion.entidades.Persona;
 
 public class Joven extends Persona {
@@ -14,8 +13,8 @@ public class Joven extends Persona {
     public ArrayList<Integer> registrosEntrenamiento;
 
     // Constructor de la clase Joven
-    public Joven(String nombre, String apellido, int edad, int experiencia, String eps, String nombreAcudiente, String telefonoAcudiente, String cedulaAcudiente) {
-        super(nombre, apellido, edad);
+    public Joven(String nombre, String apellido, int id,int edad, int experiencia, String eps, String nombreAcudiente, String telefonoAcudiente, String cedulaAcudiente) {
+        super(nombre, apellido,/* id,*/ edad);
         this.experienciaJoven = experiencia;
         this.eps = eps;
         this.nombreAcudiente = nombreAcudiente;
@@ -83,46 +82,5 @@ public class Joven extends Persona {
                 ", telefonoAcudiente='" + telefonoAcudiente + '\'' +
                 ", cedulaAcudiente='" + cedulaAcudiente + '\'' +
                 '}';
-    }
-    public static Joven RegistrarJoven(Scanner scanner) { // Recibimos el objeto Scanner como parámetro
-        System.out.println("Ingrese el nombre del joven:");
-        String nombreJoven = scanner.nextLine();
-
-        System.out.println("Ingrese el apellido del joven:");
-        String apellidoJoven = scanner.nextLine();
-
-        System.out.println("Ingrese la edad del joven:");
-        int edadJoven = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Ingrese la experiencia del joven (en meses):");
-        int experienciaJoven = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Ingrese la EPS del joven:");
-        String eps = scanner.nextLine();
-
-        System.out.println("Ingrese el nombre del acudiente:");
-        String nombreAcudiente = scanner.nextLine();
-
-        System.out.println("Ingrese el teléfono del acudiente:");
-        String telefonoAcudiente = scanner.nextLine();
-
-        System.out.println("Ingrese la cédula del acudiente:");
-        String cedulaAcudiente = scanner.nextLine();
-
-        Joven jovenRegistrado = new Joven(
-                nombreJoven,
-                apellidoJoven,
-                edadJoven,
-                experienciaJoven,
-                eps,
-                nombreAcudiente,
-                telefonoAcudiente,
-                cedulaAcudiente
-        );
-
-        System.out.println("Joven registrado con éxito");
-        return jovenRegistrado;
     }
 }
