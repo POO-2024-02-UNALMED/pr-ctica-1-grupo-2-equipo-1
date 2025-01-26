@@ -20,12 +20,9 @@ import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.pagos.Suscripcion;
 import gestorAplicacion.pagos.TipoSuscripcion;
 import gestorAplicacion.reservas.Instalacion;
-import gestorAplicacion.entidades.Acompanante;
-import gestorAplicacion.entidades.Enfermero;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
-//import gestorAplicacion.reservas.GestorReservas;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,11 +38,6 @@ public class Main {
         // Creación de todas las instalaciones
         ArrayList<Instalacion> instalaciones = crearInstalaciones();
 
-        // Llamar a asignarHorarios para asignar horarios a las instalaciones
-        //GestorReservas.asignarHorarios(instalaciones);
-
-        // Crear enfermeros y acompañantes por defecto
-
         Torneo torneoBase = new Torneo(9999);
 
         boolean salir = false;
@@ -58,7 +50,8 @@ public class Main {
             System.out.println("3. Crear Torneos");
             System.out.println("4. Crear Eventos (Concierto)");
             System.out.println("5. Taquilla (Pagos)");
-            System.out.println("6. Salir");
+            System.out.println("6. Administar Clientes");
+            System.out.println("7. Salir del sistema");
             System.out.print("Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
@@ -86,6 +79,10 @@ public class Main {
                     break;
 
                 case 6:
+                    clientesUI();
+                    break;
+
+                case 7:
                     System.out.println("Saliendo del sistema. ¡Hasta pronto!");
                     salir = true;
                     break;
@@ -97,18 +94,60 @@ public class Main {
 
         scanner.close();
     }
+    ///////////////////////////////CLIENTES INTERFAZ///////////////////////////////
+    public static void clientesUI(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----Administracion Clientes-----");
+        System.out.println("1: Crear cliente\n2: Visualizar cliente ");
+        int opcion = scanner.nextInt();
 
-    //Interfaz via consola de pagos, compra de boletos y renovacion de suscripcion
+        if(opcion == 1){
+            System.out.println("---Crear Cliente---");
+            System.out.println("Nombre: ");
+            String nombre = scanner.nextLine();
+            scanner.nextLine();
+
+            System.out.println("Apellido: ");
+            String apellido = scanner.nextLine();
+
+            System.out.println("Edad: ");
+            int edad = scanner.nextInt();
+
+            Cliente cliente = new Cliente(nombre,apellido,edad);
+
+            System.out.println("Cliente creado recordar su ID,\n Informacion:");
+            System.out.println(cliente);
+            System.out.println("Si desea una suscripcion, realizarla en pagos");
+        }
+        else if(opcion == 2){
+            System.out.println("---Visualizar Cliente---");
+            System.out.println("Ingrese el id de su cliente: ");
+            int idCliente = scanner.nextInt();
+
+            Cliente clienteEncontrado = Cliente.obtenerCliente(idCliente);
+            if(clienteEncontrado != null){
+                System.out.println(clienteEncontrado);
+            }else{
+                System.out.println("Cliente no encontrado con ese ID");
+            }
+        }else{
+            System.out.println("Su opcion es invalidad,ingresar una opcion correcta");
+        }
+
+    }
+
+
+    ////////////////////////////////////PAGOS INTERFAZ///////////////////////////////
     public static void pagosUI(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Bienvenido al programa de pagos \nPor favor elegir alguna de estas opciones");
+        System.out.println("-----Pagos y/o Suscripciones-----");
 
         boolean corriendo = true;
         do{
             System.out.println("1: Pago via ID\n2: Pago boleta de evento\n3: Administrar Suscripcion\n4: Salir de pagos");
             int opcionPagoID = scanner.nextInt();
             switch (opcionPagoID){
-                ///////////////////////PAGO VIA ID///////////////////////////////
+                //Pago via ID
                 case 1:
                     System.out.println("-----Pago Reserva------");
                     System.out.println("Ingrese el ID de la reserva: ");
@@ -143,7 +182,7 @@ public class Main {
                         System.out.println("Reserva no encontrada porfavor ingresar un ID correcto");
                     }
                     break;
-                    ////////////////PAGO BOLETAS//////////////////////////////
+                    //Pago boletas
                 case 2:
                     System.out.println("-----Pago Boleta-----");
                     System.out.println("Ingrese el ID de la boleta");
@@ -174,9 +213,9 @@ public class Main {
                         System.out.println("Boleta no encontrada");
                     }
                     break;
-                    ///////////////////////////SUSCRIPCIONES//////////////////////////////////////7
+                    //Realizar suscripciones
                 case 3:
-                    System.out.println("-----Administracion Suscripcion-----");
+                    System.out.println("---Administracion Suscripcion---");
                     System.out.println("1: Renovar Suscripcion\n2: Suscribirse al programa\n3: Salir");
                     int opcionSuscripcion = scanner.nextInt();
                     if(opcionSuscripcion == 1){
@@ -187,7 +226,7 @@ public class Main {
                         if(cliente != null){
                             Suscripcion suscripcion= cliente.getSuscripcion();
                             System.out.println(cliente);
-                            if(suscripcion.getTipoSuscripcion() == TipoSuscripcion.NONE){
+                            if(suscripcion.getTipoSuscripcion() == TipoSuscripcion.NOTIENE){
                                 System.out.println("Usted no posee suscripcion por favor crearla");
                             }else{
                                 System.out.println("Su suscripcion vence el: " + suscripcion.getFinSuscripcion());
@@ -212,19 +251,24 @@ public class Main {
                         Cliente cliente = Cliente.obtenerCliente(idCliente);
                         if(cliente != null){
                             System.out.println("--Realizar Suscripcion--");
+                            System.out.println(cliente);
+                            Suscripcion suscripcion = cliente.getSuscripcion();
                             System.out.println("Eliga una entre estas suscripciones: \n1: Rookie\n2: Pro Player\n3: MVP\n4: Salirse");
                             int opcionTiposSuscripciones = scanner.nextInt();
                             if(opcionTiposSuscripciones == 1){
-                                cliente.getSuscripcion().setTipoSuscripcion(TipoSuscripcion.ROOKIE);
-                                System.out.println("Usted se a suscrito al plan Rookie, gracias por escogernos");
+                                suscripcion.setTipoSuscripcion(TipoSuscripcion.ROOKIE);
+                                System.out.println("Suscripcion creada tipo ROOKIE");
+                                System.out.println(suscripcion);
                                 corriendo = false;
                             } else if (opcionTiposSuscripciones == 2) {
-                                cliente.getSuscripcion().setTipoSuscripcion(TipoSuscripcion.PROPLAYER);
-                                System.out.println("Usted se a suscrito al plan Pro Player, gracias por escogernos");
+                                suscripcion.setTipoSuscripcion(TipoSuscripcion.PROPLAYER);
+                                System.out.println("Suscripcion creada tipo PROPLAYER");
+                                System.out.println(suscripcion);
                                 corriendo = false;
                             } else if (opcionTiposSuscripciones == 3) {
-                                cliente.getSuscripcion().setTipoSuscripcion(TipoSuscripcion.MVP);
-                                System.out.println("Usted se a suscrito al plan MVP, gracias por escogernos");
+                                suscripcion.setTipoSuscripcion(TipoSuscripcion.MVP);
+                                System.out.println("Suscripcion creada tipo MVP");
+                                System.out.println(suscripcion);
                                 corriendo = false;
                             } else if (opcionTiposSuscripciones == 4) {
                                 System.out.println("Gracias vuelva pronto");
@@ -232,6 +276,8 @@ public class Main {
                             }else{
                                 System.out.println("Eliga una opcion valida");
                             }
+                        }else{
+                            System.out.println("ID de cliente no encontrado");
                         }
                     }
                     break;

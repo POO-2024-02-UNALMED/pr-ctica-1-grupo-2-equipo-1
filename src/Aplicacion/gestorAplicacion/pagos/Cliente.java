@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Cliente extends Persona {
-    public static ArrayList<Cliente> listaClientes;
+    public static ArrayList<Cliente> listaClientes = new ArrayList<>();
     private Suscripcion suscripcion;
-    private int ID;
+    private final int ID;
 
     public Cliente(String nombre, String apellido, int edad, int id){//No borrar, necesario para torneo
         super(nombre, apellido, edad);
@@ -17,16 +17,8 @@ public class Cliente extends Persona {
 
     public Cliente(String nombre, String apellido, int edad) {
         super(nombre, apellido, edad);
-        Random idGen = new Random();
-        this.suscripcion = new Suscripcion(TipoSuscripcion.NONE);
-        this.ID = idGen.nextInt(100000);
-        listaClientes.add(this);
-    }
-    public Cliente(String nombre,String apellido,int edad,Suscripcion suscripcion){
-        super(nombre,apellido,edad);
-        Random idGen = new Random();
-        this.ID = idGen.nextInt(1000);
-        this.suscripcion = suscripcion;
+        this.suscripcion = new Suscripcion(TipoSuscripcion.NOTIENE);
+        this.ID = listaClientes.size() + 1;
         listaClientes.add(this);
     }
 
@@ -51,12 +43,11 @@ public class Cliente extends Persona {
 
     @Override
     public String toString() {
-        return "Cliente Encontrado \n" +
-                "Suscripcion:" + suscripcion + "\n" +
+        return "Informacion Cliente \n" +
+                "Suscripcion:" + suscripcion.getTipoSuscripcion() + "\n" +
                 "ID: " + ID + "\n" +
                 "Nombre: " + nombre + "\n" +
                 "Apellido: " + apellido + "\n" +
-                "ID: " + id + "\n" +
                 "Edad: " + edad;
     }
 }
