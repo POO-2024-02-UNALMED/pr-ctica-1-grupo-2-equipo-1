@@ -23,6 +23,7 @@ import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
+import gestorAplicacion.inscripcion.Joven;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -634,7 +635,7 @@ private static void realizarInscripciones(Scanner scanner) {
 
     System.out.println("Joven registrado con éxito");
 
-    System.out.println("Según los datos del joven, el mismo califica para la categoría: " + jovenRegistrado.);
+    System.out.println("Según los datos del joven, el mismo califica para la categoría: " + jovenRegistrado.darCategoria());
 }
 
 

@@ -83,4 +83,15 @@ public class Joven extends Persona {
                 ", cedulaAcudiente='" + cedulaAcudiente + '\'' +
                 '}';
     }
+    public int darCategoria(int exp){
+        if (exp<6){
+            return 1;
+        }
+        else if (exp<12){
+            return 2;
+        }
+        else{
+            return 3;
+        }
+    }
 }
