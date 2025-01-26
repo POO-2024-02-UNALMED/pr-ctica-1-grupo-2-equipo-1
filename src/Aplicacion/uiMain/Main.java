@@ -589,9 +589,55 @@ public class Main {
         return instalaciones;
     }
 //------------------------
-    private static void realizarInscripciones(Scanner scanner) {
-        // Implementación del método para realizar inscripciones a deportes formativos
-    }
+private static void realizarInscripciones(Scanner scanner) {
+    System.out.println("Ingrese el nombre del joven:");
+    String nombreJoven = scanner.nextLine();
+
+    System.out.println("Ingrese el apellido del joven:");
+    String apellidoJoven = scanner.nextLine();
+
+    System.out.println("Ingrese el ID del joven:");
+    int idJoven = scanner.nextInt();
+    scanner.nextLine();
+
+    System.out.println("Ingrese la edad del joven:");
+    int edadJoven = scanner.nextInt();
+    scanner.nextLine();
+
+    System.out.println("Ingrese la experiencia del joven (en meses):");
+    int experienciaJoven = scanner.nextInt();
+    scanner.nextLine();
+
+    System.out.println("Ingrese la EPS del joven:");
+    String eps = scanner.nextLine();
+
+    System.out.println("Ingrese el nombre del acudiente:");
+    String nombreAcudiente = scanner.nextLine();
+
+    System.out.println("Ingrese el teléfono del acudiente:");
+    String telefonoAcudiente = scanner.nextLine();
+
+    System.out.println("Ingrese la cédula del acudiente:");
+    String cedulaAcudiente = scanner.nextLine();
+
+    Joven jovenRegistrado = new Joven(
+            nombreJoven,
+            apellidoJoven,
+            idJoven,
+            edadJoven,
+            experienciaJoven,
+            eps,
+            nombreAcudiente,
+            telefonoAcudiente,
+            cedulaAcudiente
+    );
+
+    System.out.println("Joven registrado con éxito");
+
+    System.out.println("Según los datos del joven, el mismo califica para la categoría: " + jovenRegistrado.);
+}
+
+
 
     private static void crearEventos(Scanner scanner) {
         // Implementación del método para crear eventos (conciertos)
