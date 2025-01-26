@@ -1,7 +1,7 @@
 package gestorAplicacion.pagos;
 
 public enum TipoSuscripcion {
-    NONE("Sin suscripcion",0,0,false,false,0,0),
+    NOTIENE("Sin suscripcion",0,0,false,false,0,0),
     ROOKIE("Rookie",12000,0.05,true,true,0,0),
     PROPLAYER("Pro Player",20000,0.08,true,true,1,0.1),
     MVP("MVP",25000,0.15,true,true,4,0.1);

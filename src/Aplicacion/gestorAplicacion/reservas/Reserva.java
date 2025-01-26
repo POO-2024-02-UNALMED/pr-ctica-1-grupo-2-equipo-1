@@ -19,8 +19,7 @@ public class Reserva implements Serializable {
     private Equipo equipo2;
 
     public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario) {
-        Random idGen = new Random();
-        this.ID = idGen.nextInt(1000);
+        this.ID = listaReservas.size() + 1;
         this.cliente = cliente;
         this.instalacion = instalacion;
         this.horaReservada = horaReservada;
@@ -30,8 +29,7 @@ public class Reserva implements Serializable {
     
     // Constructor con estado opcional
     public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario, EstadoReserva estado) {
-        Random idGen = new Random();
-        this.ID = idGen.nextInt(1000);
+        this.ID = listaReservas.size() + 1;
         this.cliente = cliente;
         this.instalacion = instalacion;
         this.horaReservada = horaReservada;
@@ -41,8 +39,7 @@ public class Reserva implements Serializable {
 
     //Constructor para Torneos
     public Reserva(Instalacion instalacion, Horario horario, String horaReservada, Equipo equipo1, Equipo equipo2) {
-        Random idGen = new Random();
-        this.ID = idGen.nextInt(1000);
+        this.ID = listaReservas.size() + 1;
         this.instalacion = instalacion;
         this.horario = horario;
         this.horaReservada = horaReservada;

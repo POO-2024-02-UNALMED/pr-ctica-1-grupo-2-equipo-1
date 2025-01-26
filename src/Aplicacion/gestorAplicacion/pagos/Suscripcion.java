@@ -19,7 +19,10 @@ public class Suscripcion {
 
     @Override
     public String toString() {
-        return this.tipoSuscripcion.toString();
+        return "Informacion de suscripcion \n" +
+                "Tipo de suscripcion: " + tipoSuscripcion + "\n" +
+                "Inicio suscripcion: " + inicioSuscripcion + "\n" +
+                "Fin suscripcion: " + finSuscripcion;
     }
 
     public LocalDate getFinSuscripcion() {
