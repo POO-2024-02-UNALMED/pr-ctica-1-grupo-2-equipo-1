@@ -12,7 +12,25 @@ public class GrupoFormativo {
     public Instalacion getInstalacion() {
         return instalacion;
     }
-    public void setInstalacion() {
-        String deporte = this.deporte;
+    public void setInstalacion(Instalacion Instalacion) {
+        this.instalacion = Instalacion;
+    }
+    public ArrayList<Joven> getJovenes() {
+        return Jovenes;
+    }
+    public void addJoven(Joven Joven) {
+        Jovenes.add(Joven);
+    }
+    public void deleteJoven(Joven Joven) {
+        Jovenes.remove(Joven);
+    }
+    public String getDeporte() {
+        return deporte;
+    }
+    public void setDeporte(String deporte) {
+        this.deporte = deporte;
+    }
+    public void resetJovenes() {
+        Jovenes = new ArrayList<>();
     }
 }

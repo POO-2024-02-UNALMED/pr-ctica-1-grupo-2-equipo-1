@@ -1,6 +1,6 @@
 package baseDatos.concierto;
 
-import gestorAplicacion.entidades.Evento;
+import gestorAplicacion.reservas.Evento;
 
 import java.io.FileWriter;
 import java.io.IOException;

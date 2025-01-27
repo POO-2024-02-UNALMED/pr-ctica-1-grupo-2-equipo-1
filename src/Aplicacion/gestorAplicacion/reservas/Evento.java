@@ -1,10 +1,9 @@
-package gestorAplicacion.entidades;
+package gestorAplicacion.reservas;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import gestorAplicacion.pagos.Cliente;
-import gestorAplicacion.reservas.Instalacion;
 
 public class Evento {
     // Atributos principales
