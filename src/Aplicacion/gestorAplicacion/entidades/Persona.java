@@ -7,11 +7,18 @@ public abstract class Persona{
     public int id;
     public int edad;
 
-    public Persona(String nombre, String apellido, int edad/*, int id*/) {
+    //Constructor sin id
+    public Persona(String nombre, String apellido, int edad) {
             this.nombre = nombre;
             this.apellido = apellido;
             this.edad = edad;
-            /*this.id = id;*/ //Aquí debería ir para setear el id, evalúen si meter esto afecta sus funcionalidades
+    }
+    //Constructor con id
+    public Persona(String nombre, String apellido, int edad, int id) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.id = id;
     }
 
     public String getNombre() {
