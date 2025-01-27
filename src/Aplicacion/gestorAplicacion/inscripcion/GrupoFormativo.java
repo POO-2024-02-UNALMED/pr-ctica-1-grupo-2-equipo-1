@@ -1,12 +1,15 @@
 package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.reservas.Instalacion;
+import gestorAplicacion.reservas.Reserva;
+
 import java.util.ArrayList;
 
 public class GrupoFormativo {
     private Instalacion instalacion;
     private ArrayList<Joven> Jovenes;
     private String deporte;
+    private Reserva reserva;
     //public static ArrayList<GrupoFormativo> gruposFormativo; Para implementación con el serializador.
 
     public Instalacion getInstalacion() {
@@ -32,5 +35,11 @@ public class GrupoFormativo {
     }
     public void resetJovenes() {
         Jovenes = new ArrayList<>();
+    }
+    public Reserva getReserva() {
+        return reserva;
+    }
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 }
