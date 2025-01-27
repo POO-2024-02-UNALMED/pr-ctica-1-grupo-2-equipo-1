@@ -54,4 +54,9 @@ public abstract class Persona{
     }
     public abstract String getRol(); 
 
+    @Override
+    public String toString() {
+        return getNombreCompleto();
+    }
+
 }
