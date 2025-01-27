@@ -3,15 +3,13 @@ package gestorAplicacion.reservas;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import gestorAplicacion.servicios.Toldo;
-
 public class Instalacion {
     private static int idCounter = 0; // Contador estático para los ID
     private int idInstalacion;
     private String deporte;
     private int precioHora;
     private int profundidad;
-    private Toldo toldo;
+    private boolean toldo;
     private String nombre;
     private String descripcion;
     private int capacidad; // Capacidad de la instalación (tribunas o usuarios por hora)

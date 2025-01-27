@@ -82,7 +82,7 @@ public class DeporteFormativo {
         System.out.println("Entrenador Asignado: " + categoriaEntrenador);
         System.out.println("Horario Asignado: " + horario);
     }
-
+/*
     // Método main para pruebas
     public static void main(String[] args) {
         // Crear instancia de DeporteFormativo
@@ -96,5 +96,5 @@ public class DeporteFormativo {
 
         // Mostrar resultados
         deporteFormativo.mostrarResultados();
-    }
+    }*/
 }
