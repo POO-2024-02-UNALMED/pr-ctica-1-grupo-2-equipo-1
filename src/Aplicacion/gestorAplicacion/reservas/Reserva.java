@@ -3,7 +3,9 @@ package gestorAplicacion.reservas;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import gestorAplicacion.inscripcion.GrupoFormativo;
 
+import gestorAplicacion.inscripcion.GrupoFormativo;
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.torneo.Equipo;
 
@@ -17,6 +19,7 @@ public class Reserva implements Serializable {
     private EstadoReserva estado;
     private Equipo equipo1;
     private Equipo equipo2;
+    private GrupoFormativo grupoFormativo;
 
     public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario) {
         this.ID = listaReservas.size() + 1;
@@ -45,6 +48,15 @@ public class Reserva implements Serializable {
         this.horaReservada = horaReservada;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
+    }
+
+    //Constructor para fomrativo
+    public Reserva(Instalacion instalacion, Horario horario, String horaReservada, GrupoFormativo grupoFormativo) {
+        this.instalacion = instalacion;
+        this.ID = listaReservas.size() + 1;
+        this.horario = horario;
+        this.horaReservada = horaReservada;
+        this.grupoFormativo = grupoFormativo;
     }
 
     public static Reserva buscarReserva(int ID){
