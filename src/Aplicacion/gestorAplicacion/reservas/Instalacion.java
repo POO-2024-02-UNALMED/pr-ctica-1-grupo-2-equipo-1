@@ -39,12 +39,6 @@ public class Instalacion {
         inicializarHorarios(); // Llamamos a inicializar los horarios con la capacidad
     }
 
-    // Constructor con toldo
-    public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion, Toldo toldo) {
-        this(nombre, deporte, precioHora, profundidad, descripcion);
-        this.toldo = toldo;
-    }
-
     // Métodos setters y getters
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
@@ -79,13 +73,6 @@ public class Instalacion {
         return profundidad;
     }
 
-    public void setToldo(Toldo toldo) {
-        this.toldo = toldo;
-    }
-
-    public Toldo getToldo() {
-        return toldo;
-    }
 
     public int getIdInstalacion() {
         return idInstalacion;

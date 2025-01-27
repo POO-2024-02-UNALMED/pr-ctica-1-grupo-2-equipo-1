@@ -1,4 +1,4 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.eventos;
 
 import gestorAplicacion.reservas.Instalacion;
 
