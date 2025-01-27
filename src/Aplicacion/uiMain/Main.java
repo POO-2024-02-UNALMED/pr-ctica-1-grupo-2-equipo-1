@@ -30,7 +30,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import gestorAplicacion.eventos.Evento;
+import gestorAplicacion.eventos.Localidad;
+import gestorAplicacion.reservas.Instalacion;
 
 
 public class Main {
@@ -77,7 +79,7 @@ public class Main {
                     break;
 
                 case 4:
-                    //crearEventos(scanner);
+                    crearEvento();
                     break;
 
                 case 5:
@@ -763,6 +765,174 @@ public class Main {
                 + torneo.getPrecioTotal() + " ===");
     }
 
+
+    /// ///////Metodo para crear eventos/////////
+    public static void crearEvento() {
+        // Se crea un escáner para leer datos desde consola
+        Scanner sc = new Scanner(System.in);
+
+        // Se obtienen todas las instalaciones disponibles, incluyendo la cancha F11 Grande y los posibles toldos
+        ArrayList<Instalacion> todasLasInstalaciones = crearInstalaciones();
+
+        // Se instancia un nuevo objeto Evento para almacenar toda la información que el usuario proporcione
+        Evento evento = new Evento();
+
+        System.out.println("Creación de un evento no deportivo (Festival o Concierto)");
+        System.out.println("Ingrese el nombre del evento:");
+        String nombre = sc.nextLine();  // Nombre del evento
+
+        System.out.println("Seleccione el tipo de evento:");
+        System.out.println("1. Festival");
+        System.out.println("2. Concierto");
+        int tipo = sc.nextInt();  // Se lee el tipo (1 o 2)
+        sc.nextLine(); // Se consume la línea pendiente del buffer
+
+        // Se asigna el tipo de evento en función de la elección
+        if (tipo == 1) {
+            evento.setTipoEvento("Festival");
+        } else {
+            evento.setTipoEvento("Concierto");
+        }
+
+        // Se asigna el nombre del evento
+        evento.setNombreEvento(nombre);
+
+        System.out.println("Ingrese el nombre del artista o personaje principal:");
+        String artista = sc.nextLine();  // Personaje o artista principal
+        evento.setPersonajePrincipal(artista);
+
+        // Si el evento es un concierto, se pide el género musical
+        if (evento.getTipoEvento().equals("Concierto")) {
+            System.out.println("Ingrese el género musical:");
+            String genero = sc.nextLine();
+            evento.setGeneroMusical(genero);
+        }
+
+        // Se busca la instalación "Cancha F11 Grande" y se asigna como lugar principal del evento
+        for (Instalacion ins : todasLasInstalaciones) {
+            if (ins.getNombre().equals("Cancha F11 Grande")) {
+                evento.setLugarPrincipal(ins);
+                break;
+            }
+        }
+
+        System.out.println("Configuración de localidades (tribunas y gramilla).");
+
+        // Se crean y configuran cinco localidades distintas (Norte, Sur, Oriental, Occidental, Gramilla)
+        ArrayList<Localidad> localidades = new ArrayList<>();
+        localidades.add(configurarLocalidad(todasLasInstalaciones, "Norte"));
+        localidades.add(configurarLocalidad(todasLasInstalaciones, "Sur"));
+        localidades.add(configurarLocalidad(todasLasInstalaciones, "Oriental"));
+        localidades.add(configurarLocalidad(todasLasInstalaciones, "Occidental"));
+        localidades.add(configurarLocalidad(todasLasInstalaciones, "Gramilla"));
+
+        // Se asignan todas las localidades configuradas al evento
+        evento.setLocalidades(localidades);
+
+        // Opción de agregar toldos patrocinados, de 1 a 3
+        System.out.println("¿Desea agregar toldos patrocinados? Puede agregar de 1 a 3. Ingrese la cantidad (0 si no desea):");
+        int cantidadToldos = sc.nextInt();
+        sc.nextLine();
+
+        // Lista donde se guardarán los toldos seleccionados
+        ArrayList<Instalacion> toldosPatrocinados = new ArrayList<>();
+
+        // Si el usuario ingresa más de 3, se limita a 3
+        if (cantidadToldos > 3) {
+            cantidadToldos = 3;
+        }
+
+        // Se seleccionan los toldos uno a uno, según la cantidad elegida
+        for (int i = 0; i < cantidadToldos; i++) {
+            mostrarToldosDisponibles(todasLasInstalaciones);
+            System.out.println("Seleccione un toldo patrocinado por número:");
+            int opcionToldo = sc.nextInt();
+            sc.nextLine();
+            // El valor de opcionToldo debe ser 1, 2 o 3 para seleccionarlo correctamente
+            if (opcionToldo >= 1 && opcionToldo <= 3) {
+                toldosPatrocinados.add(todasLasInstalaciones.get(opcionToldo + 3));
+            }
+        }
+
+        // Se asignan los toldos patrocinados al evento
+        evento.setToldosPatrocinados(toldosPatrocinados);
+
+        // Se muestra un resumen final del evento creado
+        System.out.println("Resumen del evento creado:");
+        System.out.println("Nombre: " + evento.getNombreEvento());
+        System.out.println("Tipo: " + evento.getTipoEvento());
+        System.out.println("Artista/Personaje Principal: " + evento.getPersonajePrincipal());
+        if (evento.getTipoEvento().equals("Concierto")) {
+            System.out.println("Género musical: " + evento.getGeneroMusical());
+        }
+        System.out.println("Lugar principal: " + evento.getLugarPrincipal().getNombre());
+        System.out.println("Localidades configuradas:");
+        for (Localidad loc : evento.getLocalidades()) {
+            System.out.println("- " + loc.getUbicacion()
+                    + " | Capacidad: " + loc.getCapacidad()
+                    + " | Precio sugerido: " + loc.getPrecioSugerido()
+                    + " | División: " + loc.getDivision()
+                    + " | Menores: " + loc.getMenores());
+        }
+
+        // Se informa si se agregaron o no toldos patrocinados
+        if (!evento.getToldosPatrocinados().isEmpty()) {
+            System.out.println("Toldos patrocinados seleccionados:");
+            for (Instalacion t : evento.getToldosPatrocinados()) {
+                System.out.println("- " + t.getNombre());
+            }
+        } else {
+            System.out.println("No se agregaron toldos patrocinados.");
+        }
+    }
+
+    public static Localidad configurarLocalidad(ArrayList<Instalacion> instalaciones, String ubicacion) {
+        // Este método pide al usuario la capacidad y define si la localidad se divide para menores
+        Scanner sc = new Scanner(System.in);
+        Instalacion canchaF11Grande = null;
+
+        // Se busca la instalación "Cancha F11 Grande" para vincularla a la localidad
+        for (Instalacion ins : instalaciones) {
+            if (ins.getNombre().equals("Cancha F11 Grande")) {
+                canchaF11Grande = ins;
+                break;
+            }
+        }
+
+        // Se definen capacidad mínima y máxima para la localidad
+        int capacidadMin = 50;
+        int capacidadMax = 500;
+
+        System.out.println("Configurando localidad: " + ubicacion);
+        System.out.println("Ingrese la capacidad (entre " + capacidadMin + " y " + capacidadMax + "):");
+        int capacidad = sc.nextInt();
+
+        // Si la capacidad ingresada está por debajo o por encima de los límites, se ajusta
+        if (capacidad < capacidadMin) capacidad = capacidadMin;
+        if (capacidad > capacidadMax) capacidad = capacidadMax;
+
+        // Se crea la localidad con la instalación Cancha F11 Grande y la ubicación especificada
+        Localidad loc = new Localidad(canchaF11Grande, ubicacion, capacidad);
+
+        // Se pregunta si se desea dividir la localidad para menores
+        System.out.println("¿Desea dividir la localidad para menores? (1. Sí / 2. No)");
+        int opcion = sc.nextInt();
+        if (opcion == 1) {
+            loc.setDivision(true);
+            loc.setMenores(true);
+        }
+        return loc;
+    }
+
+    public static void mostrarToldosDisponibles(ArrayList<Instalacion> instalaciones) {
+        // Se muestran los tres toldos patrocinados disponibles
+        System.out.println("Toldos patrocinados disponibles (1 a 3):");
+        System.out.println("1. " + instalaciones.get(4).getNombre());
+        System.out.println("2. " + instalaciones.get(5).getNombre());
+        System.out.println("3. " + instalaciones.get(6).getNombre());
+    }
+
+
     //Metodo para crear los arbitros
     public static ArrayList<Trabajador> crearArbitros(){
         ArrayList<Trabajador> arbitros = new ArrayList<>();
@@ -867,10 +1037,4 @@ private static void realizarInscripciones(Scanner scanner) {
 
     //System.out.println("Según los datos del joven, el mismo califica para la categoría: " + jovenRegistrado.darCategoria());
 }
-
-
-
-    private static void crearEventos(Scanner scanner) {
-        // Implementación del método para crear eventos (conciertos)
-    }
 }
