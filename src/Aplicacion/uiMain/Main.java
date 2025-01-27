@@ -46,6 +46,10 @@ public class Main {
 
         ArrayList<Trabajador> medicos = crearMedicos();
 
+        ArrayList<Trabajador> seguridadDisponible = crearSeguridad();
+
+        ArrayList<Trabajador> paramedicosDisponibles = crearParamedicos();
+
         Torneo torneoBase = new Torneo(9999);
 
         boolean salir = false;
@@ -768,47 +772,51 @@ public class Main {
 
     /// ///////Metodo para crear eventos/////////
     public static void crearEvento() {
-        // Se crea un escáner para leer datos desde consola
         Scanner sc = new Scanner(System.in);
-
-        // Se obtienen todas las instalaciones disponibles, incluyendo la cancha F11 Grande y los posibles toldos
         ArrayList<Instalacion> todasLasInstalaciones = crearInstalaciones();
+        ArrayList<Trabajador> seguridadDisponible = crearSeguridad();
+        ArrayList<Trabajador> paramedicosDisponibles = crearParamedicos();
 
-        // Se instancia un nuevo objeto Evento para almacenar toda la información que el usuario proporcione
         Evento evento = new Evento();
 
         System.out.println("Creación de un evento no deportivo (Festival o Concierto)");
         System.out.println("Ingrese el nombre del evento:");
-        String nombre = sc.nextLine();  // Nombre del evento
+        String nombre = sc.nextLine();
 
         System.out.println("Seleccione el tipo de evento:");
         System.out.println("1. Festival");
         System.out.println("2. Concierto");
-        int tipo = sc.nextInt();  // Se lee el tipo (1 o 2)
-        sc.nextLine(); // Se consume la línea pendiente del buffer
-
-        // Se asigna el tipo de evento en función de la elección
+        int tipo = sc.nextInt();
+        sc.nextLine();
         if (tipo == 1) {
             evento.setTipoEvento("Festival");
         } else {
             evento.setTipoEvento("Concierto");
         }
 
-        // Se asigna el nombre del evento
         evento.setNombreEvento(nombre);
 
         System.out.println("Ingrese el nombre del artista o personaje principal:");
-        String artista = sc.nextLine();  // Personaje o artista principal
+        String artista = sc.nextLine();
         evento.setPersonajePrincipal(artista);
 
-        // Si el evento es un concierto, se pide el género musical
         if (evento.getTipoEvento().equals("Concierto")) {
             System.out.println("Ingrese el género musical:");
             String genero = sc.nextLine();
             evento.setGeneroMusical(genero);
         }
 
-        // Se busca la instalación "Cancha F11 Grande" y se asigna como lugar principal del evento
+        System.out.println("¿Cuántos artistas invitados desea agregar? (0 si no hay invitados):");
+        int cantInvitados = sc.nextInt();
+        sc.nextLine();
+        ArrayList<String> artistasInvitados = new ArrayList<>();
+        for (int i = 0; i < cantInvitados; i++) {
+            System.out.println("Nombre del artista invitado " + (i + 1) + ":");
+            String artistaInv = sc.nextLine();
+            artistasInvitados.add(artistaInv);
+        }
+        evento.setArtistasInvitados(artistasInvitados);
+
         for (Instalacion ins : todasLasInstalaciones) {
             if (ins.getNombre().equals("Cancha F11 Grande")) {
                 evento.setLugarPrincipal(ins);
@@ -817,47 +825,53 @@ public class Main {
         }
 
         System.out.println("Configuración de localidades (tribunas y gramilla).");
-
-        // Se crean y configuran cinco localidades distintas (Norte, Sur, Oriental, Occidental, Gramilla)
         ArrayList<Localidad> localidades = new ArrayList<>();
         localidades.add(configurarLocalidad(todasLasInstalaciones, "Norte"));
         localidades.add(configurarLocalidad(todasLasInstalaciones, "Sur"));
         localidades.add(configurarLocalidad(todasLasInstalaciones, "Oriental"));
         localidades.add(configurarLocalidad(todasLasInstalaciones, "Occidental"));
         localidades.add(configurarLocalidad(todasLasInstalaciones, "Gramilla"));
-
-        // Se asignan todas las localidades configuradas al evento
         evento.setLocalidades(localidades);
 
-        // Opción de agregar toldos patrocinados, de 1 a 3
         System.out.println("¿Desea agregar toldos patrocinados? Puede agregar de 1 a 3. Ingrese la cantidad (0 si no desea):");
         int cantidadToldos = sc.nextInt();
         sc.nextLine();
-
-        // Lista donde se guardarán los toldos seleccionados
         ArrayList<Instalacion> toldosPatrocinados = new ArrayList<>();
-
-        // Si el usuario ingresa más de 3, se limita a 3
         if (cantidadToldos > 3) {
             cantidadToldos = 3;
         }
-
-        // Se seleccionan los toldos uno a uno, según la cantidad elegida
         for (int i = 0; i < cantidadToldos; i++) {
             mostrarToldosDisponibles(todasLasInstalaciones);
             System.out.println("Seleccione un toldo patrocinado por número:");
             int opcionToldo = sc.nextInt();
             sc.nextLine();
-            // El valor de opcionToldo debe ser 1, 2 o 3 para seleccionarlo correctamente
             if (opcionToldo >= 1 && opcionToldo <= 3) {
-                toldosPatrocinados.add(todasLasInstalaciones.get(opcionToldo + 3));
+                toldosPatrocinados.add(todasLasInstalaciones.get(opcionToldo));
             }
         }
-
-        // Se asignan los toldos patrocinados al evento
         evento.setToldosPatrocinados(toldosPatrocinados);
 
-        // Se muestra un resumen final del evento creado
+        System.out.println("¿Desea agregar FoodTrucks? (0 a 5). Ingrese la cantidad:");
+        int cantidadFoodTrucks = sc.nextInt();
+        sc.nextLine();
+        ArrayList<Instalacion> foodTrucksSeleccionados = new ArrayList<>();
+        if (cantidadFoodTrucks > 5) {
+            cantidadFoodTrucks = 5;
+        }
+        for (int i = 0; i < cantidadFoodTrucks; i++) {
+            mostrarFoodTrucks(todasLasInstalaciones);
+            System.out.println("Seleccione un FoodTruck por número (1-5):");
+            int opcionFT = sc.nextInt();
+            sc.nextLine();
+            if (opcionFT >= 1 && opcionFT <= 5) {
+                foodTrucksSeleccionados.add(todasLasInstalaciones.get(opcionFT + 3));
+            }
+        }
+        evento.setFoodTrucks(foodTrucksSeleccionados);
+
+        asignarPersonalSeguridad(evento, seguridadDisponible);
+        asignarPersonalMedico(evento, paramedicosDisponibles);
+
         System.out.println("Resumen del evento creado:");
         System.out.println("Nombre: " + evento.getNombreEvento());
         System.out.println("Tipo: " + evento.getTipoEvento());
@@ -865,17 +879,21 @@ public class Main {
         if (evento.getTipoEvento().equals("Concierto")) {
             System.out.println("Género musical: " + evento.getGeneroMusical());
         }
+        if (!evento.getArtistasInvitados().isEmpty()) {
+            System.out.println("Artistas invitados:");
+            for (String invitado : evento.getArtistasInvitados()) {
+                System.out.println("- " + invitado);
+            }
+        }
         System.out.println("Lugar principal: " + evento.getLugarPrincipal().getNombre());
         System.out.println("Localidades configuradas:");
         for (Localidad loc : evento.getLocalidades()) {
             System.out.println("- " + loc.getUbicacion()
                     + " | Capacidad: " + loc.getCapacidad()
                     + " | Precio sugerido: " + loc.getPrecioSugerido()
-                    + " | División: " + loc.getDivision()
-                    + " | Menores: " + loc.getMenores());
+                    + " | División menores: " + loc.getMenores()
+                    + " | Zona VIP: " + loc.getVip());
         }
-
-        // Se informa si se agregaron o no toldos patrocinados
         if (!evento.getToldosPatrocinados().isEmpty()) {
             System.out.println("Toldos patrocinados seleccionados:");
             for (Instalacion t : evento.getToldosPatrocinados()) {
@@ -884,87 +902,199 @@ public class Main {
         } else {
             System.out.println("No se agregaron toldos patrocinados.");
         }
+        if (!evento.getFoodTrucks().isEmpty()) {
+            System.out.println("FoodTrucks seleccionados:");
+            for (Instalacion ft : evento.getFoodTrucks()) {
+                System.out.println("- " + ft.getNombre());
+            }
+        } else {
+            System.out.println("No se agregaron FoodTrucks.");
+        }
+        if (!evento.getPersonalSeguridad().isEmpty()) {
+            System.out.println("Personal de Seguridad asignado:");
+            for (Trabajador seg : evento.getPersonalSeguridad()) {
+                System.out.println("- " + seg.getNombre() + " " + seg.getApellido());
+            }
+        }
+        if (!evento.getPersonalMedico().isEmpty()) {
+            System.out.println("Personal Médico asignado:");
+            for (Trabajador med : evento.getPersonalMedico()) {
+                System.out.println("- " + med.getNombre() + " " + med.getApellido());
+            }
+        }
     }
 
     public static Localidad configurarLocalidad(ArrayList<Instalacion> instalaciones, String ubicacion) {
-        // Este método pide al usuario la capacidad y define si la localidad se divide para menores
         Scanner sc = new Scanner(System.in);
         Instalacion canchaF11Grande = null;
-
-        // Se busca la instalación "Cancha F11 Grande" para vincularla a la localidad
         for (Instalacion ins : instalaciones) {
             if (ins.getNombre().equals("Cancha F11 Grande")) {
                 canchaF11Grande = ins;
                 break;
             }
         }
-
-        // Se definen capacidad mínima y máxima para la localidad
         int capacidadMin = 50;
         int capacidadMax = 500;
-
         System.out.println("Configurando localidad: " + ubicacion);
         System.out.println("Ingrese la capacidad (entre " + capacidadMin + " y " + capacidadMax + "):");
         int capacidad = sc.nextInt();
-
-        // Si la capacidad ingresada está por debajo o por encima de los límites, se ajusta
         if (capacidad < capacidadMin) capacidad = capacidadMin;
         if (capacidad > capacidadMax) capacidad = capacidadMax;
-
-        // Se crea la localidad con la instalación Cancha F11 Grande y la ubicación especificada
         Localidad loc = new Localidad(canchaF11Grande, ubicacion, capacidad);
 
-        // Se pregunta si se desea dividir la localidad para menores
         System.out.println("¿Desea dividir la localidad para menores? (1. Sí / 2. No)");
-        int opcion = sc.nextInt();
-        if (opcion == 1) {
+        int opcionMenores = sc.nextInt();
+        if (opcionMenores == 1) {
             loc.setDivision(true);
             loc.setMenores(true);
+        }
+
+        System.out.println("¿Desea habilitar zona VIP en esta localidad? (1. Sí / 2. No)");
+        int opcionVip = sc.nextInt();
+        if (opcionVip == 1) {
+            loc.setVip(true);
         }
         return loc;
     }
 
     public static void mostrarToldosDisponibles(ArrayList<Instalacion> instalaciones) {
-        // Se muestran los tres toldos patrocinados disponibles
         System.out.println("Toldos patrocinados disponibles (1 a 3):");
+        // Ajusta índices según la lista. En este ejemplo, se asume el primer toldo es índice 1,
+        // segundo toldo es índice 2, y tercero es índice 3:
+        System.out.println("1. " + instalaciones.get(1).getNombre());
+        System.out.println("2. " + instalaciones.get(2).getNombre());
+        System.out.println("3. " + instalaciones.get(3).getNombre());
+    }
+
+    public static void mostrarFoodTrucks(ArrayList<Instalacion> instalaciones) {
+        System.out.println("FoodTrucks disponibles (1 a 5):");
+        // Se asume que van de la posición 4 a la 8
         System.out.println("1. " + instalaciones.get(4).getNombre());
         System.out.println("2. " + instalaciones.get(5).getNombre());
         System.out.println("3. " + instalaciones.get(6).getNombre());
+        System.out.println("4. " + instalaciones.get(7).getNombre());
+        System.out.println("5. " + instalaciones.get(8).getNombre());
+    }
+
+    public static void asignarPersonalSeguridad(Evento evento, ArrayList<Trabajador> seguridadDisponible) {
+        // Se asignan 10 personas de seguridad al evento
+        ArrayList<Trabajador> asignados = new ArrayList<>();
+        Random rand = new Random();
+        if (seguridadDisponible.size() < 10) {
+            // Si no hay suficientes, asigna los que haya
+            asignados.addAll(seguridadDisponible);
+        } else {
+            while (asignados.size() < 10) {
+                int indice = rand.nextInt(seguridadDisponible.size());
+                Trabajador s = seguridadDisponible.get(indice);
+                if (!s.isOcupado()) {
+                    s.setOcupado(true);
+                    asignados.add(s);
+                }
+            }
+        }
+        evento.setPersonalSeguridad(asignados);
+    }
+
+    public static void asignarPersonalMedico(Evento evento, ArrayList<Trabajador> paramedicosDisponibles) {
+        // Se asignan 3 paramédicos al evento (puedes ajustar el número según necesidad)
+        ArrayList<Trabajador> asignados = new ArrayList<>();
+        Random rand = new Random();
+        int cupoParamedicos = 3;
+        if (paramedicosDisponibles.size() < cupoParamedicos) {
+            asignados.addAll(paramedicosDisponibles);
+        } else {
+            while (asignados.size() < cupoParamedicos) {
+                int indice = rand.nextInt(paramedicosDisponibles.size());
+                Trabajador pm = paramedicosDisponibles.get(indice);
+                if (!pm.isOcupado()) {
+                    pm.setOcupado(true);
+                    asignados.add(pm);
+                }
+            }
+        }
+        evento.setPersonalMedico(asignados);
     }
 
 
     //Metodo para crear los arbitros
     public static ArrayList<Trabajador> crearArbitros(){
         ArrayList<Trabajador> arbitros = new ArrayList<>();
-        arbitros.add(new Trabajador("Pedro", "Gaspar", "Arbitro", 55));
-        arbitros.add(new Trabajador("Martin", "Corredor", "Arbitro", 50));
-        arbitros.add(new Trabajador("Santiago", "Zapata", "Arbitro", 40));
-        arbitros.add(new Trabajador("Deivy", "Jhoan", "Arbitro", 43));
-        arbitros.add(new Trabajador("Wilmar", "Rolando", "Arbitro", 51));
-        arbitros.add(new Trabajador("Anthony", "Silva", "Arbitro", 39));
-        arbitros.add(new Trabajador("Joel", "Graterol", "Arbitro", 52));
-        arbitros.add(new Trabajador("Paulo", "Torres", "Arbitro", 44));
-        arbitros.add(new Trabajador("Diego", "Sinisterra", "Arbitro", 42));
-        arbitros.add(new Trabajador("Armando", "Carrascal", "Arbitro", 54));
+        arbitros.add(new Trabajador("Marcela", "Gil", "Arbitro", 30));
+        arbitros.add(new Trabajador("Ana", "Campos", "Arbitro", 42));
+        arbitros.add(new Trabajador("Pedro", "Castillo", "Arbitro", 55));
+        arbitros.add(new Trabajador("Sergio", "Correa", "Arbitro", 47));
+        arbitros.add(new Trabajador("Carolina", "Ortega", "Arbitro", 38));
+        arbitros.add(new Trabajador("Valentina", "Ríos", "Arbitro", 29));
+        arbitros.add(new Trabajador("Ricardo", "Rojas", "Arbitro", 50));
+        arbitros.add(new Trabajador("Laura", "Ponce", "Arbitro", 44));
+        arbitros.add(new Trabajador("Javier", "Montoya", "Arbitro", 41));
+        arbitros.add(new Trabajador("Gabriela", "López", "Arbitro", 36));
         return arbitros;
     }
 
 
+    //Metodo para crear seguridada para eventos
+    public static ArrayList<Trabajador> crearSeguridad() {
+        ArrayList<Trabajador> personalSeguridad = new ArrayList<>();
+        personalSeguridad.add(new Trabajador("Lucía", "Reyes", "Seguridad", 30));
+        personalSeguridad.add(new Trabajador("Valentina", "Rojas", "Seguridad", 35));
+        personalSeguridad.add(new Trabajador("Sofía", "Pérez", "Seguridad", 28));
+        personalSeguridad.add(new Trabajador("Manuel", "Contreras", "Seguridad", 42));
+        personalSeguridad.add(new Trabajador("Gabriela", "Ramírez", "Seguridad", 29));
+        personalSeguridad.add(new Trabajador("Santiago", "Herrera", "Seguridad", 45));
+        personalSeguridad.add(new Trabajador("Julia", "Fernández", "Seguridad", 33));
+        personalSeguridad.add(new Trabajador("Diego", "Maldonado", "Seguridad", 40));
+        personalSeguridad.add(new Trabajador("Ana", "Torres", "Seguridad", 38));
+        personalSeguridad.add(new Trabajador("Leonardo", "Díaz", "Seguridad", 36));
+        personalSeguridad.add(new Trabajador("Miguel", "Castañeda", "Seguridad", 31));
+        personalSeguridad.add(new Trabajador("Carolina", "Osorio", "Seguridad", 27));
+        personalSeguridad.add(new Trabajador("Esteban", "Flórez", "Seguridad", 44));
+        personalSeguridad.add(new Trabajador("Marcela", "Marín", "Seguridad", 32));
+        personalSeguridad.add(new Trabajador("Ricardo", "Vargas", "Seguridad", 39));
+        personalSeguridad.add(new Trabajador("Paula", "Franco", "Seguridad", 29));
+        personalSeguridad.add(new Trabajador("Mateo", "Cárdenas", "Seguridad", 41));
+        personalSeguridad.add(new Trabajador("Felipe", "Guzmán", "Seguridad", 37));
+        personalSeguridad.add(new Trabajador("Daniela", "Montoya", "Seguridad", 26));
+        personalSeguridad.add(new Trabajador("Andrés", "López", "Seguridad", 43));
+        return personalSeguridad;
+    }
+
+
+
+    //Metodo para crear paramedicos
+    public static ArrayList<Trabajador> crearParamedicos() {
+        ArrayList<Trabajador> paraMedicos = new ArrayList<>();
+        paraMedicos.add(new Trabajador("Lucía", "Reyes", "Paramedico", 30));
+        paraMedicos.add(new Trabajador("Valentina", "Rojas", "Paramedico", 35));
+        paraMedicos.add(new Trabajador("Sofía", "Pérez", "Paramedico", 28));
+        paraMedicos.add(new Trabajador("Manuel", "Contreras", "Paramedico", 42));
+        paraMedicos.add(new Trabajador("Gabriela", "Ramírez", "Paramedico", 29));
+        paraMedicos.add(new Trabajador("Santiago", "Herrera", "Paramedico", 45));
+        paraMedicos.add(new Trabajador("Julia", "Fernández", "Paramedico", 33));
+        paraMedicos.add(new Trabajador("Diego", "Maldonado", "Paramedico", 40));
+        paraMedicos.add(new Trabajador("Ana", "Torres", "Paramedico", 38));
+        paraMedicos.add(new Trabajador("Leonardo", "Díaz", "Paramedico", 36));
+        return paraMedicos;
+    }
+
+
     //Metodo para crear medicos
-    public static ArrayList<Trabajador> crearMedicos(){
+    public static ArrayList<Trabajador> crearMedicos() {
         ArrayList<Trabajador> medicos = new ArrayList<>();
-        medicos.add(new Trabajador("Juan", "Ramírez", "Medico", 55));
-        medicos.add(new Trabajador("Luis", "Fernández", "Medico", 50));
+        medicos.add(new Trabajador("Sofía", "Reyes", "Medico", 32));
+        medicos.add(new Trabajador("Valentina", "Rojas", "Medico", 45));
         medicos.add(new Trabajador("Carlos", "López", "Medico", 40));
         medicos.add(new Trabajador("José", "Martínez", "Medico", 43));
         medicos.add(new Trabajador("Miguel", "González", "Medico", 51));
-        medicos.add(new Trabajador("Antonio", "Rodríguez", "Medico", 39));
-        medicos.add(new Trabajador("Francisco", "Pérez", "Medico", 52));
-        medicos.add(new Trabajador("David", "García", "Medico", 44));
+        medicos.add(new Trabajador("Fernanda", "Rodríguez", "Medico", 36));
+        medicos.add(new Trabajador("Francisca", "Pérez", "Medico", 47));
+        medicos.add(new Trabajador("Daniela", "García", "Medico", 39));
         medicos.add(new Trabajador("Raúl", "Hernández", "Medico", 42));
-        medicos.add(new Trabajador("Álvaro", "Díaz", "Medico", 54));
+        medicos.add(new Trabajador("Ángela", "Díaz", "Medico", 54));
         return medicos;
     }
+
 
     // Método para crear todas las instalaciones predeterminadas
     public static ArrayList<Instalacion> crearInstalaciones() {
@@ -989,6 +1119,8 @@ public class Main {
 
         return instalaciones;
     }
+
+
 //------------------------
 private static void realizarInscripciones(Scanner scanner) {
     System.out.println("Ingrese el nombre del joven:");
@@ -1037,4 +1169,5 @@ private static void realizarInscripciones(Scanner scanner) {
 
     //System.out.println("Según los datos del joven, el mismo califica para la categoría: " + jovenRegistrado.darCategoria());
 }
+
 }
