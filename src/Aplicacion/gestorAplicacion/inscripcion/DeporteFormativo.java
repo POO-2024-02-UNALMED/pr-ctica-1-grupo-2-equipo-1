@@ -1,55 +1,46 @@
 package gestorAplicacion.inscripcion;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class DeporteFormativo {
-
-    public static ArrayList<DeporteFormativo> deportesFormativos;
     private String nombre;
     private int edad;
     private String eps;
     private String acudiente;
     private String deporteDeseado;
-    private int experienciaMeses; // Experiencia en meses
-    private String categoriaEquipo; // Categoría del equipo asignado
-    private String categoriaEntrenador; // Categoría del entrenador asignado
-    private String horario; // Horario asignado
+    private int experienciaMeses;
+    private String categoriaEquipo;
+    private String categoriaEntrenador;
+    private String horario;
 
-    // Constructor vacío
-    public DeporteFormativo() {}
-
-    // Métodos
-    public void capturarDatos() {
-        Scanner scanner = new Scanner(System.in);
-
-        // Captura de los datos personales
-        System.out.print("Nombre: ");
-        this.nombre = scanner.nextLine();
-
-        System.out.print("Edad: ");
-        this.edad = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-
-        System.out.print("EPS: ");
-        this.eps = scanner.nextLine();
-
-        System.out.print("Nombre del Acudiente: ");
-        this.acudiente = scanner.nextLine();
-
-        System.out.print("Deporte deseado: ");
-        this.deporteDeseado = scanner.nextLine();
-
-        // Captura de experiencia previa en meses
-        System.out.print("Experiencia previa en meses: ");
-        this.experienciaMeses = scanner.nextInt();
-
-        // Cerrar scanner
-        scanner.close();
+    public DeporteFormativo() {
     }
 
+    // Setters para cargar datos desde Main (en lugar de Scanner)
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setEps(String eps) {
+        this.eps = eps;
+    }
+
+    public void setAcudiente(String acudiente) {
+        this.acudiente = acudiente;
+    }
+
+    public void setDeporteDeseado(String deporteDeseado) {
+        this.deporteDeseado = deporteDeseado;
+    }
+
+    public void setExperienciaMeses(int experienciaMeses) {
+        this.experienciaMeses = experienciaMeses;
+    }
+
+    // Lógica interna para clasificar según experiencia y asignar horario
     public void clasificarYAsignar() {
-        // Clasificación y asignación según meses de experiencia
         if (experienciaMeses < 6) {
             this.categoriaEquipo = "Categoría 1";
             this.categoriaEntrenador = "Entrenador Categoría 1";
@@ -61,40 +52,47 @@ public class DeporteFormativo {
             this.categoriaEntrenador = "Entrenador Categoría 3";
         }
 
-        // Asignación de horario disponible
-        if (edad <= 12) { // Para los más jóvenes, asignar horario de mañana
+        if (edad <= 12) {
             this.horario = "Mañana: 6 AM - 12 M";
-        } else { // Para mayores de 12 años, asignar horario de tarde
+        } else {
             this.horario = "Tarde: 1 PM - 8 PM";
         }
     }
 
-    public void mostrarResultados() {
-        // Mostrar los datos ingresados y asignaciones realizadas
-        System.out.println("\n--- Resultados de la Evaluación ---");
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Edad: " + edad);
-        System.out.println("EPS: " + eps);
-        System.out.println("Acudiente: " + acudiente);
-        System.out.println("Deporte Deseado: " + deporteDeseado);
-        System.out.println("Experiencia Previa: " + experienciaMeses + " meses");
-        System.out.println("Equipo Asignado: " + categoriaEquipo);
-        System.out.println("Entrenador Asignado: " + categoriaEntrenador);
-        System.out.println("Horario Asignado: " + horario);
+    // Getters para que Main pueda leer los resultados
+    public String getNombre() {
+        return nombre;
     }
-/*
-    // Método main para pruebas
-    public static void main(String[] args) {
-        // Crear instancia de DeporteFormativo
-        DeporteFormativo deporteFormativo = new DeporteFormativo();
 
-        // Capturar datos
-        deporteFormativo.capturarDatos();
+    public int getEdad() {
+        return edad;
+    }
 
-        // Clasificar y asignar equipo, entrenador y horario
-        deporteFormativo.clasificarYAsignar();
+    public String getEps() {
+        return eps;
+    }
 
-        // Mostrar resultados
-        deporteFormativo.mostrarResultados();
-    }*/
+    public String getAcudiente() {
+        return acudiente;
+    }
+
+    public String getDeporteDeseado() {
+        return deporteDeseado;
+    }
+
+    public int getExperienciaMeses() {
+        return experienciaMeses;
+    }
+
+    public String getCategoriaEquipo() {
+        return categoriaEquipo;
+    }
+
+    public String getCategoriaEntrenador() {
+        return categoriaEntrenador;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
 }

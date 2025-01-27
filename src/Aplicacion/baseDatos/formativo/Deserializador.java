@@ -1,5 +1,5 @@
 package baseDatos.formativo;
-
+/*
 import gestorAplicacion.inscripcion.DeporteFormativo;
 
 import java.io.BufferedReader;
@@ -16,10 +16,10 @@ public class Deserializador {
 
         while((linea = reader.readLine()) != null){
             String[] partes = linea.split("-");
-            /*
+
             declaracion de constructores
-             */
+
         }
         return deportesFormativos;
     }
-}
+}*/

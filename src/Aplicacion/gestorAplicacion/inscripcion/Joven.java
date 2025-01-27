@@ -1,29 +1,41 @@
 package gestorAplicacion.inscripcion;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import gestorAplicacion.entidades.Persona;
+import java.util.ArrayList;
 
 public class Joven extends Persona {
-    public int experienciaJoven;
-    public String eps;
-    public String nombreAcudiente;
-    public String telefonoAcudiente;
-    public String cedulaAcudiente;
-    public ArrayList<Integer> registrosEntrenamiento;
+    private int experienciaJoven;
+    private String eps;
+    private String nombreAcudiente;
+    private String telefonoAcudiente;
+    private String cedulaAcudiente;
+    private ArrayList<Integer> registrosEntrenamiento;
 
-    // Constructor de la clase Joven
-    public Joven(String nombre, String apellido, int id,int edad, int experiencia, String eps, String nombreAcudiente, String telefonoAcudiente, String cedulaAcudiente) {
-        super(nombre, apellido,/* id,*/ edad);
-        this.experienciaJoven = experiencia;
+    public Joven(String nombre, String apellido, int edad, int experienciaJoven,
+                 int experienciaMeses, String eps, String nombreAcudiente,
+                 String telefonoAcudiente, String cedulaAcudiente) {
+        super(nombre, apellido, edad);
+        this.experienciaJoven = experienciaJoven;
         this.eps = eps;
         this.nombreAcudiente = nombreAcudiente;
         this.telefonoAcudiente = telefonoAcudiente;
         this.cedulaAcudiente = cedulaAcudiente;
-        this.registrosEntrenamiento = new ArrayList<>(); // Inicialización del ArrayList
+        this.registrosEntrenamiento = new ArrayList<>();
     }
 
-    // Getters y Setters
+    @Override
+    public String getRol() {
+        return "Joven";
+    }
+
+    public int getExperienciaJoven() {
+        return experienciaJoven;
+    }
+
+    public void setExperienciaJoven(int experienciaJoven) {
+        this.experienciaJoven = experienciaJoven;
+    }
+
     public String getEps() {
         return eps;
     }
@@ -68,30 +80,22 @@ public class Joven extends Persona {
         this.registrosEntrenamiento.add(registro);
     }
 
-    public String getRol() {
-        return "Joven";
-    }
-    public String toString() {
-        return "Joven{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
-                ", experiencia=" + experienciaJoven +
-                ", eps='" + eps + '\'' +
-                ", nombreAcudiente='" + nombreAcudiente + '\'' +
-                ", telefonoAcudiente='" + telefonoAcudiente + '\'' +
-                ", cedulaAcudiente='" + cedulaAcudiente + '\'' +
-                '}';
-    }
     public int darCategoria(int exp){
-        if (exp<6){
+        if (exp < 6){
             return 1;
-        }
-        else if (exp<12){
+        } else if (exp < 12){
             return 2;
-        }
-        else{
+        } else {
             return 3;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Joven{nombre='" + nombre + "', apellido='" + apellido
+                + "', edad=" + edad + ", experiencia=" + experienciaJoven
+                + ", eps='" + eps + "', acudiente='" + nombreAcudiente
+                + "', telAcudiente='" + telefonoAcudiente
+                + "', cedulaAcudiente='" + cedulaAcudiente + "'}";
     }
 }

@@ -1,21 +1,12 @@
-/*Archivo principal del programa
-PRUEBA
-PRUEBA
+/*
+Archivo principal del programa
 Donde se programa la UI de consola del programa
-
-NO CAMBIAR SIN PREGUNTAR PRECAUCION
-
 */
-//Falta logica para cada opcion. Simplemente es una idea de lo que puede ser la base. Hay "errores" en el switch
-
-
-// Se crean instalaciones basicas
-
-//Agregar descripciones de las instalaciones
 
 package uiMain;
 
 import gestorAplicacion.entidades.Trabajador;
+import gestorAplicacion.inscripcion.*;
 import gestorAplicacion.pagos.Boleta;
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.pagos.Suscripcion;
@@ -24,7 +15,7 @@ import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
-import gestorAplicacion.inscripcion.Joven;
+
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,16 +65,15 @@ public class Main {
                     break;
 
                 case 2:
-                    //realizarInscripciones(scanner);
+                    gestionarInscripcion();
                     break;
 
                 case 3:
                     crearTorneos(medicos, arbitrosTodos);
-                    //Logica en la parte inferior de esta clase
                     break;
 
                 case 4:
-                    crearEvento();
+                    crearEvento(seguridadDisponible, paramedicosDisponibles);
                     break;
 
                 case 5:
@@ -100,7 +90,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 6.");
+                    System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 7.");
             }
         }
 
@@ -771,11 +761,9 @@ public class Main {
 
 
     /// ///////Metodo para crear eventos/////////
-    public static void crearEvento() {
+    public static void crearEvento( ArrayList<Trabajador> seguridadDisponible, ArrayList<Trabajador>  paramedicosDisponibles ) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Instalacion> todasLasInstalaciones = crearInstalaciones();
-        ArrayList<Trabajador> seguridadDisponible = crearSeguridad();
-        ArrayList<Trabajador> paramedicosDisponibles = crearParamedicos();
 
         Evento evento = new Evento();
 
@@ -1122,52 +1110,149 @@ public class Main {
 
 
 //------------------------
-private static void realizarInscripciones(Scanner scanner) {
-    System.out.println("Ingrese el nombre del joven:");
-    String nombreJoven = scanner.nextLine();
+public static void gestionarInscripcion() {
+    Scanner sc = new Scanner(System.in);
 
-    System.out.println("Ingrese el apellido del joven:");
-    String apellidoJoven = scanner.nextLine();
+    DeporteFormativo df = new DeporteFormativo();
 
-    System.out.println("Ingrese el ID del joven:");
-    int idJoven = scanner.nextInt();
-    scanner.nextLine();
+    System.out.println("=== Ingreso de datos para Deporte Formativo ===");
+    System.out.print("Nombre: ");
+    df.setNombre(sc.nextLine());
 
-    System.out.println("Ingrese la edad del joven:");
-    int edadJoven = scanner.nextInt();
-    scanner.nextLine();
+    System.out.print("Edad: ");
+    df.setEdad(sc.nextInt());
+    sc.nextLine(); // limpiar buffer
 
-    System.out.println("Ingrese la experiencia del joven (en meses):");
-    int experienciaJoven = scanner.nextInt();
-    scanner.nextLine();
+    System.out.print("EPS: ");
+    df.setEps(sc.nextLine());
 
-    System.out.println("Ingrese la EPS del joven:");
-    String eps = scanner.nextLine();
+    System.out.print("Acudiente: ");
+    df.setAcudiente(sc.nextLine());
 
-    System.out.println("Ingrese el nombre del acudiente:");
-    String nombreAcudiente = scanner.nextLine();
+    System.out.print("Deporte deseado: ");
+    df.setDeporteDeseado(sc.nextLine());
 
-    System.out.println("Ingrese el teléfono del acudiente:");
-    String telefonoAcudiente = scanner.nextLine();
+    System.out.print("Experiencia previa (meses): ");
+    df.setExperienciaMeses(sc.nextInt());
+    sc.nextLine();
 
-    System.out.println("Ingrese la cédula del acudiente:");
-    String cedulaAcudiente = scanner.nextLine();
+    // Asignamos categoría y horario
+    df.clasificarYAsignar();
 
-    Joven jovenRegistrado = new Joven(
-            nombreJoven,
+    System.out.println("\nDatos capturados:");
+    System.out.println("Nombre: " + df.getNombre());
+    System.out.println("Edad: " + df.getEdad());
+    System.out.println("EPS: " + df.getEps());
+    System.out.println("Acudiente: " + df.getAcudiente());
+    System.out.println("Deporte: " + df.getDeporteDeseado());
+    System.out.println("Experiencia: " + df.getExperienciaMeses() + " meses");
+    System.out.println("Categoría Equipo: " + df.getCategoriaEquipo());
+    System.out.println("Entrenador (categoría): " + df.getCategoriaEntrenador());
+    System.out.println("Horario Asignado: " + df.getHorario());
+
+    System.out.println("\n=== Creando objeto Joven e inscribiendo en GrupoFormativo ===");
+    // Creación de un Joven (los demás datos para el constructor los definimos aquí)
+    System.out.print("Apellido del joven: ");
+    String apellidoJoven = sc.nextLine();
+
+    System.out.print("Teléfono del acudiente: ");
+    String telAcudiente = sc.nextLine();
+
+    System.out.print("Cédula del acudiente: ");
+    String cedAcudiente = sc.nextLine();
+
+    Joven joven = new Joven(
+            df.getNombre(),
             apellidoJoven,
-            idJoven,
-            edadJoven,
-            experienciaJoven,
-            eps,
-            nombreAcudiente,
-            telefonoAcudiente,
-            cedulaAcudiente
+            df.getEdad(), // ID lo omitimos, se usará la misma "edad" o un 0.
+            df.getEdad(),
+            df.getExperienciaMeses(),
+            df.getEps(),
+            df.getAcudiente(),
+            telAcudiente,
+            cedAcudiente
     );
 
-    System.out.println("Joven registrado con éxito");
+    // Creamos un entrenador "simulado" con la categoría del DF
+    Entrenador ent = new Entrenador("Entrenador", df.getCategoriaEntrenador(), 40, df.getDeporteDeseado());
 
-    //System.out.println("Según los datos del joven, el mismo califica para la categoría: " + jovenRegistrado.darCategoria());
+    // Instalación simulada
+    Instalacion inst = new Instalacion(
+            "Cancha " + df.getDeporteDeseado(),
+            df.getDeporteDeseado(),
+            60,
+            0,
+            "",
+            1
+    );
+
+    // Creamos el grupo formativo
+    GrupoFormativo gf = new GrupoFormativo(df.getDeporteDeseado(), inst, ent);
+    gf.addJoven(joven);
+
+    // Inicializamos la tienda y ofrecemos la compra
+    TiendaEscuela tienda = inicializarTienda();
+    System.out.println("\n¿Desea comprar equipamiento para " + df.getDeporteDeseado() + "? (1. Sí / 2. No)");
+    int opcionCompra = sc.nextInt();
+    sc.nextLine();
+    if (opcionCompra == 1) {
+        mostrarArticulosPorDeporte(tienda, df.getDeporteDeseado());
+        System.out.print("Ingrese el ID del artículo que desea comprar (0 para salir): ");
+        int idArticulo = sc.nextInt();
+        sc.nextLine();
+        if (idArticulo != 0) {
+            ArticuloTiendaEscuela articulo = tienda.buscarArticuloPorId(idArticulo);
+            if (articulo != null && articulo.getTipoArticulo().equalsIgnoreCase(df.getDeporteDeseado())) {
+                if (articulo.getStockArticulo() > 0) {
+                    articulo.setStockArticulo(articulo.getStockArticulo() - 1);
+                    System.out.println("Compra realizada: " + articulo.getNombreArticulo());
+                } else {
+                    System.out.println("No hay stock disponible del artículo seleccionado.");
+                }
+            } else {
+                System.out.println("Artículo no encontrado o no corresponde al deporte.");
+            }
+        }
+    }
+
+    // Resumen final
+    System.out.println("\n=== Resumen de Inscripción ===");
+    System.out.println("Joven inscrito: " + joven);
+    System.out.println("Grupo Formativo - Deporte: " + gf.getDeporte());
+    System.out.println("Instalación: " + gf.getInstalacion().getNombre());
+    System.out.println("Entrenador: " + gf.getEntrenador().getNombre() + " " + gf.getEntrenador().getApellido());
+    System.out.println("Jóvenes en el grupo:");
+    for (Joven jj : gf.getJovenes()) {
+        System.out.println("- " + jj.getNombre() + " " + jj.getApellido());
+    }
+
+    sc.close();
 }
+
+    // Lógica para inicializar la tienda con algunos artículos
+    public static TiendaEscuela inicializarTienda() {
+        TiendaEscuela tienda = new TiendaEscuela();
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(1, "Uniforme Futbol", 10, 50000, "Futbol"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(2, "Balón Futbol", 15, 70000, "Futbol"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(3, "Uniforme Basket", 8, 55000, "Baloncesto"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(4, "Balón Basket", 12, 65000, "Baloncesto"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(5, "Gorro Natación", 20, 15000, "Natacion"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(6, "Gafas Natación", 25, 30000, "Natacion"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(7, "Uniforme Voleibol", 10, 45000, "Voleibol"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(8, "Balón Voleibol", 10, 50000, "Voleibol"));
+        return tienda;
+    }
+
+    // Muestra solo los artículos que coincidan con el deporte
+    public static void mostrarArticulosPorDeporte(TiendaEscuela tienda, String deporte) {
+        System.out.println("Artículos disponibles para " + deporte + ":");
+        for (ArticuloTiendaEscuela art : tienda.listarArticulos()) {
+            if (art.getTipoArticulo().equalsIgnoreCase(deporte)) {
+                System.out.println(art.getIdArticulo() + ". " + art.getNombreArticulo()
+                        + " | Stock: " + art.getStockArticulo()
+                        + " | Precio: " + art.getPrecio());
+            }
+        }
+    }
 
 }

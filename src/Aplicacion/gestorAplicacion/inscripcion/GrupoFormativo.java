@@ -2,44 +2,71 @@ package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
-
 import java.util.ArrayList;
 
 public class GrupoFormativo {
     private Instalacion instalacion;
-    private ArrayList<Joven> Jovenes;
+    private ArrayList<Joven> jovenes;
     private String deporte;
     private Reserva reserva;
-    //public static ArrayList<GrupoFormativo> gruposFormativo; Para implementación con el serializador.
+    private Entrenador entrenador;
+
+    public GrupoFormativo() {
+        this.jovenes = new ArrayList<>();
+    }
+
+    public GrupoFormativo(String deporte, Instalacion instalacion, Entrenador entrenador) {
+        this.deporte = deporte;
+        this.instalacion = instalacion;
+        this.entrenador = entrenador;
+        this.jovenes = new ArrayList<>();
+    }
 
     public Instalacion getInstalacion() {
         return instalacion;
     }
-    public void setInstalacion(Instalacion Instalacion) {
-        this.instalacion = Instalacion;
+
+    public void setInstalacion(Instalacion instalacion) {
+        this.instalacion = instalacion;
     }
+
     public ArrayList<Joven> getJovenes() {
-        return Jovenes;
+        return jovenes;
     }
-    public void addJoven(Joven Joven) {
-        Jovenes.add(Joven);
+
+    public void addJoven(Joven joven) {
+        jovenes.add(joven);
     }
-    public void deleteJoven(Joven Joven) {
-        Jovenes.remove(Joven);
+
+    public void deleteJoven(Joven joven) {
+        jovenes.remove(joven);
     }
+
     public String getDeporte() {
         return deporte;
     }
+
     public void setDeporte(String deporte) {
         this.deporte = deporte;
     }
-    public void resetJovenes() {
-        Jovenes = new ArrayList<>();
-    }
+
     public Reserva getReserva() {
         return reserva;
     }
+
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
+    }
+
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
+    public void resetJovenes() {
+        jovenes = new ArrayList<>();
     }
 }
