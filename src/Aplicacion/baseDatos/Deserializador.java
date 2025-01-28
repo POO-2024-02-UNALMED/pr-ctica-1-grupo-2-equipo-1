@@ -1,5 +1,6 @@
 package baseDatos;
 
+import gestorAplicacion.eventos.Evento;
 import gestorAplicacion.inscripcion.GrupoFormativo;
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.reservas.Reserva;
@@ -27,7 +28,22 @@ public class Deserializador {
                 deserializarTorneos(file);
             } else if (file.getAbsolutePath().contains("formativo")) {
                 deserializarGrupoFormativo(file);
+            } else if (file.getAbsolutePath().contains("evento")) {
+                deserealizarEventos(file);
             }
+        }
+    }
+
+    private static void deserealizarEventos(File file){
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            Evento.setEventos((ArrayList<Evento>) ois.readObject());
+        } catch (EOFException e) {
+            System.out.println("Se alcanzó el final del archivo para eventos: " + file.getName());
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado: " + file.getName());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

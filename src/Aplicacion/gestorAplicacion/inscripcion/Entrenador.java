@@ -2,7 +2,12 @@ package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.entidades.Persona;
 
-public class Entrenador extends Persona {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Entrenador extends Persona implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String deporte;
 
     public Entrenador() {}

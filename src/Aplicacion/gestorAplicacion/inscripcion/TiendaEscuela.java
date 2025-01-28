@@ -1,9 +1,13 @@
 package gestorAplicacion.inscripcion;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TiendaEscuela {
+public class TiendaEscuela implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private List<ArticuloTiendaEscuela> articulos;
 
     public TiendaEscuela() {

@@ -1,5 +1,6 @@
 package baseDatos;
 
+import gestorAplicacion.eventos.Evento;
 import gestorAplicacion.inscripcion.GrupoFormativo;
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.reservas.Reserva;
@@ -34,6 +35,8 @@ public class Serializador {
                     oos.writeObject(Torneo.getTorneos());
                 } else if (file.getAbsolutePath().contains("formativo")) {
                     oos.writeObject(GrupoFormativo.getGrupoFormativos());
+                } else if(file.getAbsolutePath().contains("evento")){
+                    oos.writeObject(Evento.getEventos());
                 }
             } catch (NotSerializableException e) {
                 System.out.println("Error: Un objeto no es serializable: " + e.getMessage());

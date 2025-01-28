@@ -2,10 +2,13 @@ package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.entidades.Persona;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Joven extends Persona implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Joven> listaJovenes = new ArrayList<Joven>();
     private int experienciaJoven;
     private String eps;

@@ -1,6 +1,11 @@
 package gestorAplicacion.inscripcion;
 
-public class ArticuloTiendaEscuela {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class ArticuloTiendaEscuela implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private int idArticulo;
     private String nombreArticulo;
     private int stockArticulo;
