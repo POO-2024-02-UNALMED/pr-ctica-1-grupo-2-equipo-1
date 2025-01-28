@@ -1,8 +1,8 @@
 package gestorAplicacion.torneo;
 
+import gestorAplicacion.pagos.Boleta;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
-import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.entidades.Trabajador;
 
 import java.util.ArrayList;
@@ -20,8 +20,9 @@ public class Torneo {
     private Instalacion instalacion;
     public ArrayList<String> reglas;
     private ArrayList<Trabajador> arbitros = new ArrayList<>();
-    private List<Reserva> reservas = new ArrayList<>();
-    ArrayList<Instalacion> inst = new ArrayList<Instalacion>();
+    public ArrayList<Reserva> reservas = new ArrayList<>();
+    public ArrayList<Boleta> boletas = new ArrayList<>();
+
 
     public Torneo(String deporte, ArrayList<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
         this.deporte = deporte;

@@ -556,11 +556,14 @@ public class Main {
                         break;
                     }
 
-                    System.out.println("Ingrese la altura de la malla (2.24 o 2.43):");
-                    float alturaVoleibol = new Scanner(System.in).nextFloat();
-                    if (alturaVoleibol != 2.24f && alturaVoleibol != 2.43f) {
-                        System.out.println("Altura de la malla fuera de rango. Terminando...");
-                        break;
+                    float alturaVoleibol = 0;
+
+                    System.out.println("Ingrese la altura de la malla (1. 2.24 / 2. 2.43):");
+                    int altura = new Scanner(System.in).nextInt();
+                    if (altura == 1) {
+                        alturaVoleibol = 2.24F;
+                    } else if (altura == 2) {
+                        alturaVoleibol = 2.43F;
                     }
 
                     reglasVoleibol.add("Sets: " + setsVoleibol);
@@ -812,8 +815,74 @@ public class Main {
             System.out.println("No hay suficientes árbitros para asignar.");
         }
 
-        System.out.println("\n=== Registro finalizado. Precio total del torneo: $"
-                + torneo.getPrecioTotal() + " ===");
+        System.out.println();
+        System.out.println("Se procede con la seleccion del horario para la instalacion seleccionada.");
+        if (deporteTorneo == 3) {
+            if (instalacionElegida != null) {
+                System.out.println("--Seleccione fecha");
+                System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+                int mes = new Scanner(System.in).nextInt();
+                System.out.println("Dia (1-31): ");
+                int dia = new Scanner(System.in).nextInt();
+                System.out.println("Desde la hora (1-24): ");
+                LocalDateTime inicioHora = LocalDateTime.of(2025, mes, dia,new Scanner(System.in).nextInt() , 0);
+                System.out.println("Recuerde que las reservas para torneos son todas de DOS HORAS");
+                System.out.println("Hasta la hora (1-24): ");
+                LocalDateTime finHora = LocalDateTime.of(2025, mes, dia, new Scanner(System.in).nextInt(), 0);
+
+                Reserva reservaNatacion = new Reserva(instalacionElegida, new FechaReserva(inicioHora, finHora));
+                System.out.println("La reserva para el torneo ha sido creada desde: \n" +
+                        inicioHora + " .Hasta:\n" +
+                        finHora);
+            }
+        } else if (deporteTorneo != 3) {
+            for (int i = 1; i <= 20; i++) {
+                if (instalacionElegida != null) {
+                    System.out.println("--Seleccione fecha");
+                    System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+                    int mes = new Scanner(System.in).nextInt();
+                    System.out.println("Dia (1-31): ");
+                    int dia = new Scanner(System.in).nextInt();
+                    System.out.println("Desde la hora (1-24): ");
+                    LocalDateTime inicioHora = LocalDateTime.of(2025, mes, dia,new Scanner(System.in).nextInt() , 0);
+                    System.out.println("Recuerde que las reservas para torneos son todas de DOS HORAS");
+                    System.out.println("Hasta la hora (1-24): ");
+                    LocalDateTime finHora = LocalDateTime.of(2025, mes, dia, new Scanner(System.in).nextInt(), 0);
+
+                    ArrayList<Equipo> partido = new ArrayList<>();
+
+                    for (Equipo equipo1: equiposTorneo){
+                        for (Equipo equipo2: equiposTorneo){
+                            if (equipo1 == equipo2){
+                                //nada
+                            } else if (equipo1 != equipo2) {
+                                partido.add(equipo1);
+                                partido.add(equipo2);
+                                Random random = new Random();
+                                int index = random.nextInt(arbitrosTodos.size());
+                                Reserva reservaRealziada = new Reserva(instalacionElegida,new FechaReserva(inicioHora, finHora), equipo1, equipo2, arbitrosTodos.get(index));
+                                torneo.reservas.add(reservaRealziada);
+
+                            }
+                        }
+                    }
+
+                    System.out.println("Reserva No. " + i + " de 20 realizada" );
+
+                }
+            }
+
+        }
+
+        System.out.println("Todas las reservas necesarias para su torneo han sido creadas");
+
+        for (Reserva reserva: torneo.reservas) {
+            int idBoleta = 10000;
+            Boleta boleta = new Boleta("Partido Torneo", 30, cliente);
+            torneo.boletas.add(boleta);
+        }
+
+        System.out.println("Se han creado las boletas par");
     }
 
 
