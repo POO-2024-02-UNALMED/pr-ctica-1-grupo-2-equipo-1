@@ -60,7 +60,7 @@ public class Main {
             System.out.println("7. Salir del sistema");
             System.out.print("Seleccione una opción: ");
 
-            int opcion = new Scanner(System.in).nextInt();
+            int opcion = scanner.nextInt();
 
             switch (opcion) {
                 case 1:
@@ -1175,7 +1175,7 @@ public static void gestionarInscripcion() {
 
     System.out.print("Edad: ");
     df.setEdad(sc.nextInt());
-    sc.nextLine();
+    sc.nextLine(); // limpiar buffer
 
     System.out.print("EPS: ");
     df.setEps(sc.nextLine());
@@ -1279,6 +1279,8 @@ public static void gestionarInscripcion() {
     for (Joven jj : gf.getJovenes()) {
         System.out.println("- " + jj.getNombre() + " " + jj.getApellido());
     }
+
+    sc.close();
 }
 
     // Lógica para inicializar la tienda con algunos artículos
