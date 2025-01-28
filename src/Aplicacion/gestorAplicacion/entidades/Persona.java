@@ -2,19 +2,26 @@ package gestorAplicacion.entidades;
 
 //clase abstracta
 public abstract class Persona{
+
+    //Atributos----------------------------------------------------------
     public String nombre;
     public String apellido;
     public int id;
     public int edad;
+    //-------------------------------------------------------------------
+
+    //Constructores------------------------------------------------------
 
     //Constructor sin parámetros
     public Persona(){}
+
     //Constructor sin id
     public Persona(String nombre, String apellido, int edad) {
             this.nombre = nombre;
             this.apellido = apellido;
             this.edad = edad;
     }
+
     //Constructor con id
     public Persona(String nombre, String apellido, int edad, int id) {
         this.nombre = nombre;
@@ -22,7 +29,11 @@ public abstract class Persona{
         this.edad = edad;
         this.id = id;
     }
+    //-------------------------------------------------------------------
 
+    //Métodos------------------------------------------------------------
+
+    //Setters y Getters.
     public String getNombre() {
         return nombre;
     }
@@ -54,11 +65,13 @@ public abstract class Persona{
     public String getNombreCompleto() {
         return nombre + " " + apellido;
     }
-    public abstract String getRol(); 
+    public abstract String getRol();
 
+    //Método abstracto---------------------------------------------------
     @Override
     public String toString() {
         return getNombreCompleto();
     }
 
+    //-------------------------------------------------------------------
 }
