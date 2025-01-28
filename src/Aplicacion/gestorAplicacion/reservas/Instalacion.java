@@ -1,5 +1,7 @@
 package gestorAplicacion.reservas;
 
+import gestorAplicacion.eventos.Localidad;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +13,7 @@ public class Instalacion {
     private String nombre;
     private ArrayList<Horario> horarios;
     private ArrayList<Reserva> reservas;
+    public ArrayList<Localidad> localidadaes = new ArrayList<>();
 
     // Constructor con todos los atributos
     public Instalacion(String nombre, String deporte, int precioHora) {

@@ -79,7 +79,7 @@ public class Main {
                     break;
 
                 case 4:
-                    crearEvento(seguridadDisponible, paramedicosDisponibles);
+                    crearEvento(seguridadDisponible, paramedicosDisponibles, inst);
                     break;
 
                 case 5:
@@ -877,7 +877,6 @@ public class Main {
         System.out.println("Todas las reservas necesarias para su torneo han sido creadas");
 
         for (Reserva reserva: torneo.reservas) {
-            int idBoleta = 10000;
             Boleta boleta = new Boleta("Partido Torneo", 30, cliente);
             torneo.boletas.add(boleta);
         }
@@ -887,13 +886,27 @@ public class Main {
 
 
     /// ///////Metodo para crear eventos/////////
-    public static void crearEvento( ArrayList<Trabajador> seguridadDisponible, ArrayList<Trabajador>  paramedicosDisponibles ) {
+    public static void crearEvento( ArrayList<Trabajador> seguridadDisponible, ArrayList<Trabajador>  paramedicosDisponibles , ArrayList<Instalacion> inst) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Instalacion> todasLasInstalaciones = new ArrayList<>();
 
         Evento evento = new Evento();
 
         System.out.println("Creación de un evento no deportivo (Festival o Concierto)");
+
+        System.out.println("Antes de empezar con la creacion del torneo, se requieren unos datos del cliente");
+        System.out.println("Ingrese su nombre");
+        String nombreCliente = new Scanner(System.in).nextLine();
+        System.out.println("Ingrese su apellido");
+        String apellidoCliente = new Scanner(System.in).nextLine();
+        System.out.println("Ingrese su edad");
+        int edadCliente = new Scanner(System.in).nextInt();
+        System.out.println("Ingrese su ID");
+        int idCliente = new Scanner(System.in).nextInt();
+        System.out.println();
+
+        Cliente cliente = new Cliente(nombreCliente, apellidoCliente, edadCliente, idCliente);
+
         System.out.println("Ingrese el nombre del evento:");
         String nombre = sc.nextLine();
 
@@ -931,12 +944,7 @@ public class Main {
         }
         evento.setArtistasInvitados(artistasInvitados);
 
-        for (Instalacion ins : todasLasInstalaciones) {
-            if (ins.getNombre().equals("Cancha F11 Grande")) {
-                evento.setLugarPrincipal(ins);
-                break;
-            }
-        }
+        evento.setLugarPrincipal(inst.get(0));
 
         System.out.println("Configuración de localidades (tribunas y gramilla).");
         ArrayList<Localidad> localidades = new ArrayList<>();
@@ -1036,6 +1044,30 @@ public class Main {
                 System.out.println("- " + med.getNombre() + " " + med.getApellido());
             }
         }
+
+        Instalacion instalacionElegida = inst.get(0);
+
+        System.out.println("--Seleccione fecha");
+        System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+        int mes = new Scanner(System.in).nextInt();
+        System.out.println("Dia (1-31): ");
+        int dia = new Scanner(System.in).nextInt();
+        System.out.println("Desde la hora (1-24): ");
+        LocalDateTime inicioHora = LocalDateTime.of(2025, mes, dia,new Scanner(System.in).nextInt() , 0);
+        System.out.println("Recuerde que las reservas para eventos son de minimo SEIS HORAS.");
+        System.out.println("Hasta la hora (1-24): ");
+        LocalDateTime finHora = LocalDateTime.of(2025, mes, dia, new Scanner(System.in).nextInt(), 0);
+
+        Reserva reserva = new Reserva(instalacionElegida, new FechaReserva(inicioHora, finHora));
+        evento.reservas.add(reserva);
+
+        System.out.println("Se ha realizado la reserva para su toneo.");
+        System.out.println(reserva.toStringReserva());
+        System.out.println("Debe irse a Taquilla para confirmar el estado de su reserva mediante el pago");
+
+        Boleta boleta = new Boleta(evento.getNombreEvento(), evento.getLocalidades().getFirst().getPrecioSugerido(), cliente);
+        evento.boletas.add(boleta);
+        System.out.println("Se han creado las boletas para el torneo. Estas se pueden adquirir en Taquilla");
     }
 
     public static Localidad configurarLocalidad(ArrayList<Instalacion> instalaciones, String ubicacion) {
@@ -1047,6 +1079,7 @@ public class Main {
                 break;
             }
         }
+
         int capacidadMin = 50;
         int capacidadMax = 500;
         System.out.println("Configurando localidad: " + ubicacion);
@@ -1069,6 +1102,7 @@ public class Main {
             loc.setVip(true);
         }
         return loc;
+
     }
 
     public static void mostrarToldosDisponibles(ArrayList<Instalacion> instalaciones) {

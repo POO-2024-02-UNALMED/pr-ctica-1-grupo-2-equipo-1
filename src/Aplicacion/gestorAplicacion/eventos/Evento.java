@@ -1,7 +1,9 @@
 package gestorAplicacion.eventos;
 
+import gestorAplicacion.pagos.Boleta;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Trabajador;
+import gestorAplicacion.reservas.Reserva;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ public class Evento {
     private List<Instalacion> foodTrucks;
     private List<Trabajador> personalSeguridad;
     private List<Trabajador> personalMedico;
+    public ArrayList<Reserva> reservas = new ArrayList<>();
+    public ArrayList<Boleta> boletas = new ArrayList<>();
 
     public Evento() {
         this.localidades = new ArrayList<>();
