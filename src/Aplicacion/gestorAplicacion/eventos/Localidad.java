@@ -1,37 +1,38 @@
-package gestorAplicacion.servicios;
+package gestorAplicacion.eventos;
 
 import gestorAplicacion.reservas.Instalacion;
 
 public class Localidad {
-    public Instalacion instalacionLocalidad;
-    public String ubicacion;
-    public int capacidad;
-    public int precioSugerido;
-    public boolean division;
-    public boolean menores;
+    private Instalacion instalacionLocalidad;
+    private String ubicacion;
+    private int capacidad;
+    private int precioSugerido;
+    private boolean division;
+    private boolean menores;
+    private boolean vip;
 
-    //constructor sin precio sugerido
+    public Localidad(){}
     public Localidad(Instalacion instalacion, String ubicacion, int capacidad) {
         this.instalacionLocalidad = instalacion;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
         this.division = false;
         this.menores = false;
+        this.vip = false;
         int ps = (int) Math.round(50000 + capacidad * 0.01);
         this.precioSugerido = ps;
     }
 
-    //constructor con precio sugerido
     public Localidad(Instalacion instalacion, String ubicacion, int capacidad, int precioSugerido) {
         this.instalacionLocalidad = instalacion;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
         this.division = false;
         this.menores = false;
+        this.vip = false;
         this.precioSugerido = precioSugerido;
     }
 
-    //setters y getters
     public void setInstalacionLocalidad(Instalacion instalacion) {
         this.instalacionLocalidad = instalacion;
     }
@@ -50,6 +51,9 @@ public class Localidad {
     public void setMenores(boolean menores) {
         this.menores = menores;
     }
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
     public Instalacion getInstalacionLocalidad() {
         return instalacionLocalidad;
     }
@@ -67,5 +71,8 @@ public class Localidad {
     }
     public boolean getMenores() {
         return menores;
+    }
+    public boolean getVip() {
+        return vip;
     }
 }

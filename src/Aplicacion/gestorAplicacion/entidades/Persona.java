@@ -7,11 +7,20 @@ public abstract class Persona{
     public int id;
     public int edad;
 
+    //Constructor sin parámetros
+    public Persona(){}
+    //Constructor sin id
     public Persona(String nombre, String apellido, int edad) {
             this.nombre = nombre;
             this.apellido = apellido;
             this.edad = edad;
-            
+    }
+    //Constructor con id
+    public Persona(String nombre, String apellido, int edad, int id) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.id = id;
     }
 
     public String getNombre() {
@@ -46,5 +55,10 @@ public abstract class Persona{
         return nombre + " " + apellido;
     }
     public abstract String getRol(); 
+
+    @Override
+    public String toString() {
+        return getNombreCompleto();
+    }
 
 }

@@ -10,6 +10,9 @@ public class Cliente extends Persona {
     private Suscripcion suscripcion;
     private final int ID;
 
+    public Cliente(int id){
+        this.ID = id;
+    }
     public Cliente(String nombre, String apellido, int edad, int id){//No borrar, necesario para torneo
         super(nombre, apellido, edad);
         this.ID = id;

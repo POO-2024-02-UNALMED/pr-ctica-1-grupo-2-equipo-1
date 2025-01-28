@@ -1,36 +1,33 @@
 package gestorAplicacion.inscripcion;
-/*
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TiendaEscuela {
-    public List<ArticuloTiendaEscuela> articulos;
+    private List<ArticuloTiendaEscuela> articulos;
 
-    // Constructor
     public TiendaEscuela() {
         this.articulos = new ArrayList<>();
     }
 
-    // Métodos para gestión de artículos
     public void agregarArticulo(ArticuloTiendaEscuela articulo) {
         articulos.add(articulo);
     }
 
     public void eliminarArticulo(int idArticulo) {
-        articulos.removeIf(articulo -> articulo.getIdObjeto() == idArticulo);
+        articulos.removeIf(art -> art.getIdArticulo() == idArticulo);
     }
 
     public List<ArticuloTiendaEscuela> listarArticulos() {
         return articulos;
     }
 
-    // Buscar artículo por ID
     public ArticuloTiendaEscuela buscarArticuloPorId(int id) {
         for (ArticuloTiendaEscuela articulo : articulos) {
-            if (articulo.getIdObjeto() == id) {
+            if (articulo.getIdArticulo() == id) {
                 return articulo;
             }
         }
-        return null; // No encontrado
+        return null;
     }
-}*/
+}

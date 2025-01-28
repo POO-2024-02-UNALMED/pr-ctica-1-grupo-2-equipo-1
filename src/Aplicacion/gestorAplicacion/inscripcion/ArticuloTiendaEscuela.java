@@ -1,14 +1,13 @@
 package gestorAplicacion.inscripcion;
 
 public class ArticuloTiendaEscuela {
-    // Atributos
     private int idArticulo;
     private String nombreArticulo;
     private int stockArticulo;
-    public double precio;
-    public String tipoArticulo;
+    private double precio;
+    private String tipoArticulo;
 
-    // Constructor
+    public ArticuloTiendaEscuela() {}
     public ArticuloTiendaEscuela(int idArticulo, String nombreArticulo, int stockArticulo, double precio, String tipoArticulo) {
         this.idArticulo = idArticulo;
         this.nombreArticulo = nombreArticulo;
@@ -17,7 +16,6 @@ public class ArticuloTiendaEscuela {
         this.tipoArticulo = tipoArticulo;
     }
 
-    // Getters y Setters
     public int getIdArticulo() {
         return idArticulo;
     }

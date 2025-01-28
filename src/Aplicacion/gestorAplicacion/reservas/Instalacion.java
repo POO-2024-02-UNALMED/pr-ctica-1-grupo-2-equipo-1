@@ -3,15 +3,13 @@ package gestorAplicacion.reservas;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import gestorAplicacion.servicios.Toldo;
-
 public class Instalacion {
     private static int idCounter = 0; // Contador estático para los ID
     private int idInstalacion;
     private String deporte;
     private int precioHora;
     private int profundidad;
-    private Toldo toldo;
+    private boolean toldo;
     private String nombre;
     private String descripcion;
     private int capacidad; // Capacidad de la instalación (tribunas o usuarios por hora)
@@ -20,6 +18,7 @@ public class Instalacion {
     private String estado; // Estado de la instalación (Disponible, Reservado, Ocupado)
     private Horario horario;
 
+    public Instalacion() {}
     // Constructor con todos los atributos
     public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion) {
         this.idInstalacion = ++idCounter; // Incrementa el contador estático
@@ -39,12 +38,6 @@ public class Instalacion {
         this(nombre, deporte, precioHora, profundidad, descripcion);
         this.capacidad = capacidad;
         inicializarHorarios(); // Llamamos a inicializar los horarios con la capacidad
-    }
-
-    // Constructor con toldo
-    public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion, Toldo toldo) {
-        this(nombre, deporte, precioHora, profundidad, descripcion);
-        this.toldo = toldo;
     }
 
     // Métodos setters y getters
@@ -81,13 +74,6 @@ public class Instalacion {
         return profundidad;
     }
 
-    public void setToldo(Toldo toldo) {
-        this.toldo = toldo;
-    }
-
-    public Toldo getToldo() {
-        return toldo;
-    }
 
     public int getIdInstalacion() {
         return idInstalacion;

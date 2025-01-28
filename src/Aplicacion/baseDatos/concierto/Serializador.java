@@ -1,7 +1,5 @@
 package baseDatos.concierto;
-
-import gestorAplicacion.entidades.Evento;
-
+/*
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,4 +14,4 @@ public class Serializador {
             System.err.println("Error al serializar los conciertos: " + e.getMessage());
         }
     }
-}
+}*/

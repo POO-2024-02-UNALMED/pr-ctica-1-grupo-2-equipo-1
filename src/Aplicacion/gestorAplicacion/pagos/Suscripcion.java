@@ -7,6 +7,7 @@ public class Suscripcion {
     private LocalDate inicioSuscripcion;
     private LocalDate finSuscripcion;
 
+    public Suscripcion(){}
     public Suscripcion(TipoSuscripcion tipoSuscripcion){
         this.tipoSuscripcion = tipoSuscripcion;
         this.inicioSuscripcion = LocalDate.now();

@@ -9,6 +9,7 @@ public class Horario implements Serializable {
     private List<String> horasDisponibles; // Lista de horas disponibles
     private List<Integer> cuposDisponibles; // Lista de cupos disponibles para cada hora
 
+    public Horario() {}
     public Horario(String dia, List<String> horasDisponibles, List<Integer> cuposDisponibles) {
         this.dia = dia;
         this.horasDisponibles = new ArrayList<>(horasDisponibles);

@@ -1,6 +1,6 @@
 package baseDatos.concierto;
 /*
-import gestorAplicacion.entidades.Evento;
+import gestorAplicacion.reservas.Evento;
 import gestorAplicacion.entidades.Reserva;
 import gestorAplicacion.servicios.GestorReservas;
 
