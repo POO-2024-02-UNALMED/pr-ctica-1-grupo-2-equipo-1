@@ -32,7 +32,10 @@ import static gestorAplicacion.reservas.Instalacion.*;
 
 public class Main {
     public static void main(String[] args) {
+
         crearInstalaciones();
+
+        ArrayList<Instalacion> inst  = Instalacion.getListaInstalaciones();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -72,7 +75,7 @@ public class Main {
                     break;
 
                 case 3:
-                    crearTorneos(medicos, arbitrosTodos);
+                    crearTorneos(medicos, arbitrosTodos, inst);
                     break;
 
                 case 4:
@@ -96,8 +99,6 @@ public class Main {
                     System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 7.");
             }
         }
-
-        scanner.close();
     }
 
     //////////////////////////MENU RESERVAS//////////////////////////////////////////
@@ -156,12 +157,13 @@ public class Main {
         System.out.println("-----Administracion Clientes-----");
         System.out.println("1: Crear cliente\n2: Visualizar cliente ");
         int opcion = scanner.nextInt();
+        scanner.nextLine();
 
         if(opcion == 1){
             System.out.println("---Crear Cliente---");
             System.out.println("Nombre: ");
             String nombre = scanner.nextLine();
-            scanner.nextLine();
+
 
             System.out.println("Apellido: ");
             String apellido = scanner.nextLine();
@@ -350,7 +352,7 @@ public class Main {
 
 
     //Metodo para crear Torneos
-    private static void crearTorneos(ArrayList<Trabajador> medicos, ArrayList<Trabajador> arbitrosTodos) {
+    private static void crearTorneos(ArrayList<Trabajador> medicos, ArrayList<Trabajador> arbitrosTodos, ArrayList<Instalacion> inst) {
         System.out.println("Antes de empezar con la creacion del torneo, se requieren unos datos del cliente");
         System.out.println("Ingrese su nombre");
         String nombreCliente = new Scanner(System.in).nextLine();
@@ -386,7 +388,7 @@ public class Main {
         // ========================================================
         // 1) Mostrar instalaciones disponibles para el deporte
         // ========================================================
-        ArrayList<Instalacion> instalacionesTorneo = torneo.getInstalaciones(deporteTorneo);
+        ArrayList<Instalacion> instalacionesTorneo = torneo.getInstalaciones(deporteTorneo, inst);
 
         System.out.println("Seleccione una de las instalaciones disponibles para el torneo:");
         int contador = 1;
@@ -399,7 +401,7 @@ public class Main {
         System.out.println();
 
         // Guardamos la instalación elegida en el torneo
-        torneo.setInstalacion(seleccionInstalacion);
+        torneo.setInstalacion(seleccionInstalacion, inst);
 
         // ========================================================
         // 2) Reglas específicas de cada deporte
@@ -554,11 +556,14 @@ public class Main {
                         break;
                     }
 
-                    System.out.println("Ingrese la altura de la malla (2.24 o 2.43):");
-                    float alturaVoleibol = new Scanner(System.in).nextFloat();
-                    if (alturaVoleibol != 2.24f && alturaVoleibol != 2.43f) {
-                        System.out.println("Altura de la malla fuera de rango. Terminando...");
-                        break;
+                    float alturaVoleibol = 0;
+
+                    System.out.println("Ingrese la altura de la malla (1. 2.24 / 2. 2.43):");
+                    int altura = new Scanner(System.in).nextInt();
+                    if (altura == 1) {
+                        alturaVoleibol = 2.24F;
+                    } else if (altura == 2) {
+                        alturaVoleibol = 2.43F;
                     }
 
                     reglasVoleibol.add("Sets: " + setsVoleibol);
@@ -810,8 +815,74 @@ public class Main {
             System.out.println("No hay suficientes árbitros para asignar.");
         }
 
-        System.out.println("\n=== Registro finalizado. Precio total del torneo: $"
-                + torneo.getPrecioTotal() + " ===");
+        System.out.println();
+        System.out.println("Se procede con la seleccion del horario para la instalacion seleccionada.");
+        if (deporteTorneo == 3) {
+            if (instalacionElegida != null) {
+                System.out.println("--Seleccione fecha");
+                System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+                int mes = new Scanner(System.in).nextInt();
+                System.out.println("Dia (1-31): ");
+                int dia = new Scanner(System.in).nextInt();
+                System.out.println("Desde la hora (1-24): ");
+                LocalDateTime inicioHora = LocalDateTime.of(2025, mes, dia,new Scanner(System.in).nextInt() , 0);
+                System.out.println("Recuerde que las reservas para torneos son todas de DOS HORAS");
+                System.out.println("Hasta la hora (1-24): ");
+                LocalDateTime finHora = LocalDateTime.of(2025, mes, dia, new Scanner(System.in).nextInt(), 0);
+
+                Reserva reservaNatacion = new Reserva(instalacionElegida, new FechaReserva(inicioHora, finHora));
+                System.out.println("La reserva para el torneo ha sido creada desde: \n" +
+                        inicioHora + " .Hasta:\n" +
+                        finHora);
+            }
+        } else if (deporteTorneo != 3) {
+            for (int i = 1; i <= 20; i++) {
+                if (instalacionElegida != null) {
+                    System.out.println("--Seleccione fecha");
+                    System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+                    int mes = new Scanner(System.in).nextInt();
+                    System.out.println("Dia (1-31): ");
+                    int dia = new Scanner(System.in).nextInt();
+                    System.out.println("Desde la hora (1-24): ");
+                    LocalDateTime inicioHora = LocalDateTime.of(2025, mes, dia,new Scanner(System.in).nextInt() , 0);
+                    System.out.println("Recuerde que las reservas para torneos son todas de DOS HORAS");
+                    System.out.println("Hasta la hora (1-24): ");
+                    LocalDateTime finHora = LocalDateTime.of(2025, mes, dia, new Scanner(System.in).nextInt(), 0);
+
+                    ArrayList<Equipo> partido = new ArrayList<>();
+
+                    for (Equipo equipo1: equiposTorneo){
+                        for (Equipo equipo2: equiposTorneo){
+                            if (equipo1 == equipo2){
+                                //nada
+                            } else if (equipo1 != equipo2) {
+                                partido.add(equipo1);
+                                partido.add(equipo2);
+                                Random random = new Random();
+                                int index = random.nextInt(arbitrosTodos.size());
+                                Reserva reservaRealziada = new Reserva(instalacionElegida,new FechaReserva(inicioHora, finHora), equipo1, equipo2, arbitrosTodos.get(index));
+                                torneo.reservas.add(reservaRealziada);
+
+                            }
+                        }
+                    }
+
+                    System.out.println("Reserva No. " + i + " de 20 realizada" );
+
+                }
+            }
+
+        }
+
+        System.out.println("Todas las reservas necesarias para su torneo han sido creadas");
+
+        for (Reserva reserva: torneo.reservas) {
+            int idBoleta = 10000;
+            Boleta boleta = new Boleta("Partido Torneo", 30, cliente);
+            torneo.boletas.add(boleta);
+        }
+
+        System.out.println("Se han creado las boletas par");
     }
 
 
@@ -1170,21 +1241,69 @@ public static void gestionarInscripcion() {
     DeporteFormativo df = new DeporteFormativo();
 
     System.out.println("=== Ingreso de datos para Deporte Formativo ===");
-    System.out.print("Nombre: ");
+    System.out.print("Nombre del joven: ");
     df.setNombre(sc.nextLine());
 
-    System.out.print("Edad: ");
+    System.out.print("Apellido del joven: ");
+    String apellidoJoven = sc.nextLine();
+
+
+    System.out.print("Documento del joven: ");
+    int idJoven = sc.nextInt();
+
+    sc.nextLine();
+
+    System.out.print("Edad del joven: ");
     df.setEdad(sc.nextInt());
     sc.nextLine(); // limpiar buffer
 
-    System.out.print("EPS: ");
+    System.out.print("EPS del joven: ");
     df.setEps(sc.nextLine());
 
-    System.out.print("Acudiente: ");
+    System.out.print("Nombre del acudiente: ");
     df.setAcudiente(sc.nextLine());
 
-    System.out.print("Deporte deseado: ");
-    df.setDeporteDeseado(sc.nextLine());
+    System.out.print("Teléfono del acudiente: ");
+    String telAcudiente = sc.nextLine();
+
+    System.out.print("Cédula del acudiente: ");
+    String cedAcudiente = sc.nextLine();
+
+    String depolte = "";
+    boolean valido = false; // Variable para controlar si la opción es válida
+
+    while (!valido) {
+        System.out.println("Selecciona un deporte:");
+        System.out.println("1. Futbol");
+        System.out.println("2. Baloncesto");
+        System.out.println("3. Voleibol");
+        System.out.println("4. Natacion");
+
+        int opcion = sc.nextInt();
+
+        switch (opcion) {
+            case 1:
+                depolte = "Futbol";
+                valido = true;
+                break;
+            case 2:
+                depolte = "Baloncesto";
+                valido = true;
+                break;
+            case 3:
+                depolte = "Voleibol";
+                valido = true;
+                break;
+            case 4:
+                depolte = "Natacion";
+                valido = true;
+                break;
+            default:
+                System.out.println("Deporte no valido, ingrese un deporte dentro de los ofrecidos.");
+                break; // Vuelve a pedir la opción si es inválida
+        }
+    }
+    df.setDeporteDeseado(depolte);
 
     System.out.print("Experiencia previa (meses): ");
     df.setExperienciaMeses(sc.nextInt());
@@ -1192,15 +1311,6 @@ public static void gestionarInscripcion() {
 
     // Asignamos categoría y horario
     df.clasificarYAsignar();
-
-    System.out.print("Apellido del joven: ");
-    String apellidoJoven = sc.nextLine();
-
-    System.out.print("Teléfono del acudiente: ");
-    String telAcudiente = sc.nextLine();
-
-    System.out.print("Cédula del acudiente: ");
-    String cedAcudiente = sc.nextLine();
 
     System.out.println("\nDatos capturados:");
     System.out.println("Nombre: " + df.getNombre());
@@ -1221,7 +1331,7 @@ public static void gestionarInscripcion() {
     Joven joven = new Joven(
             df.getNombre(),
             apellidoJoven,
-            df.getEdad(), // ID lo omitimos, se usará la misma "edad" o un 0.
+            idJoven,
             df.getEdad(),
             df.getExperienciaMeses(),
             df.getEps(),
@@ -1280,7 +1390,7 @@ public static void gestionarInscripcion() {
         System.out.println("- " + jj.getNombre() + " " + jj.getApellido());
     }
 
-    sc.close();
+    //sc.close();
 }
 
     // Lógica para inicializar la tienda con algunos artículos

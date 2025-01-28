@@ -53,8 +53,8 @@ public class Cliente extends Persona {
         return "Informacion Cliente \n" +
                 "Suscripcion:" + suscripcion.getTipoSuscripcion() + "\n" +
                 "ID: " + ID + "\n" +
-                "Nombre: " + nombre + "\n" +
-                "Apellido: " + apellido + "\n" +
-                "Edad: " + edad;
+                "Nombre: " + getNombre() + "\n" +
+                "Apellido: " + getApellido() + "\n" +
+                "Edad: " + getEdad();
     }
 }

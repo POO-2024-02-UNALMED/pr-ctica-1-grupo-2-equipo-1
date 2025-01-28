@@ -1,8 +1,8 @@
 package gestorAplicacion.torneo;
 
+import gestorAplicacion.pagos.Boleta;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
-import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.entidades.Trabajador;
 
 import java.util.ArrayList;
@@ -20,8 +20,9 @@ public class Torneo {
     private Instalacion instalacion;
     public ArrayList<String> reglas;
     private ArrayList<Trabajador> arbitros = new ArrayList<>();
-    private List<Reserva> reservas = new ArrayList<>();
-    ArrayList<Instalacion> inst = new ArrayList<Instalacion>();
+    public ArrayList<Reserva> reservas = new ArrayList<>();
+    public ArrayList<Boleta> boletas = new ArrayList<>();
+
 
     public Torneo(String deporte, ArrayList<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
         this.deporte = deporte;
@@ -76,7 +77,7 @@ public class Torneo {
         return this.deporte;
     }
 
-    public ArrayList<Instalacion> getInstalaciones(int num) {
+    public ArrayList<Instalacion> getInstalaciones(int num, ArrayList<Instalacion> inst) {
         ArrayList<Instalacion> instalaciones = new ArrayList<>();
         if (num == 1) {
             instalaciones.add(inst.get(0));
@@ -88,18 +89,18 @@ public class Torneo {
             instalaciones.add(inst.get(5));
             instalaciones.add(inst.get(6));
         } else if (num == 3) {
-            instalaciones.add(inst.get(10));
-            instalaciones.add(inst.get(11));
-            instalaciones.add(inst.get(12));
-        } else if (num == 4) {
             instalaciones.add(inst.get(7));
             instalaciones.add(inst.get(8));
             instalaciones.add(inst.get(9));
+        } else if (num == 4) {
+            instalaciones.add(inst.get(10));
+            instalaciones.add(inst.get(11));
         }
         return instalaciones;
     }
 
-    public void setInstalacion(int instalacion) {
+    public void setInstalacion(int instalacion, ArrayList<Instalacion> inst) {
+         //ArrayList<Instalacion> inst = inst;
         if (this.deporte.equals("Futbol")) {
             if (instalacion == 1) {
                 this.instalacion = inst.get(0);
@@ -120,19 +121,17 @@ public class Torneo {
             }
         } else if (this.deporte.equals("Natacion")) {
             if (instalacion == 1) {
-                this.instalacion = inst.get(10);
-            } else if (instalacion == 2) {
-                this.instalacion = inst.get(11);
-            } else if (instalacion == 3) {
-                this.instalacion = inst.get(12);
-            }
-        } else if (this.deporte.equals("Voleibol")) {
-            if (instalacion == 1) {
                 this.instalacion = inst.get(7);
             } else if (instalacion == 2) {
                 this.instalacion = inst.get(8);
             } else if (instalacion == 3) {
                 this.instalacion = inst.get(9);
+            }
+        } else if (this.deporte.equals("Voleibol")) {
+            if (instalacion == 1) {
+                this.instalacion = inst.get(10);
+            } else if (instalacion == 2) {
+                this.instalacion = inst.get(11);
             }
         }
     }

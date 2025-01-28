@@ -4,10 +4,10 @@ package gestorAplicacion.entidades;
 public abstract class Persona{
 
     //Atributos----------------------------------------------------------
-    public String nombre;
-    public String apellido;
-    public int id;
-    public int edad;
+    protected String nombre;
+    protected String apellido;
+    protected int id;
+    protected int edad;
     //-------------------------------------------------------------------
 
     //Constructores------------------------------------------------------

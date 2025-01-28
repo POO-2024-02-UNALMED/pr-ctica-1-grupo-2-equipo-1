@@ -6,6 +6,7 @@ import java.util.Random;
 public class Boleta {
 
     private static ArrayList<Boleta> listaBoletas;
+    private static int ultimoId = 100000;
     private int ID;
     private String tipoEvento;
     private int precio;
@@ -15,8 +16,7 @@ public class Boleta {
     public Boleta(){}
     // Constructor
     public Boleta( String tipoEvento,int precio,Cliente cliente) {
-        Random idGen = new Random();
-        this.ID = idGen.nextInt(1000);
+        this.ID = ultimoId++;
         this.tipoEvento = tipoEvento;
         this.precio = precio;
         this.cliente = cliente;
