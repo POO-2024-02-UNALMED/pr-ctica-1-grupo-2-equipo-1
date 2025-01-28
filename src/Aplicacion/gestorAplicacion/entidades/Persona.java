@@ -1,7 +1,8 @@
 package gestorAplicacion.entidades;
 
 //clase abstracta
-public abstract class Persona{
+public abstract class
+Persona{
 
     //Atributos----------------------------------------------------------
     protected String nombre;

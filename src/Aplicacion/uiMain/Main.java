@@ -1369,6 +1369,7 @@ public static void gestionarInscripcion() {
     System.out.println("Nombre: " + df.getNombre());
     System.out.println("Edad: " + df.getEdad());
     System.out.println("EPS: " + df.getEps());
+    System.out.println("Documento: "+ idJoven);
     System.out.println("Acudiente: " + df.getAcudiente());
     System.out.println("Deporte: " + df.getDeporteDeseado());
     System.out.println("Experiencia: " + df.getExperienciaMeses() + " meses");

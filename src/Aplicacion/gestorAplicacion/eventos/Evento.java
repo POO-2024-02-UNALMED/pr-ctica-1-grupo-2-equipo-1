@@ -5,10 +5,12 @@ import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Trabajador;
 import gestorAplicacion.reservas.Reserva;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Evento {
+public class Evento implements Serializable {
+    private static ArrayList<Trabajador> trabajadores = new ArrayList<>();
     private String nombreEvento;
     private String tipoEvento;
     private String personajePrincipal;
@@ -107,5 +109,12 @@ public class Evento {
     }
     public void setPersonalMedico(List<Trabajador> personalMedico) {
         this.personalMedico = personalMedico;
+    }
+
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
+    }
+    public void setReservas(ArrayList<Reserva> reservas) {
+        this.reservas = reservas;
     }
 }
