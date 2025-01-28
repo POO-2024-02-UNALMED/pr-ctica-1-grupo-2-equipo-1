@@ -82,6 +82,12 @@ public class Reserva{
                 "Pagada: " + pagada;
     }
 
+    public String toStringReserva(){
+        return "Reserva Informacion" +
+                "ID: " + ID + "\n" +
+                "Pagada: " + pagada;
+    }
+
     public int getID(){
         return this.ID;
     }
