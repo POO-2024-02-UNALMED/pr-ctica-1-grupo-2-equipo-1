@@ -152,6 +152,10 @@ public class Torneo {
         this.equiposParticipantes = equiposParticipantes;
     }
 
+    public static void setTorneos(ArrayList<Torneo> listaTorneos){
+        torneos = listaTorneos;
+    }
+
     public ArrayList<Equipo> getEquiposParticipantes() {
         return this.equiposParticipantes;
     }
