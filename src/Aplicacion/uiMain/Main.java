@@ -1233,7 +1233,7 @@ public static void gestionarInscripcion() {
                 break; // Vuelve a pedir la opción si es inválida
         }
     }
-    df.setDeporteDeseado(sc.nextLine());
+    df.setDeporteDeseado(depolte);
 
     System.out.print("Experiencia previa (meses): ");
     df.setExperienciaMeses(sc.nextInt());
