@@ -1,5 +1,6 @@
 package baseDatos;
 
+import gestorAplicacion.inscripcion.GrupoFormativo;
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Torneo;
@@ -37,6 +38,10 @@ public class Serializador {
                     fos = new FileOutputStream(file);
                     oos = new ObjectOutputStream(fos);
                     oos.writeObject(Torneo.torneos);
+            }else if(file.getAbsolutePath().contains("formativo")){
+                    fos = new FileOutputStream(file);
+                    oos = new ObjectOutputStream(fos);
+                    oos.writeObject(GrupoFormativo.getGrupoFormativos());
             }
 
         }

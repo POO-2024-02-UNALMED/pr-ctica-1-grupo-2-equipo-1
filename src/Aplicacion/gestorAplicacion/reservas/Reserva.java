@@ -1,14 +1,20 @@
 package gestorAplicacion.reservas;
 
+import java.io.IOException;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import baseDatos.Deserializador;
 import gestorAplicacion.entidades.Trabajador;
 import gestorAplicacion.inscripcion.GrupoFormativo;
 
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.torneo.Equipo;
 
-public class Reserva{
+public class Reserva implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
     private int ID;
     private Cliente cliente;
@@ -21,13 +27,8 @@ public class Reserva{
     private GrupoFormativo grupoFormativo;
     private Trabajador arbitro;
 
-    public Reserva() {}
-    public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada) {
-        this.ID = listaReservas.size() + 1;
-        this.cliente = cliente;
-        this.instalacion = instalacion;
-        this.pagada = false;
-        listaReservas.add(this);
+    public Reserva() throws IOException, ClassNotFoundException {
+        Deserializador.deserializar();
     }
 
     public Reserva(Cliente cliente, Instalacion instalacion, FechaReserva fechaReserva,int aPagar) {
@@ -114,17 +115,6 @@ public class Reserva{
         listaReservas = lista;
     }
 
-    public Instalacion getInstalacion() {
-        return instalacion;
-    }
-
-    public boolean getPagada() {
-        return pagada;
-    }
-
-    public void setPagada(boolean pagada) {
-        this.pagada = pagada;
-    }
 
 
 }

@@ -41,6 +41,13 @@ public class GrupoFormativo implements Serializable {
         jovenes.add(joven);
     }
 
+    public static ArrayList<GrupoFormativo> getGrupoFormativos(){
+        return grupoFormativos;
+    }
+    public static void setGrupoFormativos(ArrayList<GrupoFormativo> lista){
+        grupoFormativos = lista;
+    }
+
     public void deleteJoven(Joven joven) {
         jovenes.remove(joven);
     }
