@@ -1082,7 +1082,7 @@ public class Main {
         evento.reservas.add(reserva);
 
         System.out.println("Se ha realizado la reserva para su toneo.");
-        System.out.println(reserva.toStringReserva());
+        System.out.println(reserva.toString(""));
         System.out.println("Debe irse a Taquilla para confirmar el estado de su reserva mediante el pago");
 
         Boleta boleta = new Boleta(evento.getNombreEvento(), evento.getLocalidades().getFirst().getPrecioSugerido(), cliente);
@@ -1369,6 +1369,7 @@ public static void gestionarInscripcion() {
     System.out.println("Nombre: " + df.getNombre());
     System.out.println("Edad: " + df.getEdad());
     System.out.println("EPS: " + df.getEps());
+    System.out.println("Documento: "+ idJoven);
     System.out.println("Acudiente: " + df.getAcudiente());
     System.out.println("Deporte: " + df.getDeporteDeseado());
     System.out.println("Experiencia: " + df.getExperienciaMeses() + " meses");
