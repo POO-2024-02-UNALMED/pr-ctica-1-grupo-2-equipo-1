@@ -1388,17 +1388,16 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
     System.out.println("Nombre: " + df.getNombre());
     System.out.println("Edad: " + df.getEdad());
     System.out.println("EPS: " + df.getEps());
-    System.out.println("Documento: "+ idJoven);
+    System.out.println("Documento: " + idJoven);
     System.out.println("Acudiente: " + df.getAcudiente());
     System.out.println("Deporte: " + df.getDeporteDeseado());
     System.out.println("Experiencia: " + df.getExperienciaMeses() + " meses");
     System.out.println("Categoría Equipo: " + df.getCategoriaEquipo());
     System.out.println("Entrenador (categoría): " + df.getCategoriaEntrenador());
     System.out.println("Horario Asignado: " + df.getHorario());
-    System.out.println("Apellido: "+apellidoJoven);
+    System.out.println("Apellido: " + apellidoJoven);
 
     System.out.println("\n=== Creando objeto Joven e inscribiendo en GrupoFormativo ===");
-
 
 
     Joven joven = new Joven(
@@ -1431,32 +1430,44 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
     System.out.println("\n¿Desea comprar equipamiento para " + df.getDeporteDeseado() + "? (1. Sí / 2. No)");
     int opcionCompra = sc.nextInt();
     sc.nextLine();
+    double totalArticulos = 0;
     if (opcionCompra == 1) {
-        mostrarArticulosPorDeporte(tienda, df.getDeporteDeseado());
-        System.out.print("Ingrese el ID del artículo que desea comprar (0 para salir): ");
-        int idArticulo = sc.nextInt();
-        sc.nextLine();
-        if (idArticulo != 0) {
-            ArticuloTiendaEscuela articulo = tienda.buscarArticuloPorId(idArticulo);
-            if (articulo != null) {
-                System.out.println("Deporte deseado: " + df.getDeporteDeseado());
-                System.out.println("Tipo de artículo encontrado: " + articulo.getTipoArticulo());
-                if (articulo.getTipoArticulo().equalsIgnoreCase(df.getDeporteDeseado())) {
-                    if (articulo.getStockArticulo() > 0) {
-                        articulo.setStockArticulo(articulo.getStockArticulo() - 1);
-                        System.out.println("Compra realizada: " + articulo.getNombreArticulo());
-                        System.out.println("Nuevo stock disponible: " + articulo.getStockArticulo());
+        int idArticulo = 0;
+        totalArticulos = 0.0;
+        while (idArticulo != -1) {
+            mostrarArticulosPorDeporte(tienda, df.getDeporteDeseado());
+            System.out.print("Ingrese el ID del artículo que desea comprar (-1 para salir): ");
+            idArticulo = sc.nextInt();
+            sc.nextLine();
+            if (idArticulo != -1) {
+                ArticuloTiendaEscuela articulo = tienda.buscarArticuloPorId(idArticulo);
+                if (articulo != null) {
+                    System.out.println("Deporte deseado: " + df.getDeporteDeseado());
+                    System.out.println("Tipo de artículo encontrado: " + articulo.getTipoArticulo());
+                    if (articulo.getTipoArticulo().equalsIgnoreCase(df.getDeporteDeseado())) {
+                        if (articulo.getStockArticulo() > 0) {
+                            articulo.setStockArticulo(articulo.getStockArticulo() - 1);
+                            System.out.println("Compra realizada: " + articulo.getNombreArticulo());
+                            System.out.println("Nuevo stock disponible: " + articulo.getStockArticulo());
+                            totalArticulos += articulo.getPrecio();
+                        } else {
+                            System.out.println("No hay stock disponible del artículo seleccionado.");
+                        }
                     } else {
-                        System.out.println("No hay stock disponible del artículo seleccionado.");
+                        System.out.println("El artículo no corresponde al deporte deseado.");
                     }
                 } else {
-                    System.out.println("El artículo no corresponde al deporte deseado.");
+                    System.out.println("Artículo no encontrado.");
                 }
-            } else {
-                System.out.println("Artículo no encontrado.");
             }
         }
     }
+
+    //Cálculo pago
+    final int CTE_BASE_FORMATIVO = 80000;
+    int totalArticulosEntero = (int) totalArticulos;
+
+
 
     // Resumen final
     System.out.println("\n=== Resumen de Inscripción ===");
@@ -1464,10 +1475,6 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
     System.out.println("Grupo Formativo - Deporte: " + gf.getDeporte());
     System.out.println("Instalación: " + gf.getInstalacion().getNombre());
     System.out.println("Entrenador: " + gf.getEntrenador().getNombre() + " " + gf.getEntrenador().getApellido());
-    System.out.println("Jóvenes en el grupo:");
-    for (Joven jj : gf.getJovenes()) {
-        System.out.println("- " + jj.getNombre() + " " + jj.getApellido());
-    }
 
     //sc.close();
 }
