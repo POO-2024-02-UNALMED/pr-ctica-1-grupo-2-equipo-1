@@ -31,6 +31,11 @@ public abstract class Persona{
     }
     //-------------------------------------------------------------------
 
+
+    //Método abstracto---------------------------------------------------
+
+    public abstract String getRol();
+
     //Métodos------------------------------------------------------------
 
     //Setters y Getters.
@@ -71,10 +76,4 @@ public abstract class Persona{
         return getNombreCompleto();
     }
 
-
-    //Método abstracto---------------------------------------------------
-
-    public abstract String getRol();
-
-    //-------------------------------------------------------------------
 }
