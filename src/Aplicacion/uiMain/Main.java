@@ -157,12 +157,13 @@ public class Main {
         System.out.println("-----Administracion Clientes-----");
         System.out.println("1: Crear cliente\n2: Visualizar cliente ");
         int opcion = scanner.nextInt();
+        scanner.nextLine();
 
         if(opcion == 1){
             System.out.println("---Crear Cliente---");
             System.out.println("Nombre: ");
             String nombre = scanner.nextLine();
-            scanner.nextLine();
+
 
             System.out.println("Apellido: ");
             String apellido = scanner.nextLine();
