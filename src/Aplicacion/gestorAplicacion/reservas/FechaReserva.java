@@ -1,8 +1,12 @@
 package gestorAplicacion.reservas;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class FechaReserva {
+public class FechaReserva implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private LocalDateTime inicioReserva;
     private LocalDateTime finReserva;
 

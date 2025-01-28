@@ -5,11 +5,14 @@ import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.entidades.Trabajador;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Torneo {
-
+public class Torneo implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     public static ArrayList<Torneo> torneos;
     private int idTorneo = 0;
     private String deporte;
@@ -155,6 +158,7 @@ public class Torneo {
     public static void setTorneos(ArrayList<Torneo> listaTorneos){
         torneos = listaTorneos;
     }
+    public static ArrayList<Torneo> getTorneos(){return torneos;}
 
     public ArrayList<Equipo> getEquiposParticipantes() {
         return this.equiposParticipantes;

@@ -35,7 +35,8 @@ import static gestorAplicacion.reservas.Instalacion.*;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException {
+        Deserializador.deserializar();
 
         TiendaEscuela tiendaEscuelita = inicializarTienda();
 
@@ -97,6 +98,7 @@ public class Main {
                     break;
 
                 case 7:
+                    Serializador.serializar();
                     System.out.println("Saliendo del sistema. ¡Hasta pronto!");
                     salir = true;
                     break;

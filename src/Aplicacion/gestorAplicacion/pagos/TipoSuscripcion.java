@@ -1,6 +1,8 @@
 package gestorAplicacion.pagos;
 
-public enum TipoSuscripcion {
+import java.io.Serializable;
+
+public enum TipoSuscripcion{
     NOTIENE("Sin suscripcion",0,0,false,false,0,0),
     ROOKIE("Rookie",12000,0.05,true,true,0,0),
     PROPLAYER("Pro Player",20000,0.08,true,true,1,0.1),

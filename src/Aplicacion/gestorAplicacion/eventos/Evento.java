@@ -5,11 +5,14 @@ import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.entidades.Trabajador;
 import gestorAplicacion.reservas.Reserva;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Evento implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Evento> eventos = new ArrayList<>();
     private String nombreEvento;
     private String tipoEvento;
@@ -33,7 +36,6 @@ public class Evento implements Serializable {
         this.personalSeguridad = new ArrayList<>();
         this.personalMedico = new ArrayList<>();
     }
-
     public String getNombreEvento() {
         return nombreEvento;
     }
@@ -111,10 +113,11 @@ public class Evento implements Serializable {
         this.personalMedico = personalMedico;
     }
 
-    public ArrayList<Evento> getEventos(){
+    public static ArrayList<Evento> getEventos(){
         return eventos;
     }
-    public void setEventos(ArrayList<Evento> eventos){
-        this.eventos = eventos;
+    public static void setEventos(ArrayList<Evento> lista){
+        eventos = lista;
     }
+
 }

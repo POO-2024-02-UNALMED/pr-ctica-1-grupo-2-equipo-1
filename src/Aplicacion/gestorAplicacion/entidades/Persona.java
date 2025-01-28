@@ -1,8 +1,12 @@
 package gestorAplicacion.entidades;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 //clase abstracta
-public abstract class
-Persona{
+public abstract class Persona implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     //Atributos----------------------------------------------------------
     protected String nombre;

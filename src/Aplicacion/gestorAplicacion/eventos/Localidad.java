@@ -2,7 +2,12 @@ package gestorAplicacion.eventos;
 
 import gestorAplicacion.reservas.Instalacion;
 
-public class Localidad {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Localidad implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private Instalacion instalacionLocalidad;
     private String ubicacion;
     private int capacidad;
