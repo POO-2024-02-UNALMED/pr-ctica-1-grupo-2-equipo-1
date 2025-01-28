@@ -8,8 +8,6 @@ import gestorAplicacion.entidades.Trabajador;
 import java.util.ArrayList;
 import java.util.List;
 
-import static uiMain.Main.crearInstalaciones;
-
 public class Torneo {
 
     public static ArrayList<Torneo> torneos;
@@ -23,7 +21,7 @@ public class Torneo {
     public ArrayList<String> reglas;
     private ArrayList<Trabajador> arbitros = new ArrayList<>();
     private List<Reserva> reservas = new ArrayList<>();
-    ArrayList<Instalacion> inst = crearInstalaciones();
+    ArrayList<Instalacion> inst = new ArrayList<Instalacion>();
 
     public Torneo(String deporte, ArrayList<Equipo> equiposParticipantes, String seguroMedico, double precioTotal) {
         this.deporte = deporte;

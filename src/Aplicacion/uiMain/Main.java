@@ -11,11 +11,13 @@ import gestorAplicacion.pagos.Boleta;
 import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.pagos.Suscripcion;
 import gestorAplicacion.pagos.TipoSuscripcion;
+import gestorAplicacion.reservas.FechaReserva;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
 
+import java.util.Objects;
 import java.util.Random;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,13 +27,14 @@ import gestorAplicacion.eventos.Evento;
 import gestorAplicacion.eventos.Localidad;
 import gestorAplicacion.reservas.Instalacion;
 
+import static gestorAplicacion.reservas.Instalacion.*;
+
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        crearInstalaciones();
 
-        // Creación de todas las instalaciones
-        ArrayList<Instalacion> instalaciones = crearInstalaciones();
+        Scanner scanner = new Scanner(System.in);
 
         ArrayList<Trabajador> arbitrosTodos = crearArbitros();
 
@@ -48,7 +51,7 @@ public class Main {
         // Menú principal
         while (!salir) {
             System.out.println("\n===== Menú Principal =====");
-            System.out.println("1. Realizar Reservas");
+            System.out.println("1. Realizar y/o Visualizar Reservas ");
             System.out.println("2. Realizar Inscripciones a Deportes Formativos");
             System.out.println("3. Crear Torneos");
             System.out.println("4. Crear Eventos (Concierto)");
@@ -61,7 +64,7 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    //realizarReservas(scanner, instalaciones, enfermeros, acompanantes);
+                    reservasUI();
                     break;
 
                 case 2:
@@ -96,6 +99,57 @@ public class Main {
 
         scanner.close();
     }
+
+    //////////////////////////MENU RESERVAS//////////////////////////////////////////
+    public static void reservasUI(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----Menu Reservas-----");
+        System.out.println("Ingresar id del cliente: ");
+        int idCliente = scanner.nextInt();
+
+        Cliente clienteEncontrado = Cliente.obtenerCliente(idCliente);
+
+        if(clienteEncontrado != null){
+            System.out.println(clienteEncontrado);
+            System.out.println("Deporte de la instalacion: \n1: Futbol \n2: Baloncesto \n3: Natacion \n4: Voleibol");
+            int opcionDeporte = scanner.nextInt();
+            String deporte = deporteViaNumero(opcionDeporte);
+
+            System.out.println("Mostrando instalaciones tipo " + deporte);
+            for(Instalacion instalacion: Instalacion.getListaInstalaciones()){
+                if(Objects.equals(instalacion.getDeporte(), deporte)){
+                    System.out.println(instalacion);
+                }
+            }
+
+            System.out.println("Ingrese el id de la instalacion: ");
+            int instalacionId = scanner.nextInt();
+            Instalacion instalacionEscogida = obtenerInstalacion(instalacionId);
+            if(instalacionEscogida != null){
+                System.out.println("--Seleccion fecha");
+                System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+                int mes = scanner.nextInt();
+                System.out.println("Dia (1-31): ");
+                int dia = scanner.nextInt();
+                System.out.println("Desde la hora (1-24): ");
+                LocalDateTime inicioHora = LocalDateTime.of(2025,mes,dia,scanner.nextInt(),0);
+                System.out.println("Hasta la hora (1-24): ");
+                LocalDateTime finHora = LocalDateTime.of(2025,mes,dia,scanner.nextInt(),0);
+
+                Reserva reservaRealizada = new Reserva(clienteEncontrado,instalacionEscogida,new FechaReserva(inicioHora,finHora));
+                instalacionEscogida.getReservas().add(reservaRealizada);
+
+                System.out.println("Reserva Realizada \n" + reservaRealizada);
+
+            }else{
+                System.out.println("No existe instalacion con ese id");
+            }
+
+        }else{
+            System.out.println("Cliente no encontrado con ese ID");
+        }
+    }
+
     ///////////////////////////////CLIENTES INTERFAZ///////////////////////////////
     public static void clientesUI(){
         Scanner scanner = new Scanner(System.in);
@@ -156,6 +210,7 @@ public class Main {
                     int idIngresado = scanner.nextInt();
                     Reserva reserva = Reserva.buscarReserva(idIngresado);
                     int totalPago = 10000;
+
                     if(reserva != null){
                         Cliente cliente = reserva.getCliente();
                         System.out.println("Reserva encontrada");
@@ -763,7 +818,7 @@ public class Main {
     /// ///////Metodo para crear eventos/////////
     public static void crearEvento( ArrayList<Trabajador> seguridadDisponible, ArrayList<Trabajador>  paramedicosDisponibles ) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Instalacion> todasLasInstalaciones = crearInstalaciones();
+        ArrayList<Instalacion> todasLasInstalaciones = new ArrayList<>();
 
         Evento evento = new Evento();
 
@@ -1084,7 +1139,7 @@ public class Main {
 
 
     // Método para crear todas las instalaciones predeterminadas
-    public static ArrayList<Instalacion> crearInstalaciones() {
+    /*public static ArrayList<Instalacion> crearInstalaciones() {
         ArrayList<Instalacion> instalaciones = new ArrayList<>();
 
         // Instalaciones que no son Piscinas todas con capacidad 1(1 cupo)
@@ -1106,7 +1161,7 @@ public class Main {
 
         return instalaciones;
     }
-
+*/
 
 //------------------------
 public static void gestionarInscripcion() {
@@ -1182,10 +1237,7 @@ public static void gestionarInscripcion() {
     Instalacion inst = new Instalacion(
             "Cancha " + df.getDeporteDeseado(),
             df.getDeporteDeseado(),
-            60,
-            0,
-            "",
-            1
+            60
     );
 
     // Creamos el grupo formativo

@@ -4,208 +4,94 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Instalacion {
-    private static int idCounter = 0; // Contador estático para los ID
-    private int idInstalacion;
+    private static ArrayList<Instalacion> listaInstalaciones = new ArrayList<Instalacion>();
+    private final int ID;
     private String deporte;
     private int precioHora;
-    private int profundidad;
-    private boolean toldo;
     private String nombre;
-    private String descripcion;
-    private int capacidad; // Capacidad de la instalación (tribunas o usuarios por hora)
-    private ArrayList<Horario> horariosDisponibles; // Lista de horarios disponibles (instancias de Horario)
-    private ArrayList<String> horasOcupadas; // Lista de horas ocupadas
-    private String estado; // Estado de la instalación (Disponible, Reservado, Ocupado)
-    private Horario horario;
+    private ArrayList<Horario> horarios;
+    private ArrayList<Reserva> reservas;
 
-    public Instalacion() {}
     // Constructor con todos los atributos
-    public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion) {
-        this.idInstalacion = ++idCounter; // Incrementa el contador estático
+    public Instalacion(String nombre, String deporte, int precioHora) {
         this.nombre = nombre;
         this.deporte = deporte;
-        this.descripcion = descripcion;
         this.precioHora = precioHora;
-        this.profundidad = profundidad;
-        this.capacidad = 0; // Inicializado en 0 por defecto
-        this.horariosDisponibles = new ArrayList<>(); // Inicializar horarios vacíos
-        this.estado = "Disponible"; // Estado inicial
-        this.horasOcupadas = new ArrayList<>(); // Inicializar lista de horas ocupadas
+        this.ID = listaInstalaciones.size() + 1;
+        this.horarios = new ArrayList<Horario>();
+        this.reservas = new ArrayList<Reserva>();
     }
 
-    // Constructor especial para piscinas, con capacidad
-    public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion, int capacidad) {
-        this(nombre, deporte, precioHora, profundidad, descripcion);
-        this.capacidad = capacidad;
-        inicializarHorarios(); // Llamamos a inicializar los horarios con la capacidad
+    public Instalacion(String nombre,String deporte, int precioHora,ArrayList<Horario> horarios,ArrayList<Reserva> reservas){
+        this(nombre,deporte,precioHora);
+        this.horarios = horarios;
+        this.reservas = reservas;
+    }
+    public static String deporteViaNumero(int opcion){
+        return switch (opcion) {
+            case 1 -> "Futbol";
+            case 2 -> "Baloncesto";
+            case 3 -> "Natacion";
+            case 4 -> "Voleibol";
+            default -> null;
+        };
     }
 
-    // Métodos setters y getters
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-        inicializarHorarios(); // Si cambiamos la capacidad, actualizamos los horarios
-    }
+    public static void crearInstalaciones(){
+        listaInstalaciones.add(new Instalacion("Cancha F11 1","Futbol",3000));
+        listaInstalaciones.add(new Instalacion("Cancha F11 2","Futbol",3000));
+        listaInstalaciones.add(new Instalacion("Cancha F9","Futbol",2000));
+        listaInstalaciones.add(new Instalacion("Cancha F7","Futbol",1000));
 
-    public int getCapacidad() {
-        return capacidad;
-    }
+        listaInstalaciones.add(new Instalacion("Coliseo","Baloncesto",4000));
+        listaInstalaciones.add(new Instalacion("Cancha techada 1","Baloncesto",1000));
+        listaInstalaciones.add(new Instalacion("Cancha techada 2","Baloncesto",1000));
 
-    public void setDeporte(String deporte) {
-        this.deporte = deporte;
-    }
+        listaInstalaciones.add(new Instalacion("Piscina olimpica","Natacion",6000));
+        listaInstalaciones.add(new Instalacion("Piscina semiolimpica","Natacion",4000));
+        listaInstalaciones.add(new Instalacion("Piscina infantil","Natacion",2000));
 
-    public String getDeporte() {
-        return deporte;
-    }
-
-    public void setPrecioHora(int precioHora) {
-        this.precioHora = precioHora;
-    }
-
-    public int getPrecioHora() {
-        return precioHora;
-    }
-
-    public void setProfundidad(int profundidad) {
-        this.profundidad = profundidad;
-    }
-
-    public int getProfundidad() {
-        return profundidad;
-    }
-
-
-    public int getIdInstalacion() {
-        return idInstalacion;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+        listaInstalaciones.add(new Instalacion("Cancha de cemento","Voleibol",3000));
+        listaInstalaciones.add(new Instalacion("Cancha de arena","Voleibol",2000));
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
+    }
+    public String getDeporte(){
+        return this.deporte;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public int getID(){
+        return this.ID;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public ArrayList<Reserva> getReservas(){
+        return this.reservas;
     }
 
-    public void setHorariosDisponibles(ArrayList<Horario> horariosDisponibles) {
-        this.horariosDisponibles = horariosDisponibles;
+    public static ArrayList<Instalacion> getListaInstalaciones(){
+        return listaInstalaciones;
     }
 
-    public ArrayList<Horario> getHorariosDisponibles() {
-        return horariosDisponibles;
-    }
-
-    // Método para inicializar los horarios con la capacidad de la piscina
-    private void inicializarHorarios() {
-        if (!this.deporte.equalsIgnoreCase("Natacion")) {
-            return; // Solo aplica para instalaciones de tipo piscina
-        }
-
-
-        // Lista de horas del día
-        ArrayList<String> horasDelDia = new ArrayList<>();
-        horasDelDia.add("08:00");
-        horasDelDia.add("10:00");
-        horasDelDia.add("12:00");
-        horasDelDia.add("14:00");
-        horasDelDia.add("16:00");
-        horasDelDia.add("18:00");
-        horasDelDia.add("20:00");
-        horasDelDia.add("21:00");
-        horasDelDia.add("22:00");
-        horasDelDia.add("23:00");
-
-        // Lista de días de la semana
-        ArrayList<String> diasDeLaSemana = new ArrayList<>();
-        diasDeLaSemana.add("Lunes");
-        diasDeLaSemana.add("Martes");
-        diasDeLaSemana.add("Miércoles");
-        diasDeLaSemana.add("Jueves");
-        diasDeLaSemana.add("Viernes");
-        diasDeLaSemana.add("Sábado");
-        diasDeLaSemana.add("Domingo");
-
-        // Para cada día, inicializamos los horarios con los cupos según la capacidad
-        for (String dia : diasDeLaSemana) {
-            ArrayList<String> horasDisponibles = new ArrayList<>();
-            ArrayList<Integer> cuposDisponibles = new ArrayList<>();
-
-            // Inicializa las horas y los cupos para cada hora según la capacidad
-            for (String hora : horasDelDia) {
-                horasDisponibles.add(hora); // Agregar la hora
-                cuposDisponibles.add(this.capacidad); // Inicializar los cupos con la capacidad
+    public static Instalacion obtenerInstalacion(int id){
+        if(listaInstalaciones != null){
+            for (Instalacion instalacion: listaInstalaciones){
+                if(instalacion.getID() == id){
+                    return instalacion;
+                }
             }
-
-            // Crear el horario para el día y agregarlo
-            Horario horario = new Horario(dia, horasDisponibles, cuposDisponibles);
-            this.horariosDisponibles.add(horario);
         }
+        return null;
     }
 
     @Override
     public String toString() {
-        return nombre +
-                "-" + descripcion +
-                "-" + deporte +
-                "-" + precioHora +
-                "-" + capacidad;
-    }
-
-    public boolean hayCupoDisponible(String horaSeleccionada) {
-        for (Horario horario : horariosDisponibles) {
-            for (int i = 0; i < horario.getHorasDisponibles().size(); i++) {
-                if (horario.getHorasDisponibles().get(i).equals(horaSeleccionada) && horario.getCuposDisponibles().get(i) > 0) {
-                    return true; // Se encontró un cupo disponible
-                }
-            }
-        }
-        return false; // No hay cupos disponibles para esa hora
-    }
-
-
-    public static Instalacion seleccionarInstalacion(Scanner scanner, ArrayList<Instalacion> instalacionesDisponibles) {
-        System.out.println("Instalaciones disponibles que cumplen con los criterios:");
-        for (int i = 0; i < instalacionesDisponibles.size(); i++) {
-            System.out.println((i + 1) + ". " + instalacionesDisponibles.get(i).getNombre());
-        }
-
-        int seleccion;
-        do {
-            System.out.print("Seleccione una instalación por su número: ");
-            seleccion = scanner.nextInt();
-            scanner.nextLine();
-            if (seleccion < 1 || seleccion > instalacionesDisponibles.size()) {
-                System.out.println("Selección inválida. Intente nuevamente.");
-            }
-        } while (seleccion < 1 || seleccion > instalacionesDisponibles.size());
-
-        return instalacionesDisponibles.get(seleccion - 1);
-    }
-
-    public static boolean esPiscinaConRestriccion(Instalacion instalacion) {
-        return instalacion.getNombre().toLowerCase().contains("piscina") &&
-            (instalacion.getNombre().toLowerCase().contains("olimpica") ||
-                instalacion.getNombre().toLowerCase().contains("semi olimpica"));
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Horario getHorario() {
-        return horario;
+        return "Instalacion Informacion: \n" +
+                "ID: " + this.ID + "\n " +
+                "Nombre: " + this.nombre + "\n " +
+                "Deporte" + this.deporte + "\n " +
+                "Precio por hora" + this.precioHora;
     }
 }
 
