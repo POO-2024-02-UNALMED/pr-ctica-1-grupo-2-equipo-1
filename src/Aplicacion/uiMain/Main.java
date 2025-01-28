@@ -5,6 +5,8 @@ Donde se programa la UI de consola del programa
 
 package uiMain;
 
+import baseDatos.Deserializador;
+import baseDatos.Serializador;
 import gestorAplicacion.entidades.Trabajador;
 import gestorAplicacion.inscripcion.*;
 import gestorAplicacion.pagos.Boleta;
@@ -17,6 +19,7 @@ import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Random;
@@ -32,7 +35,8 @@ import static gestorAplicacion.reservas.Instalacion.*;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Deserializador.deserializar();
 
         crearInstalaciones();
 
@@ -92,6 +96,7 @@ public class Main {
                     break;
 
                 case 7:
+                    Serializador.serializar();
                     System.out.println("Saliendo del sistema. ¡Hasta pronto!");
                     salir = true;
                     break;

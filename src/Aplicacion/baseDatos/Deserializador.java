@@ -5,10 +5,7 @@ import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Torneo;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Deserializador {
@@ -22,25 +19,41 @@ public class Deserializador {
 
         for(File file: docs){
             if(file.getAbsolutePath().contains("reserva")){
-                fis = new FileInputStream(file);
-                ois = new ObjectInputStream(fis);
+                try{
+                    fis = new FileInputStream(file);
+                    ois = new ObjectInputStream(fis);
 
-                Reserva.setListaReservas((ArrayList<Reserva>) ois.readObject());
+                    Reserva.setListaReservas((ArrayList<Reserva>) ois.readObject());
+                }catch (FileNotFoundException e){
+                    System.out.println(e);
+                }
             } else if (file.getAbsolutePath().contains("cliente")) {
-                fis = new FileInputStream(file);
-                ois = new ObjectInputStream(fis);
+                try{
+                    fis = new FileInputStream(file);
+                    ois = new ObjectInputStream(fis);
 
-                Cliente.setListaClientes((ArrayList<Cliente>) ois.readObject());
+                    Cliente.setListaClientes((ArrayList<Cliente>) ois.readObject());
+                }catch (FileNotFoundException e){
+                    System.out.println(e);
+                }
             } else if (file.getAbsolutePath().contains("torneo")) {
-                fis = new FileInputStream(file);
-                ois = new ObjectInputStream(fis);
+                try{
+                    fis = new FileInputStream(file);
+                    ois = new ObjectInputStream(fis);
 
-                Torneo.setTorneos((ArrayList<Torneo>) ois.readObject());
+                    Torneo.setTorneos((ArrayList<Torneo>) ois.readObject());
+                }catch (FileNotFoundException e){
+                    System.out.println(e);
+                }
             }else if(file.getAbsolutePath().contains("formativo")){
-                fis = new FileInputStream(file);
-                ois = new ObjectInputStream(fis);
+                try{
+                    fis = new FileInputStream(file);
+                    ois = new ObjectInputStream(fis);
 
-                GrupoFormativo.setGrupoFormativos((ArrayList<GrupoFormativo>) ois.readObject());
+                    GrupoFormativo.setGrupoFormativos((ArrayList<GrupoFormativo>) ois.readObject());
+                }catch (FileNotFoundException e){
+                    System.out.println(e);
+                }
             }
         }
 
