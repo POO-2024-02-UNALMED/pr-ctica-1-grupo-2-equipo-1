@@ -17,6 +17,7 @@ import gestorAplicacion.reservas.Reserva;
 import gestorAplicacion.torneo.Equipo;
 import gestorAplicacion.torneo.Torneo;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.Random;
 import java.time.LocalDate;
@@ -105,49 +106,74 @@ public class Main {
     public static void reservasUI(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("-----Menu Reservas-----");
-        System.out.println("Ingresar id del cliente: ");
-        int idCliente = scanner.nextInt();
+        System.out.println("1: Crear Reserva \n2: Visualizar Reserva");
+        int opcionReserva = scanner.nextInt();
 
-        Cliente clienteEncontrado = Cliente.obtenerCliente(idCliente);
+        if(opcionReserva == 1){
+            System.out.println("---Crear Reserva---");
+            System.out.println("Ingresar id del cliente: ");
+            int idCliente = scanner.nextInt();
 
-        if(clienteEncontrado != null){
-            System.out.println(clienteEncontrado);
-            System.out.println("Deporte de la instalacion: \n1: Futbol \n2: Baloncesto \n3: Natacion \n4: Voleibol");
-            int opcionDeporte = scanner.nextInt();
-            String deporte = deporteViaNumero(opcionDeporte);
+            Cliente clienteEncontrado = Cliente.obtenerCliente(idCliente);
 
-            System.out.println("Mostrando instalaciones tipo " + deporte);
-            for(Instalacion instalacion: Instalacion.getListaInstalaciones()){
-                if(Objects.equals(instalacion.getDeporte(), deporte)){
-                    System.out.println(instalacion);
+            if(clienteEncontrado != null){
+                System.out.println(clienteEncontrado);
+                System.out.println("Deporte de la instalacion: \n1: Futbol \n2: Baloncesto \n3: Natacion \n4: Voleibol");
+                int opcionDeporte = scanner.nextInt();
+                String deporte = deporteViaNumero(opcionDeporte);
+
+                System.out.println("Mostrando instalaciones de " + deporte);
+                for(Instalacion instalacion: Instalacion.getListaInstalaciones()){
+                    if(Objects.equals(instalacion.getDeporte(), deporte)){
+                        System.out.println(instalacion);
+                    }
                 }
-            }
 
-            System.out.println("Ingrese el id de la instalacion: ");
-            int instalacionId = scanner.nextInt();
-            Instalacion instalacionEscogida = obtenerInstalacion(instalacionId);
-            if(instalacionEscogida != null){
-                System.out.println("--Seleccion fecha");
-                System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
-                int mes = scanner.nextInt();
-                System.out.println("Dia (1-31): ");
-                int dia = scanner.nextInt();
-                System.out.println("Desde la hora (1-24): ");
-                LocalDateTime inicioHora = LocalDateTime.of(2025,mes,dia,scanner.nextInt(),0);
-                System.out.println("Hasta la hora (1-24): ");
-                LocalDateTime finHora = LocalDateTime.of(2025,mes,dia,scanner.nextInt(),0);
+                System.out.println("Ingrese el id de la instalacion: ");
+                int instalacionId = scanner.nextInt();
+                Instalacion instalacionEscogida = obtenerInstalacion(instalacionId);
 
-                Reserva reservaRealizada = new Reserva(clienteEncontrado,instalacionEscogida,new FechaReserva(inicioHora,finHora));
-                instalacionEscogida.getReservas().add(reservaRealizada);
+                if(instalacionEscogida != null){
+                    System.out.println("--Seleccion fecha--");
+                    System.out.println("Precio por hora: " + instalacionEscogida.getPrecioHora());
+                    System.out.println("Introduzca la fecha de la reserva: \nMes (1-12): ");
+                    int mes = scanner.nextInt();
+                    System.out.println("Dia (1-31): ");
+                    int dia = scanner.nextInt();
+                    System.out.println("Desde la hora (1-24): ");
+                    LocalDateTime inicioHora = LocalDateTime.of(2025,mes,dia,scanner.nextInt(),0);
+                    System.out.println("Hasta la hora (1-24): ");
+                    LocalDateTime finHora = LocalDateTime.of(2025,mes,dia,scanner.nextInt(),0);
 
-                System.out.println("Reserva Realizada \n" + reservaRealizada);
+                    int totalAPagar = (int) Duration.between(inicioHora,finHora).toHours() * instalacionEscogida.getPrecioHora();
+
+                    Reserva reservaRealizada = new Reserva(clienteEncontrado,instalacionEscogida,new FechaReserva(inicioHora,finHora),totalAPagar);
+                    instalacionEscogida.getReservas().add(reservaRealizada);
+
+                    System.out.println("Reserva Realizada \n" + reservaRealizada);
+                    System.out.println("Total a pagar: " + totalAPagar);
+
+                }else{
+                    System.out.println("No existe instalacion con ese id");
+                }
 
             }else{
-                System.out.println("No existe instalacion con ese id");
+                System.out.println("Cliente no encontrado con ese ID");
             }
+        } else if (opcionReserva == 2) {
+            System.out.println("---Visualizar reserva---");
+            System.out.println("Ingresar id de la reserva: ");
+            int idReserva = scanner.nextInt();
 
+            Reserva reservaEncontrada = Reserva.buscarReserva(idReserva);
+
+            if(reservaEncontrada != null){
+                System.out.println(reservaEncontrada);
+            }else{
+                System.out.println("Reserva no encontrada con ese id");
+            }
         }else{
-            System.out.println("Cliente no encontrado con ese ID");
+            System.out.println("Opcion no disponible, introduzca una opcion correcta");
         }
     }
 
@@ -173,7 +199,7 @@ public class Main {
 
             Cliente cliente = new Cliente(nombre,apellido,edad);
 
-            System.out.println("Cliente creado recordar su ID,\n Informacion:");
+            System.out.println("Cliente creado recordar su ID");
             System.out.println(cliente);
             System.out.println("Si desea una suscripcion, realizarla en pagos");
         }
@@ -211,28 +237,22 @@ public class Main {
                     System.out.println("Ingrese el ID de la reserva: ");
                     int idIngresado = scanner.nextInt();
                     Reserva reserva = Reserva.buscarReserva(idIngresado);
-                    int totalPago = 10000;
 
                     if(reserva != null){
                         Cliente cliente = reserva.getCliente();
-                        System.out.println("Reserva encontrada");
-                        System.out.println("En nombre de: " + cliente.getNombre() + " " + cliente.getApellido());
-                        System.out.println("Total a pagar: " + totalPago);
-                        System.out.println("Desea realizar el pago?\n1:Si\n2:No");
+                        System.out.println(reserva);
+                        System.out.println("Realizar pago? \n1:Si\n2:No");
                         int opcion = scanner.nextInt();
                         if(opcion == 1){
-                            System.out.println("Ingrese el monto a pagar: ");
-                            int montoIngresado = scanner.nextInt();
-                            System.out.println("Felicitaciones por su pago");
+                            System.out.println("Pago Realizado");
                             System.out.println("ID: "+reserva.getID());
                             System.out.println("Nombre: " + cliente.getNombre() + " " + cliente.getApellido());
-                            System.out.println("Total: "+ totalPago);
-                            System.out.println("Monto dado: "+ montoIngresado);
-                            System.out.println("Vuelto" + (montoIngresado - totalPago));
-                            System.out.println("Gracias por elegirnos");
+                            System.out.println("Total pagado : "+ (reserva.getaPagar() - reserva.getaPagar() * cliente.getSuscripcion().getTipoSuscripcion().getDescuento()));
+                            reserva.setPagada();
+
                             corriendo = false;
                         }else if(opcion == 2){
-                            System.out.println("Gracias vuelva pronto");
+                            System.out.println("Pago cancelado");
                             corriendo = false;
                         }else{
                             System.out.println("Opcion no disponible,eliga otra opcion");
@@ -351,7 +371,7 @@ public class Main {
     }
 
 
-    //Metodo para crear Torneos
+    ///////////////////////////CREAR TORNEO////////////////////////////////////////
     private static void crearTorneos(ArrayList<Trabajador> medicos, ArrayList<Trabajador> arbitrosTodos, ArrayList<Instalacion> inst) {
         System.out.println("Antes de empezar con la creacion del torneo, se requieren unos datos del cliente");
         System.out.println("Ingrese su nombre");
@@ -1163,7 +1183,6 @@ public class Main {
         }
         evento.setPersonalMedico(asignados);
     }
-
 
     //Metodo para crear los arbitros
     public static ArrayList<Trabajador> crearArbitros(){
