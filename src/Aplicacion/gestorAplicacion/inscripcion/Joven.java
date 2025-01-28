@@ -1,9 +1,12 @@
 package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.entidades.Persona;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Joven extends Persona {
+public class Joven extends Persona implements Serializable {
+    private static ArrayList<Joven> listaJovenes = new ArrayList<Joven>();
     private int experienciaJoven;
     private String eps;
     private String nombreAcudiente;
@@ -12,10 +15,9 @@ public class Joven extends Persona {
     private ArrayList<Integer> registrosEntrenamiento;
 
     public Joven() {}
-    public Joven(String nombre, String apellido, int edad, int experienciaJoven,
-                 int experienciaMeses, String eps, String nombreAcudiente,
+    public Joven(String nombre, String apellido, int id, int edad, int experienciaJoven, String eps, String nombreAcudiente,
                  String telefonoAcudiente, String cedulaAcudiente) {
-        super(nombre, apellido, edad);
+        super(nombre, apellido, edad, id);
         this.experienciaJoven = experienciaJoven;
         this.eps = eps;
         this.nombreAcudiente = nombreAcudiente;
@@ -27,6 +29,13 @@ public class Joven extends Persona {
     @Override
     public String getRol() {
         return "Joven";
+    }
+
+    public ArrayList<Joven> getListaJovenes() {
+        return listaJovenes;
+    }
+    public void setListaJovenes(ArrayList<Joven> listaJovenes) {
+        this.listaJovenes = listaJovenes;
     }
 
     public int getExperienciaJoven() {
