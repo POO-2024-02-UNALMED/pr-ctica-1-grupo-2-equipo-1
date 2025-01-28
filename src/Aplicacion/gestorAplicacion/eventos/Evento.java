@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Evento implements Serializable {
-    private static ArrayList<Trabajador> trabajadores = new ArrayList<>();
+    private static ArrayList<Evento> eventos = new ArrayList<>();
     private String nombreEvento;
     private String tipoEvento;
     private String personajePrincipal;
@@ -111,10 +111,10 @@ public class Evento implements Serializable {
         this.personalMedico = personalMedico;
     }
 
-    public ArrayList<Reserva> getReservas() {
-        return reservas;
+    public ArrayList<Evento> getEventos(){
+        return eventos;
     }
-    public void setReservas(ArrayList<Reserva> reservas) {
-        this.reservas = reservas;
+    public void setEventos(ArrayList<Evento> eventos){
+        this.eventos = eventos;
     }
 }
