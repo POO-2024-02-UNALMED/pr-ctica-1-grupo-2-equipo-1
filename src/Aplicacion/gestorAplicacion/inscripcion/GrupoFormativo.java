@@ -2,9 +2,12 @@ package gestorAplicacion.inscripcion;
 
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GrupoFormativo {
+public class GrupoFormativo implements Serializable {
+    private static ArrayList<GrupoFormativo> grupoFormativos = new ArrayList<GrupoFormativo>();
     private Instalacion instalacion;
     private ArrayList<Joven> jovenes;
     private String deporte;
