@@ -86,10 +86,10 @@ public class Reserva{
                 "Pagada: " + this.pagada;
     }
 
-    public String toStringReserva(){
+    public String toString(String x){
         return "Reserva Informacion" +
                 "ID: " + ID + "\n" +
-                "Pagada: " + pagada;
+                "Pagada: " + pagada + x;
     }
 
     public int getID(){
