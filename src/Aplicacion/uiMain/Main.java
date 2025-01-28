@@ -96,6 +96,8 @@ public class Main {
                     System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 7.");
             }
         }
+
+        scanner.close();
     }
 
     //////////////////////////MENU RESERVAS//////////////////////////////////////////
