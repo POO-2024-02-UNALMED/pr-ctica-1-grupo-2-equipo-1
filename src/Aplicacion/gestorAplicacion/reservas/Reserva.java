@@ -76,6 +76,10 @@ public class Reserva{
         return cliente;
     }
 
+    public static ArrayList<Reserva> getListaReservas(){
+        return listaReservas;
+    }
+
     public Instalacion getInstalacion() {
         return instalacion;
     }

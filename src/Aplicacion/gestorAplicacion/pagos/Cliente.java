@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Cliente extends Persona {
-    public static ArrayList<Cliente> listaClientes = new ArrayList<>();
+    private static ArrayList<Cliente> listaClientes = new ArrayList<>();
     private Suscripcion suscripcion;
     private final int ID;
 
@@ -34,6 +34,10 @@ public class Cliente extends Persona {
             }
         }
         return null;
+    }
+
+    public static ArrayList<Cliente> getListaClientes(){
+        return listaClientes;
     }
 
     public Suscripcion getSuscripcion() {
