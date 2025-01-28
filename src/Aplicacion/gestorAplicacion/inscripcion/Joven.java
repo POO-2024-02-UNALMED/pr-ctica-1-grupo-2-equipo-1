@@ -11,6 +11,7 @@ public class Joven extends Persona {
     private String cedulaAcudiente;
     private ArrayList<Integer> registrosEntrenamiento;
 
+    public Joven() {}
     public Joven(String nombre, String apellido, int edad, int experienciaJoven,
                  int experienciaMeses, String eps, String nombreAcudiente,
                  String telefonoAcudiente, String cedulaAcudiente) {

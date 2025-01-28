@@ -7,6 +7,8 @@ public abstract class Persona{
     public int id;
     public int edad;
 
+    //Constructor sin parámetros
+    public Persona(){}
     //Constructor sin id
     public Persona(String nombre, String apellido, int edad) {
             this.nombre = nombre;

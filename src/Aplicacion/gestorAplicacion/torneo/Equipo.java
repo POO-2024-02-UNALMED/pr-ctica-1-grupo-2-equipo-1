@@ -7,7 +7,7 @@ public class Equipo {
     private String nombreEquipo;
     private ArrayList<String> jugadores;
 
-
+    public Equipo() {}
     public Equipo( String nombreEquipo) {
         this.idEquipo++;
         this.nombreEquipo = nombreEquipo;

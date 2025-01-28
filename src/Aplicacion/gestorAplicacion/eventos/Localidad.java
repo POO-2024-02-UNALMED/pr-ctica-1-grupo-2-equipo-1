@@ -11,6 +11,7 @@ public class Localidad {
     private boolean menores;
     private boolean vip;
 
+    public Localidad(){}
     public Localidad(Instalacion instalacion, String ubicacion, int capacidad) {
         this.instalacionLocalidad = instalacion;
         this.ubicacion = ubicacion;

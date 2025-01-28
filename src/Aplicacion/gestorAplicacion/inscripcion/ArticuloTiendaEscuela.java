@@ -7,6 +7,7 @@ public class ArticuloTiendaEscuela {
     private double precio;
     private String tipoArticulo;
 
+    public ArticuloTiendaEscuela() {}
     public ArticuloTiendaEscuela(int idArticulo, String nombreArticulo, int stockArticulo, double precio, String tipoArticulo) {
         this.idArticulo = idArticulo;
         this.nombreArticulo = nombreArticulo;

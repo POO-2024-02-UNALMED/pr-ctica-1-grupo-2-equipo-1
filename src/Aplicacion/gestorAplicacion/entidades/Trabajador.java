@@ -4,6 +4,7 @@ public class Trabajador extends Persona {
     String Rol;
     boolean ocupado = false;
 
+    public Trabajador() {}
     public Trabajador(String nombre, String apellido, String rol, int edad) {
         super(nombre, apellido, edad);
         this.Rol = rol;

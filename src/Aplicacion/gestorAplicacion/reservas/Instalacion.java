@@ -18,6 +18,7 @@ public class Instalacion {
     private String estado; // Estado de la instalación (Disponible, Reservado, Ocupado)
     private Horario horario;
 
+    public Instalacion() {}
     // Constructor con todos los atributos
     public Instalacion(String nombre, String deporte, int precioHora, int profundidad, String descripcion) {
         this.idInstalacion = ++idCounter; // Incrementa el contador estático

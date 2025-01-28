@@ -21,6 +21,7 @@ public class Reserva implements Serializable {
     private Equipo equipo2;
     private GrupoFormativo grupoFormativo;
 
+    public Reserva() {}
     public Reserva(Cliente cliente, Instalacion instalacion, String horaReservada, Horario horario) {
         this.ID = listaReservas.size() + 1;
         this.cliente = cliente;

@@ -12,6 +12,7 @@ public class Boleta {
     private Cliente cliente;
     private boolean pagada;
 
+    public Boleta(){}
     // Constructor
     public Boleta( String tipoEvento,int precio,Cliente cliente) {
         Random idGen = new Random();
