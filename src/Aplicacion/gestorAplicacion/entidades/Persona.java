@@ -65,13 +65,16 @@ public abstract class Persona{
     public String getNombreCompleto() {
         return nombre + " " + apellido;
     }
-    public abstract String getRol();
 
-    //Método abstracto---------------------------------------------------
     @Override
     public String toString() {
         return getNombreCompleto();
     }
+
+
+    //Método abstracto---------------------------------------------------
+
+    public abstract String getRol();
 
     //-------------------------------------------------------------------
 }
