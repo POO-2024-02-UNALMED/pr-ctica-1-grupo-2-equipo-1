@@ -34,6 +34,8 @@ import static gestorAplicacion.reservas.Instalacion.*;
 public class Main {
     public static void main(String[] args) {
 
+        TiendaEscuela tiendaEscuelita = inicializarTienda();
+
         crearInstalaciones();
 
         ArrayList<Instalacion> inst  = Instalacion.getListaInstalaciones();
@@ -72,7 +74,7 @@ public class Main {
                     break;
 
                 case 2:
-                    gestionarInscripcion();
+                    gestionarInscripcion(tiendaEscuelita);
                     break;
 
                 case 3:
@@ -100,6 +102,20 @@ public class Main {
                     System.out.println("Opción inválida. Por favor, seleccione una opción del 1 al 7.");
             }
         }
+    }
+
+    // Lógica para inicializar la tienda con algunos artículos
+    public static TiendaEscuela inicializarTienda() {
+        TiendaEscuela tienda = new TiendaEscuela();
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(1, "Uniforme Futbol", 10, 50000, "Futbol"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(2, "Balón Futbol", 15, 70000, "Futbol"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(3, "Uniforme Basket", 8, 55000, "Baloncesto"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(4, "Balón Basket", 12, 65000, "Baloncesto"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(5, "Gorro Natación", 20, 15000, "Natacion"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(6, "Gafas Natación", 25, 30000, "Natacion"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(7, "Uniforme Voleibol", 10, 45000, "Voleibol"));
+        tienda.agregarArticulo(new ArticuloTiendaEscuela(8, "Balón Voleibol", 10, 50000, "Voleibol"));
+        return tienda;
     }
 
     //////////////////////////MENU RESERVAS//////////////////////////////////////////
@@ -1288,7 +1304,7 @@ public class Main {
 */
 
 //------------------------
-public static void gestionarInscripcion() {
+public static void gestionarInscripcion(TiendaEscuela tienda) {
     Scanner sc = new Scanner(System.in);
 
     DeporteFormativo df = new DeporteFormativo();
@@ -1409,7 +1425,6 @@ public static void gestionarInscripcion() {
     gf.addJoven(joven);
 
     // Inicializamos la tienda y ofrecemos la compra
-    TiendaEscuela tienda = inicializarTienda();
     System.out.println("\n¿Desea comprar equipamiento para " + df.getDeporteDeseado() + "? (1. Sí / 2. No)");
     int opcionCompra = sc.nextInt();
     sc.nextLine();
@@ -1420,15 +1435,22 @@ public static void gestionarInscripcion() {
         sc.nextLine();
         if (idArticulo != 0) {
             ArticuloTiendaEscuela articulo = tienda.buscarArticuloPorId(idArticulo);
-            if (articulo != null && articulo.getTipoArticulo().equalsIgnoreCase(df.getDeporteDeseado())) {
-                if (articulo.getStockArticulo() > 0) {
-                    articulo.setStockArticulo(articulo.getStockArticulo() - 1);
-                    System.out.println("Compra realizada: " + articulo.getNombreArticulo());
+            if (articulo != null) {
+                System.out.println("Deporte deseado: " + df.getDeporteDeseado());
+                System.out.println("Tipo de artículo encontrado: " + articulo.getTipoArticulo());
+                if (articulo.getTipoArticulo().equalsIgnoreCase(df.getDeporteDeseado())) {
+                    if (articulo.getStockArticulo() > 0) {
+                        articulo.setStockArticulo(articulo.getStockArticulo() - 1);
+                        System.out.println("Compra realizada: " + articulo.getNombreArticulo());
+                        System.out.println("Nuevo stock disponible: " + articulo.getStockArticulo());
+                    } else {
+                        System.out.println("No hay stock disponible del artículo seleccionado.");
+                    }
                 } else {
-                    System.out.println("No hay stock disponible del artículo seleccionado.");
+                    System.out.println("El artículo no corresponde al deporte deseado.");
                 }
             } else {
-                System.out.println("Artículo no encontrado o no corresponde al deporte.");
+                System.out.println("Artículo no encontrado.");
             }
         }
     }
@@ -1446,20 +1468,6 @@ public static void gestionarInscripcion() {
 
     //sc.close();
 }
-
-    // Lógica para inicializar la tienda con algunos artículos
-    public static TiendaEscuela inicializarTienda() {
-        TiendaEscuela tienda = new TiendaEscuela();
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(1, "Uniforme Futbol", 10, 50000, "Futbol"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(2, "Balón Futbol", 15, 70000, "Futbol"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(3, "Uniforme Basket", 8, 55000, "Baloncesto"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(4, "Balón Basket", 12, 65000, "Baloncesto"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(5, "Gorro Natación", 20, 15000, "Natacion"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(6, "Gafas Natación", 25, 30000, "Natacion"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(7, "Uniforme Voleibol", 10, 45000, "Voleibol"));
-        tienda.agregarArticulo(new ArticuloTiendaEscuela(8, "Balón Voleibol", 10, 50000, "Voleibol"));
-        return tienda;
-    }
 
     // Muestra solo los artículos que coincidan con el deporte
     public static void mostrarArticulosPorDeporte(TiendaEscuela tienda, String deporte) {
