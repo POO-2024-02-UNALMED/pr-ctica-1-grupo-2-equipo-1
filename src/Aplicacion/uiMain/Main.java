@@ -1098,7 +1098,7 @@ public class Main {
         evento.reservas.add(reserva);
 
         System.out.println("Se ha realizado la reserva para su toneo.");
-        System.out.println(reserva.toStringReserva());
+        System.out.println(reserva.toString(""));
         System.out.println("Debe irse a Taquilla para confirmar el estado de su reserva mediante el pago");
 
         Boleta boleta = new Boleta(evento.getNombreEvento(), evento.getLocalidades().getFirst().getPrecioSugerido(), cliente);

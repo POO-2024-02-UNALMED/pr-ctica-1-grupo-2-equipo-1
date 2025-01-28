@@ -2,10 +2,14 @@ package gestorAplicacion.pagos;
 
 import gestorAplicacion.entidades.Persona;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Cliente> listaClientes = new ArrayList<>();
     private Suscripcion suscripcion;
     private final int ID;
