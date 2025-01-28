@@ -882,7 +882,7 @@ public class Main {
             torneo.boletas.add(boleta);
         }
 
-        System.out.println("Se han creado las boletas par");
+        System.out.println("Se han creado las boletas para el torneo. Estas se pueden adquirir en Taquilla");
     }
 
 
