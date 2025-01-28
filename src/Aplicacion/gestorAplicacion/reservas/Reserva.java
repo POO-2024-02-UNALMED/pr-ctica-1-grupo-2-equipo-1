@@ -7,7 +7,7 @@ import gestorAplicacion.pagos.Cliente;
 import gestorAplicacion.torneo.Equipo;
 
 public class Reserva{
-    private static ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
+    private static ArrayList<Reserva> listaReservas;
     private int ID;
     private Cliente cliente;
     private Instalacion instalacion;
