@@ -1170,18 +1170,29 @@ public static void gestionarInscripcion() {
     DeporteFormativo df = new DeporteFormativo();
 
     System.out.println("=== Ingreso de datos para Deporte Formativo ===");
-    System.out.print("Nombre: ");
+    System.out.print("Nombre del joven: ");
     df.setNombre(sc.nextLine());
 
-    System.out.print("Edad: ");
+    System.out.print("Apellido del joven: ");
+    String apellidoJoven = sc.nextLine();
+
+    System.out.println("Documento del joven: ");
+    
+    System.out.print("Edad del joven: ");
     df.setEdad(sc.nextInt());
     sc.nextLine(); // limpiar buffer
 
-    System.out.print("EPS: ");
+    System.out.print("EPS del joven: ");
     df.setEps(sc.nextLine());
 
-    System.out.print("Acudiente: ");
+    System.out.print("Nombre del acudiente: ");
     df.setAcudiente(sc.nextLine());
+
+    System.out.print("Teléfono del acudiente: ");
+    String telAcudiente = sc.nextLine();
+
+    System.out.print("Cédula del acudiente: ");
+    String cedAcudiente = sc.nextLine();
 
     System.out.print("Deporte deseado: ");
     df.setDeporteDeseado(sc.nextLine());
@@ -1192,15 +1203,6 @@ public static void gestionarInscripcion() {
 
     // Asignamos categoría y horario
     df.clasificarYAsignar();
-
-    System.out.print("Apellido del joven: ");
-    String apellidoJoven = sc.nextLine();
-
-    System.out.print("Teléfono del acudiente: ");
-    String telAcudiente = sc.nextLine();
-
-    System.out.print("Cédula del acudiente: ");
-    String cedAcudiente = sc.nextLine();
 
     System.out.println("\nDatos capturados:");
     System.out.println("Nombre: " + df.getNombre());
