@@ -76,7 +76,7 @@ public class Torneo {
         return this.deporte;
     }
 
-    public ArrayList<Instalacion> getInstalaciones(int num) {
+    public ArrayList<Instalacion> getInstalaciones(int num, ArrayList<Instalacion> inst) {
         ArrayList<Instalacion> instalaciones = new ArrayList<>();
         if (num == 1) {
             instalaciones.add(inst.get(0));
