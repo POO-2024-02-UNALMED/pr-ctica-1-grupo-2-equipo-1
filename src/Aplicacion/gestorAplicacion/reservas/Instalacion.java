@@ -64,7 +64,7 @@ public class Instalacion {
     public String getDeporte(){
         return this.deporte;
     }
-
+    public int getPrecioHora(){return this.precioHora;}
     public int getID(){
         return this.ID;
     }

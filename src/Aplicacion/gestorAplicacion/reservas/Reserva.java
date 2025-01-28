@@ -15,6 +15,7 @@ public class Reserva{
     private Instalacion instalacion;
     private boolean pagada;
     private FechaReserva fechaReserva;
+    private int aPagar;
     private Equipo equipo1;
     private Equipo equipo2;
     private GrupoFormativo grupoFormativo;
@@ -29,11 +30,12 @@ public class Reserva{
         listaReservas.add(this);
     }
 
-    public Reserva(Cliente cliente, Instalacion instalacion, FechaReserva fechaReserva) {
+    public Reserva(Cliente cliente, Instalacion instalacion, FechaReserva fechaReserva,int aPagar) {
         this.ID = listaReservas.size() + 1;
         this.cliente = cliente;
         this.instalacion = instalacion;
         this.fechaReserva = fechaReserva;
+        this.aPagar = aPagar;
         this.pagada = false;
         listaReservas.add(this);
     }
@@ -76,10 +78,12 @@ public class Reserva{
     @Override
     public String toString() {
         return "Reserva Informacion" +
-                "ID: " + ID + "\n" +
+                "ID: " + this.ID + "\n" +
                 "Cliente nombre: " + cliente.getNombre()+ " " + cliente.getApellido() + "\n" +
                 "Instalacion: " + instalacion.getNombre() + "\n" +
-                "Pagada: " + pagada;
+                "Total basico: " + this.aPagar + "\n" +
+                "Total a pagar con descuento de suscripcion: " + (this.aPagar - this.aPagar * cliente.getSuscripcion().getTipoSuscripcion().getDescuento()) + "\n" +
+                "Pagada: " + this.pagada;
     }
 
     public String toStringReserva(){
@@ -93,7 +97,13 @@ public class Reserva{
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return this.cliente;
+    }
+
+    public int getaPagar() {return this.aPagar;}
+
+    public void setPagada(){
+        this.pagada = true;
     }
 
     public static ArrayList<Reserva> getListaReservas(){
