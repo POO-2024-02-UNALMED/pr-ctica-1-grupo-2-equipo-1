@@ -247,7 +247,7 @@ public class Main {
 
         boolean corriendo = true;
         do{
-            System.out.println("1: Pago via ID\n2: Pago boleta de evento\n3: Administrar Suscripcion\n4: Salir de pagos");
+            System.out.println("1: Pago via ID\n2: Pago boleta de evento\n3: Administrar Suscripcion\n4: Pagar formativo\n5: Salir");
             int opcionPagoID = scanner.nextInt();
             switch (opcionPagoID){
                 //Pago via ID
@@ -380,6 +380,65 @@ public class Main {
                     }
                     break;
                 case 4:
+                    Scanner scPagos = new Scanner(System.in);
+
+                    // Supongamos que el costo fijo de la inscripción es 80.000
+                    final int COSTO_INSCRIPCION = 80000;
+
+                    System.out.println("----- Pago de Inscripción a Deporte Formativo -----");
+                    System.out.print("Ingrese el ID del joven a pagar la inscripción: ");
+                    int idBuscado = scanner.nextInt();
+
+                    Joven joven = Joven.getJoven(idBuscado);
+                    if (joven == null) {
+                        System.out.println("No se encuentra un joven con ese ID.");
+                        return;
+                    }
+                    // Si lo encontramos, verificamos si ya pagó
+                    if (joven.isInscripcionPagada()) {
+                        System.out.println("La inscripción de este joven ya se encuentra pagada.");
+                    } else {
+                        System.out.println("El valor de la inscripción es $" + COSTO_INSCRIPCION);
+                        System.out.println("Desea pagar? (1. Sí / 2. No)");
+                        int opcion = scanner.nextInt();
+                        if (opcion == 1) {
+                            // Simulamos un cobro
+                            joven.setInscripcionPagada(true);
+                            System.out.println("Inscripción pagada con éxito. ¡Gracias!");
+                        } else {
+                            System.out.println("Operación cancelada. No se realizó el pago.");
+                        }
+                    }
+
+                    // AHORA seccion para pagar artículos
+                    double totalArticulos = joven.getTotalArticulos();
+                    if (totalArticulos > 0) {
+                        System.out.println("\nValor total de los artículos pendientes por pagar: $" + totalArticulos);
+                        System.out.println("Desea pagarlos ahora? (1. Sí / 2. No)");
+                        int opcionArticulos = scanner.nextInt();
+                        if (opcionArticulos == 1) {
+                            // Si quieres simular un cobro exacto:
+                            System.out.print("Ingrese el monto con el que paga: ");
+                            double montoIngresado = scanner.nextDouble();
+                            if (montoIngresado >= totalArticulos) {
+                                double vuelto = montoIngresado - totalArticulos;
+                                // Ya pagó todo, puedes resetear o dejar registro
+                                joven.setTotalArticulos(0.0);
+                                System.out.println("Artículos pagados con éxito. Su vuelto es: $" + vuelto);
+                            } else {
+                                // Pago insuficiente
+                                System.out.println("El monto ingresado no es suficiente para cubrir $" + totalArticulos);
+                                // No marcamos como pagado
+                            }
+                        } else {
+                            System.out.println("Ha decidido no pagar los artículos en este momento.");
+                        }
+                    } else {
+                        System.out.println("Este joven no tiene artículos pendientes por pagar.");
+                    }
+
+                    break;
+                case 5:
                     System.out.println("Saliendo de pagos");
                     corriendo = false;
                     break;
@@ -1319,11 +1378,9 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
     System.out.print("Apellido del joven: ");
     String apellidoJoven = sc.nextLine();
 
-
     System.out.print("Documento del joven: ");
     int idJoven = sc.nextInt();
-
-    sc.nextLine();
+    sc.nextLine(); // limpiar buffer
 
     System.out.print("Edad del joven: ");
     df.setEdad(sc.nextInt());
@@ -1341,9 +1398,9 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
     System.out.print("Cédula del acudiente: ");
     String cedAcudiente = sc.nextLine();
 
+    // Elegir deporte deseado
     String depolte = "";
-    boolean valido = false; // Variable para controlar si la opción es válida
-
+    boolean valido = false;
     while (!valido) {
         System.out.println("Selecciona un deporte:");
         System.out.println("1. Futbol");
@@ -1352,7 +1409,7 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
         System.out.println("4. Natacion");
 
         int opcion = sc.nextInt();
-
+        sc.nextLine(); // limpiar buffer
         switch (opcion) {
             case 1:
                 depolte = "Futbol";
@@ -1371,35 +1428,35 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
                 valido = true;
                 break;
             default:
-                System.out.println("Deporte no valido, ingrese un deporte dentro de los ofrecidos.");
-                break; // Vuelve a pedir la opción si es inválida
+                System.out.println("Deporte no válido. Intente de nuevo.");
         }
     }
     df.setDeporteDeseado(depolte);
 
     System.out.print("Experiencia previa (meses): ");
     df.setExperienciaMeses(sc.nextInt());
-    sc.nextLine();
+    sc.nextLine(); // limpiar buffer
 
-    // Asignamos categoría y horario
+    // Asignamos categoría y horario (según la lógica interna de DeporteFormativo)
     df.clasificarYAsignar();
 
-    System.out.println("\nDatos capturados:");
+    // Mostrar datos capturados
+    System.out.println("\n=== Datos capturados ===");
     System.out.println("Nombre: " + df.getNombre());
+    System.out.println("Apellido: " + apellidoJoven);
+    System.out.println("Documento: " + idJoven);
     System.out.println("Edad: " + df.getEdad());
     System.out.println("EPS: " + df.getEps());
-    System.out.println("Documento: " + idJoven);
     System.out.println("Acudiente: " + df.getAcudiente());
+    System.out.println("Teléfono acudiente: " + telAcudiente);
+    System.out.println("Cédula acudiente: " + cedAcudiente);
     System.out.println("Deporte: " + df.getDeporteDeseado());
     System.out.println("Experiencia: " + df.getExperienciaMeses() + " meses");
     System.out.println("Categoría Equipo: " + df.getCategoriaEquipo());
     System.out.println("Entrenador (categoría): " + df.getCategoriaEntrenador());
     System.out.println("Horario Asignado: " + df.getHorario());
-    System.out.println("Apellido: " + apellidoJoven);
 
-    System.out.println("\n=== Creando objeto Joven e inscribiendo en GrupoFormativo ===");
-
-
+    // Crear el Joven y registrarlo en la lista
     Joven joven = new Joven(
             df.getNombre(),
             apellidoJoven,
@@ -1411,29 +1468,30 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
             telAcudiente,
             cedAcudiente
     );
+    joven.setJoven(joven); // se añade a la lista estática de Joven
 
-    // Creamos un entrenador "simulado" con la categoría del DF
+    // Crear un Entrenador según la categoría (aquí puedes refinar si gustas)
     Entrenador ent = new Entrenador("Entrenador", df.getCategoriaEntrenador(), 40, df.getDeporteDeseado());
 
-    // Instalación simulada
-    Instalacion inst = new Instalacion(
-            "Cancha " + df.getDeporteDeseado(),
-            df.getDeporteDeseado(),
-            60
-    );
+    // Crear la Instalación (o buscarla si ya existe)
+    Instalacion inst = new Instalacion("Cancha " + df.getDeporteDeseado(), df.getDeporteDeseado(), 60);
 
-    // Creamos el grupo formativo
+    // Crear el grupo formativo
     GrupoFormativo gf = new GrupoFormativo(df.getDeporteDeseado(), inst, ent);
     gf.addJoven(joven);
 
-    // Inicializamos la tienda y ofrecemos la compra
+    //======================
+    // NUEVA VARIABLE para el total de artículos que el usuario decida comprar
+    //======================
+    double totalArticulos = 0.0;
+
     System.out.println("\n¿Desea comprar equipamiento para " + df.getDeporteDeseado() + "? (1. Sí / 2. No)");
     int opcionCompra = sc.nextInt();
     sc.nextLine();
-    double totalArticulos = 0;
+
     if (opcionCompra == 1) {
         int idArticulo = 0;
-        totalArticulos = 0.0;
+        // El usuario puede seguir comprando mientras no ingrese -1
         while (idArticulo != -1) {
             mostrarArticulosPorDeporte(tienda, df.getDeporteDeseado());
             System.out.print("Ingrese el ID del artículo que desea comprar (-1 para salir): ");
@@ -1449,6 +1507,7 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
                             articulo.setStockArticulo(articulo.getStockArticulo() - 1);
                             System.out.println("Compra realizada: " + articulo.getNombreArticulo());
                             System.out.println("Nuevo stock disponible: " + articulo.getStockArticulo());
+                            // Sumar precio al total
                             totalArticulos += articulo.getPrecio();
                         } else {
                             System.out.println("No hay stock disponible del artículo seleccionado.");
@@ -1463,21 +1522,41 @@ public static void gestionarInscripcion(TiendaEscuela tienda) {
         }
     }
 
-    //Cálculo pago
-    final int CTE_BASE_FORMATIVO = 80000;
-    int totalArticulosEntero = (int) totalArticulos;
-
-
-
-    // Resumen final
+    // Imprimir el total final de artículos si hubo compras
     System.out.println("\n=== Resumen de Inscripción ===");
     System.out.println("Joven inscrito: " + joven);
     System.out.println("Grupo Formativo - Deporte: " + gf.getDeporte());
     System.out.println("Instalación: " + gf.getInstalacion().getNombre());
     System.out.println("Entrenador: " + gf.getEntrenador().getNombre() + " " + gf.getEntrenador().getApellido());
 
-    //sc.close();
+    // Aquí muestras cuánto debe pagar en artículos
+    if (totalArticulos > 0) {
+        System.out.println("Total a pagar por artículos de la tienda: $" + totalArticulos);
+    } else {
+        System.out.println("No se han comprado artículos de la tienda.");
+    }
+
+    // Aquí podrías convertirlo a int si fuera necesario:
+    // int totalArticulosEntero = (int) totalArticulos;
+    // System.out.println("Total redondeado (int): $" + totalArticulosEntero);
+
+    // También puedes añadir el costo de la inscripción, etc.
+    final int CTE_BASE_FORMATIVO = 80000;
+    System.out.println("La inscripción al deporte cuesta: $" + CTE_BASE_FORMATIVO);
+    System.out.println("Recuerde realizar su pago en la sección de 'Pagos'.");
 }
+
+    // Método auxiliar para mostrar artículos de la tienda filtrados por deporte
+    public static void mostrarArticulosPorDepolte(TiendaEscuela tienda, String deporte) {
+        System.out.println("\nArtículos disponibles para " + deporte + ":");
+        for (ArticuloTiendaEscuela art : tienda.listarArticulos()) {
+            if (art.getTipoArticulo().equalsIgnoreCase(deporte)) {
+                System.out.println(art.getIdArticulo() + ". " + art.getNombreArticulo()
+                        + " | Stock: " + art.getStockArticulo()
+                        + " | Precio: " + art.getPrecio());
+            }
+        }
+    }
 
     // Muestra solo los artículos que coincidan con el deporte
     public static void mostrarArticulosPorDeporte(TiendaEscuela tienda, String deporte) {

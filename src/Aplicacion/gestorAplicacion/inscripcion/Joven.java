@@ -13,6 +13,8 @@ public class Joven extends Persona implements Serializable {
     private String telefonoAcudiente;
     private String cedulaAcudiente;
     private ArrayList<Integer> registrosEntrenamiento;
+    private boolean inscripcionPagada;
+    private double totalArticulos;
 
     public Joven() {}
     public Joven(String nombre, String apellido, int id, int edad, int experienciaJoven, String eps, String nombreAcudiente,
@@ -31,13 +33,38 @@ public class Joven extends Persona implements Serializable {
         return "Joven";
     }
 
+
+    public double getTotalArticulos() {
+        return totalArticulos;
+    }
+    public void setTotalArticulos(double totalArticulos) {
+        this.totalArticulos = totalArticulos;
+    }
+
+    public boolean isInscripcionPagada() {
+        return inscripcionPagada;
+    }
+    public void setInscripcionPagada(boolean inscripcionPagada) {
+        this.inscripcionPagada = inscripcionPagada;
+    }
+
     public ArrayList<Joven> getListaJovenes() {
         return listaJovenes;
     }
     public void setListaJovenes(ArrayList<Joven> listaJovenes) {
         this.listaJovenes = listaJovenes;
     }
-
+    public static Joven getJoven(int id) {
+        for (Joven j : listaJovenes) {
+            if (j.getId() == id) {
+                return j;
+            }
+        }
+        return null; // si no encuentra ninguno
+    }
+    public void setJoven(Joven joven) {
+        this.listaJovenes.add(joven);
+    }
     public int getExperienciaJoven() {
         return experienciaJoven;
     }
