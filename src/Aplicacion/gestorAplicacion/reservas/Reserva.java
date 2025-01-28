@@ -23,6 +23,7 @@ public class Reserva{
         this.cliente = cliente;
         this.instalacion = instalacion;
         this.pagada = false;
+        listaReservas.add(this);
     }
 
     public Reserva(Cliente cliente, Instalacion instalacion, FechaReserva fechaReserva) {
@@ -31,6 +32,7 @@ public class Reserva{
         this.instalacion = instalacion;
         this.fechaReserva = fechaReserva;
         this.pagada = false;
+        listaReservas.add(this);
     }
 
     //Constructor para Torneos
@@ -39,6 +41,7 @@ public class Reserva{
         this.instalacion = instalacion;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
+        listaReservas.add(this);
     }
 
     //Constructor para fomrativo
@@ -46,6 +49,7 @@ public class Reserva{
         this.instalacion = instalacion;
         this.ID = listaReservas.size() + 1;
         this.grupoFormativo = grupoFormativo;
+        listaReservas.add(this);
     }
 
     public static Reserva buscarReserva(int ID){
