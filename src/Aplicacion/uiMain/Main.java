@@ -1174,8 +1174,11 @@ public static void gestionarInscripcion() {
     System.out.print("Apellido del joven: ");
     String apellidoJoven = sc.nextLine();
 
-    System.out.println("Documento del joven: ");
+
+    System.out.print("Documento del joven: ");
     int idJoven = sc.nextInt();
+
+    sc.nextLine();
 
     System.out.print("Edad del joven: ");
     df.setEdad(sc.nextInt());
