@@ -98,7 +98,8 @@ public class Torneo {
         return instalaciones;
     }
 
-    public void setInstalacion(int instalacion) {
+    public void setInstalacion(int instalacion, ArrayList<Instalacion> inst) {
+         //ArrayList<Instalacion> inst = inst;
         if (this.deporte.equals("Futbol")) {
             if (instalacion == 1) {
                 this.instalacion = inst.get(0);

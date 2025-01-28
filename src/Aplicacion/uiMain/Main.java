@@ -401,7 +401,7 @@ public class Main {
         System.out.println();
 
         // Guardamos la instalación elegida en el torneo
-        torneo.setInstalacion(seleccionInstalacion);
+        torneo.setInstalacion(seleccionInstalacion, inst);
 
         // ========================================================
         // 2) Reglas específicas de cada deporte
