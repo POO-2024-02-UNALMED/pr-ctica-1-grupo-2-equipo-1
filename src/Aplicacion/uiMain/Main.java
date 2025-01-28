@@ -1320,7 +1320,7 @@ public static void gestionarInscripcion() {
         System.out.println("- " + jj.getNombre() + " " + jj.getApellido());
     }
 
-    sc.close();
+    //sc.close();
 }
 
     // Lógica para inicializar la tienda con algunos artículos

@@ -88,13 +88,12 @@ public class Torneo {
             instalaciones.add(inst.get(5));
             instalaciones.add(inst.get(6));
         } else if (num == 3) {
-            instalaciones.add(inst.get(10));
-            instalaciones.add(inst.get(11));
-            instalaciones.add(inst.get(12));
-        } else if (num == 4) {
             instalaciones.add(inst.get(7));
             instalaciones.add(inst.get(8));
             instalaciones.add(inst.get(9));
+        } else if (num == 4) {
+            instalaciones.add(inst.get(10));
+            instalaciones.add(inst.get(11));
         }
         return instalaciones;
     }
@@ -120,19 +119,17 @@ public class Torneo {
             }
         } else if (this.deporte.equals("Natacion")) {
             if (instalacion == 1) {
-                this.instalacion = inst.get(10);
-            } else if (instalacion == 2) {
-                this.instalacion = inst.get(11);
-            } else if (instalacion == 3) {
-                this.instalacion = inst.get(12);
-            }
-        } else if (this.deporte.equals("Voleibol")) {
-            if (instalacion == 1) {
                 this.instalacion = inst.get(7);
             } else if (instalacion == 2) {
                 this.instalacion = inst.get(8);
             } else if (instalacion == 3) {
                 this.instalacion = inst.get(9);
+            }
+        } else if (this.deporte.equals("Voleibol")) {
+            if (instalacion == 1) {
+                this.instalacion = inst.get(10);
+            } else if (instalacion == 2) {
+                this.instalacion = inst.get(11);
             }
         }
     }
