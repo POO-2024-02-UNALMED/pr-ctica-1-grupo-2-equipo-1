@@ -1,8 +1,12 @@
 package gestorAplicacion.pagos;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Suscripcion {
+public class Suscripcion implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private TipoSuscripcion tipoSuscripcion;
     private LocalDate inicioSuscripcion;
     private LocalDate finSuscripcion;

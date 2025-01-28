@@ -2,10 +2,14 @@ package gestorAplicacion.reservas;
 
 import gestorAplicacion.eventos.Localidad;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Instalacion {
+public class Instalacion implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Instalacion> listaInstalaciones = new ArrayList<Instalacion>();
     private final int ID;
     private String deporte;
@@ -93,8 +97,8 @@ public class Instalacion {
         return "Instalacion Informacion: \n" +
                 "ID: " + this.ID + "\n " +
                 "Nombre: " + this.nombre + "\n " +
-                "Deporte" + this.deporte + "\n " +
-                "Precio por hora" + this.precioHora;
+                "Deporte: " + this.deporte + "\n " +
+                "Precio por hora: " + this.precioHora;
     }
 }
 

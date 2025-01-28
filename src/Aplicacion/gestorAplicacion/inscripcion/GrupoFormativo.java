@@ -3,10 +3,13 @@ package gestorAplicacion.inscripcion;
 import gestorAplicacion.reservas.Instalacion;
 import gestorAplicacion.reservas.Reserva;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class GrupoFormativo implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private static ArrayList<GrupoFormativo> grupoFormativos = new ArrayList<GrupoFormativo>();
     private Instalacion instalacion;
     private ArrayList<Joven> jovenes;
