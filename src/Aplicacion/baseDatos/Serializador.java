@@ -7,7 +7,7 @@ import gestorAplicacion.torneo.Torneo;
 import java.io.*;
 
 public class Serializador {
-    private static File rutaTemp  = new File("out/production/src/baseDatos/temp");
+    private static File rutaTemp  = new File("out\\production\\src\\baseDatos\\temp");
 
     public static void serializar() throws IOException {
         FileOutputStream fos;

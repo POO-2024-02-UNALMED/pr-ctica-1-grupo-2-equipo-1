@@ -94,6 +94,10 @@ public class Reserva{
         return listaReservas;
     }
 
+    public static void setListaReservas(ArrayList<Reserva> lista){
+        listaReservas = lista;
+    }
+
     public Instalacion getInstalacion() {
         return instalacion;
     }

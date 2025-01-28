@@ -48,6 +48,10 @@ public class Cliente extends Persona {
         return "Cliente";
     }
 
+    public static void setListaClientes(ArrayList<Cliente> lista){
+        listaClientes = lista;
+    }
+
     @Override
     public String toString() {
         return "Informacion Cliente \n" +
