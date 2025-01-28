@@ -1175,7 +1175,8 @@ public static void gestionarInscripcion() {
     String apellidoJoven = sc.nextLine();
 
     System.out.println("Documento del joven: ");
-    
+    int idJoven = sc.nextInt();
+
     System.out.print("Edad del joven: ");
     df.setEdad(sc.nextInt());
     sc.nextLine(); // limpiar buffer
@@ -1192,7 +1193,40 @@ public static void gestionarInscripcion() {
     System.out.print("Cédula del acudiente: ");
     String cedAcudiente = sc.nextLine();
 
-    System.out.print("Deporte deseado: ");
+    String depolte = "";
+    boolean valido = false; // Variable para controlar si la opción es válida
+
+    while (!valido) {
+        System.out.println("Selecciona un deporte:");
+        System.out.println("1. Futbol");
+        System.out.println("2. Baloncesto");
+        System.out.println("3. Voleibol");
+        System.out.println("4. Natacion");
+
+        int opcion = sc.nextInt();
+
+        switch (opcion) {
+            case 1:
+                depolte = "Futbol";
+                valido = true;
+                break;
+            case 2:
+                depolte = "Baloncesto";
+                valido = true;
+                break;
+            case 3:
+                depolte = "Voleibol";
+                valido = true;
+                break;
+            case 4:
+                depolte = "Natacion";
+                valido = true;
+                break;
+            default:
+                System.out.println("Deporte no valido, ingrese un deporte dentro de los ofrecidos.");
+                break; // Vuelve a pedir la opción si es inválida
+        }
+    }
     df.setDeporteDeseado(sc.nextLine());
 
     System.out.print("Experiencia previa (meses): ");
@@ -1221,7 +1255,7 @@ public static void gestionarInscripcion() {
     Joven joven = new Joven(
             df.getNombre(),
             apellidoJoven,
-            df.getEdad(), // ID lo omitimos, se usará la misma "edad" o un 0.
+            idJoven,
             df.getEdad(),
             df.getExperienciaMeses(),
             df.getEps(),
