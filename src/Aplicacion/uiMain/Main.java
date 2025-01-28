@@ -32,7 +32,10 @@ import static gestorAplicacion.reservas.Instalacion.*;
 
 public class Main {
     public static void main(String[] args) {
+
         crearInstalaciones();
+
+        ArrayList<Instalacion> inst  = Instalacion.getListaInstalaciones();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -72,7 +75,7 @@ public class Main {
                     break;
 
                 case 3:
-                    crearTorneos(medicos, arbitrosTodos);
+                    crearTorneos(medicos, arbitrosTodos, inst);
                     break;
 
                 case 4:
@@ -348,7 +351,7 @@ public class Main {
 
 
     //Metodo para crear Torneos
-    private static void crearTorneos(ArrayList<Trabajador> medicos, ArrayList<Trabajador> arbitrosTodos) {
+    private static void crearTorneos(ArrayList<Trabajador> medicos, ArrayList<Trabajador> arbitrosTodos, ArrayList<Instalacion> inst) {
         System.out.println("Antes de empezar con la creacion del torneo, se requieren unos datos del cliente");
         System.out.println("Ingrese su nombre");
         String nombreCliente = new Scanner(System.in).nextLine();
@@ -384,7 +387,7 @@ public class Main {
         // ========================================================
         // 1) Mostrar instalaciones disponibles para el deporte
         // ========================================================
-        ArrayList<Instalacion> instalacionesTorneo = torneo.getInstalaciones(deporteTorneo);
+        ArrayList<Instalacion> instalacionesTorneo = torneo.getInstalaciones(deporteTorneo, inst);
 
         System.out.println("Seleccione una de las instalaciones disponibles para el torneo:");
         int contador = 1;
