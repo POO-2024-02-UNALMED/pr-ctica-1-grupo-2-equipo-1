@@ -1049,7 +1049,6 @@ public class Main {
     }
 
 
-
     //Metodo para crear paramedicos
     public static ArrayList<Trabajador> crearParamedicos() {
         ArrayList<Trabajador> paraMedicos = new ArrayList<>();
@@ -1139,6 +1138,15 @@ public static void gestionarInscripcion() {
     // Asignamos categoría y horario
     df.clasificarYAsignar();
 
+    System.out.print("Apellido del joven: ");
+    String apellidoJoven = sc.nextLine();
+
+    System.out.print("Teléfono del acudiente: ");
+    String telAcudiente = sc.nextLine();
+
+    System.out.print("Cédula del acudiente: ");
+    String cedAcudiente = sc.nextLine();
+
     System.out.println("\nDatos capturados:");
     System.out.println("Nombre: " + df.getNombre());
     System.out.println("Edad: " + df.getEdad());
@@ -1149,17 +1157,11 @@ public static void gestionarInscripcion() {
     System.out.println("Categoría Equipo: " + df.getCategoriaEquipo());
     System.out.println("Entrenador (categoría): " + df.getCategoriaEntrenador());
     System.out.println("Horario Asignado: " + df.getHorario());
+    System.out.println("Apellido: "+apellidoJoven);
 
     System.out.println("\n=== Creando objeto Joven e inscribiendo en GrupoFormativo ===");
-    // Creación de un Joven (los demás datos para el constructor los definimos aquí)
-    System.out.print("Apellido del joven: ");
-    String apellidoJoven = sc.nextLine();
 
-    System.out.print("Teléfono del acudiente: ");
-    String telAcudiente = sc.nextLine();
 
-    System.out.print("Cédula del acudiente: ");
-    String cedAcudiente = sc.nextLine();
 
     Joven joven = new Joven(
             df.getNombre(),
